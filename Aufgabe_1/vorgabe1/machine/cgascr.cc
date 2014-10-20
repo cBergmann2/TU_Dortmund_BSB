@@ -128,20 +128,35 @@ void CGA_Screen::print(char* text, int length, unsigned char attrib)
 	for(int i=0; i<length; i++)
 	{
 		
-		this->show(x, y, *(text+i), attrib);	//Schreibe fortlaufend an Position
-		x++;	//nächste Bildschirmposition in Zeile
+		if(*(text+i)=='\n')
+		{
+			if(y == 24) //letzte Zeile -> Zeilenumbruch -> Bildschirm voll
+			{
+				this->moveLinesUp();		//verschiebe Zeilen um eins nach oben -> erste Zeile verschwindet, leere letzte Zeile
+				x=0;						//erstes Element letzte Zeile
+			}
+			else
+			{
+				y++;
+				x=0;
+			}
+		}
+		else
+		{
+			this->show(x, y, *(text+i), attrib);	//Schreibe fortlaufend an Position
+			x++;	//nächste Bildschirmposition in Zeile
 
-		if((y == 24) && (x == 80)) //Bildschirm voll
-		{
-			this->moveLinesUp();		//verschiebe Zeilen um eins nach oben -> erste Zeile verschwindet, leere letzte Zeile
-			x=0;						//erstes Element letzte Zeile
+			if((y == 24) && (x == 80)) //Bildschirm voll
+			{
+				this->moveLinesUp();		//verschiebe Zeilen um eins nach oben -> erste Zeile verschwindet, leere letzte Zeile
+				x=0;						//erstes Element letzte Zeile
+			}
+			else if(x == 80) //letztes Element der Zeile
+			{
+				y++;			//nächste Zeile
+				x=0;			//erstes Element
+			}
 		}
-		else if(x == 80) //letztes Element der Zeile
-		{
-			y++;			//nächste Zeile
-			x=0;			//erstes Element
-		}
-		
 		this->setpos(x, y);	//Cursor eine Bildschirmposition weitersetzen
 	}
 
@@ -158,7 +173,7 @@ void CGA_Screen::moveLinesUp(void)
 	char* ptr_src;
 
 	ptr_trgt=(char*)VIDEO_MEM_START;		//erste Zeile
-	ptr_src=(char*)(VIDEO_MEM_START+80);	//zweite Zeile
+	ptr_src=(char*)(VIDEO_MEM_START+160);	//zweite Zeile
 
 	for(int i=0; i<24; i++)		//24 mal Zeilen kopieren
 	{
