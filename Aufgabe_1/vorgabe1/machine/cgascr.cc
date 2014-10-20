@@ -60,7 +60,7 @@ void CGA_Screen::show(int x, int y, char c, unsigned char attrib)
 //-------------------------------------------------------------------------------
 void CGA_Screen::setpos(int x, int y)
 {
-	unsigned short zeichenoffset=0;
+	int zeichenoffset=0;
 
 	IO_Port indexregister(0x3d4);
 	IO_Port datenregister(0x3d5);
@@ -102,6 +102,7 @@ void CGA_Screen::getpos(int &x, int &y)
 	zeichenoffset=zeichenoffset | lowbyte;
 
 	x=(int) (zeichenoffset % 80);
+
 	y=(int) ((float)zeichenoffset / 80.0);							//nachkommastellen abschneiden
 
 	return;

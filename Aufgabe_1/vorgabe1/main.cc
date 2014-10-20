@@ -16,11 +16,10 @@ t.setpos(2,0);
 t.print("hallo1", 6);
 
 
-t.setpos(2,8);
-t.print("hallo2", 6);
+//t.setpos(2,8);
+//t.print("hallo2", 6);
 
-t.setpos(5,5);
-t.print("hallo3", 6);
-
+//t.setpos(5,5);
+//t.print("hallo3", 6);
    return 0;
  }
