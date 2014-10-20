@@ -15,7 +15,7 @@
 
 #include "machine/io_port.h"
 
-#define VIDEO_MEM_START 0xb800
+#define VIDEO_MEM_START 0xb8000
 #define CURSOR_POS_HIGH 14
 #define CURSOR_POS_LOW 15
 #define ATTRIB_BLACK_WHITE 0x0f
@@ -23,22 +23,19 @@
 class CGA_Screen
  {
 private:
-	IO_Port indexregister(0x3d4);
-	IO_Port datenregister(0x3d5);
-
 	void moveLinesUp(void);
 
 	CGA_Screen(const CGA_Screen &copy); // Verhindere Kopieren
 public:
 	CGA_Screen();
    
-	void show (int x, int y, char c, unsigned char attrib);
+	void show (int x, int y, char c, unsigned char attrib = ATTRIB_BLACK_WHITE);
    
 	void setpos (int x, int y);
 	
 	void getpos (int &x, int &y);
    
-	void print (char* text, int length, unsigned char attrib);
+	void print (char* text, int length, unsigned char attrib =  ATTRIB_BLACK_WHITE);
 };
 
 #endif

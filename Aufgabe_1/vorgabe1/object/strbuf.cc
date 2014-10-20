@@ -13,7 +13,7 @@
 /* Methode, die von den abgeleiteten Klassen definiert werden muss.          */
 /*****************************************************************************/
 
-#include "strbuf.h"
+#include "object/strbuf.h"
 
 
 Stringbuffer::Stringbuffer()

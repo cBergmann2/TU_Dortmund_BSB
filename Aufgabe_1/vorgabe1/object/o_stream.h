@@ -19,7 +19,7 @@
 #ifndef __o_stream_include__
 #define __o_stream_include__
 
-#include "strbuf.h"
+#include "object/strbuf.h"
 
 #ifdef DEBUG_OBJECT
 #include <qdebug.h>

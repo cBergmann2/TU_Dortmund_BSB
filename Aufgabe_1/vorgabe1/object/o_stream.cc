@@ -16,7 +16,7 @@
 /* fuer den Zeilenumbruch definiert.                                         */
 /*****************************************************************************/
 
-#include "o_stream.h"
+#include "object/o_stream.h"
 
 
 O_Stream::O_Stream() : Stringbuffer() {
@@ -311,7 +311,7 @@ void O_Stream::convertValue(long long value, unsigned int base, bool isUnsigned)
     char array[32];
     char *ptr = &(array[0]);
     char *end = &(array[32]);
-
+    long temp = (long)value;
     if(value<0) {
         if(!isUnsigned) put('-');
         value*=-1;
@@ -319,8 +319,9 @@ void O_Stream::convertValue(long long value, unsigned int base, bool isUnsigned)
 
     do
     {
-        *(ptr++) = (value%base)+'0';
-        value/=base;
+        *ptr = (temp%base)+'0';
+	ptr++;
+        temp=temp/base;
     }while(value && ptr!=end);
 
     putReverseString(&(array[0]), ptr-1);

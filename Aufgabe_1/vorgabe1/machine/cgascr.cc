@@ -31,8 +31,8 @@ CGA_Screen::CGA_Screen()
 	{
 		for(int j=0; j<160; j++)	
 		{
-			*(ptr_trgt+2*(j+80*i)) = ' ';
-			*(ptr_trgt+2*(j+80*i)+1) = ATTRIB_BLACK_WHITE;
+			*(ptr+2*(j+80*i)) = ' ';
+			*(ptr+2*(j+80*i)+1) = ATTRIB_BLACK_WHITE;
 		}
 	}
 }
@@ -62,15 +62,18 @@ void CGA_Screen::setpos(int x, int y)
 {
 	unsigned short zeichenoffset=0;
 
+	IO_Port indexregister(0x3d4);
+	IO_Port datenregister(0x3d5);
+	
 	zeichenoffset=x+y*80;						//an welcher bildschirmposition der cursor stehen soll (80*25 stk)
 
-	this->indexregister.outb(CURSOR_POS_LOW);					//indexregister=15
-	this->datenregister.outb(zeichenoffset);			//schreibe lowbyte
+	indexregister.outb(CURSOR_POS_LOW);					//indexregister=15
+	datenregister.outb(zeichenoffset);			//schreibe lowbyte
 	
 	zeichenoffset=(zeichenoffset>>8);	//schiebe highbyte auf lowbyte stelle, alles null bis auf lowbyte
 
-	this->indexregister.outb(CURSOR_POS_HIGH);					//indexregister=14
-	this->datenregister.outb(zeichenoffset);			//schreibe highbyte
+	indexregister.outb(CURSOR_POS_HIGH);					//indexregister=14
+	datenregister.outb(zeichenoffset);			//schreibe highbyte
 
 	return;
 }
@@ -83,12 +86,15 @@ void CGA_Screen::getpos(int &x, int &y)
 {
 	int lowbyte=0, highbyte=0;
 	unsigned short zeichenoffset=0;
+  
+	IO_Port indexregister(0x3d4);
+	IO_Port datenregister(0x3d5);
+	
+	indexregister.outb(CURSOR_POS_LOW);					//indexregister=15 (lowbyte)
+	lowbyte=datenregister.inb();
 
-	this->indexregister.outb(CURSOR_POS_LOW);					//indexregister=15 (lowbyte)
-	this->lowbyte=datenregister.inb();
-
-	this->indexregister.outb(CURSOR_POS_HIGH);				//indexregister=14 (highbyte)
-	this->highbyte=datenregister.inb();
+	indexregister.outb(CURSOR_POS_HIGH);				//indexregister=14 (highbyte)
+	highbyte=datenregister.inb();
 
 	zeichenoffset=(unsigned short) highbyte;
 	zeichenoffset=(zeichenoffset<<8) & 0xff00;			//highbyte auf richtige position, lowbyte nullen
@@ -118,7 +124,7 @@ void CGA_Screen::print(char* text, int length, unsigned char attrib)
 
 	this->getpos(x, y);			//Hole aktuelle Position des cursors
 
-	for(int i=0; i<length; i++;)
+	for(int i=0; i<length; i++)
 	{
 		
 		this->show(x, y, *(text+i), attrib);	//Schreibe fortlaufend an Position
@@ -147,8 +153,8 @@ void CGA_Screen::print(char* text, int length, unsigned char attrib)
 //Bildschirm voll -> erste Zeile Löschen, zweite zeile = erste zeile, dritte zeile = zweite zeile etc. (die werte um -80*2 byte verschieben)
 void CGA_Screen::moveLinesUp(void)
 {
-	char* ptr_old;
-	char* ptr_new;
+	char* ptr_trgt;
+	char* ptr_src;
 
 	ptr_trgt=(char*)VIDEO_MEM_START;		//erste Zeile
 	ptr_src=(char*)(VIDEO_MEM_START+80);	//zweite Zeile
