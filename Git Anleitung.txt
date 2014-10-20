@@ -1,0 +1,2 @@
+http://git-scm.com/book/de
+http://rogerdudler.github.io/git-guide/index.de.html
