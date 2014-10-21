@@ -20,15 +20,17 @@ int main()
 	do{
 
 		key = test.key_hit();
-		if(key.asc == '1'){
-			test.set_led(1, true)
+		if((char)key == '1'){
+			test.set_led(1, true);
+			break;
 		}
 		else{
-			test.set_led(1, false)
+			test.set_led(1, false);
 		}
 
-		key.asc = '0';
+		//key.ascii('0');
 	}while(1);
-
+	
+	while(1);
    	return 0;
  }

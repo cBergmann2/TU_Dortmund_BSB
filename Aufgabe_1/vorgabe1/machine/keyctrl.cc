@@ -273,8 +273,8 @@ Key Keyboard_Controller::key_hit ()
 	  Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
 
 
-	   if(ctrlPort.inb() & 0x01 == 0x01){
-		   //Port enthällt Wert
+	   if((ctrl_port.inb() & 0x01) == 0x01){
+		   //Port enthaellt Wert
 		   this->code = data_port.inb();
 
 		   if(this->key_decoded()){
@@ -282,9 +282,9 @@ Key Keyboard_Controller::key_hit ()
 			   return this->gather;
 		   }
 		   else{
-			   //Weitere 8 Bit benötigt
-			   if(ctrlPort.inb() & 0x01 == 0x01){
-				   //Port enthällt Wert
+			   //Weitere 8 Bit benaetigt
+			   if((ctrl_port.inb() & 0x01) == 0x01){
+				   //Port enthaellt Wert
 
 
 				   this->prefix = this->code;
@@ -332,14 +332,11 @@ void Keyboard_Controller::reboot ()
 
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-	IO_Port dataPort(0x60);
-	IO_Port ctrlPort(0x64);
-
 	unsigned char writeByte = (char) delay <<4;
 	writeByte |= ((char)speed & 0x3F);
 
 
-	while(ctrlPort.inb() & 0x02 == 0x02){
+	while((ctrl_port.inb() & 0x02) == 0x02){
 		/*
 		 * Warten bis Tastaturcontroller ein von der CPU geschriebenes
 		 * Zeichen abgeholt hat.
@@ -347,27 +344,27 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 	}
 
 	//Befehl set_speed schreiben
-	dataPort.outb(0xf3);
+	data_port.outb(0xf3);
 
 	//Auf ACK des Tastaturcontrollers warten
-	while(ctrlPort.inb() & 0x01 != 0x01){
+	while((ctrl_port.inb() & 0x01) != 0x01){
 			/*
 			 * Auf Antwort des Tastaturcontrollers warten
 			 */
 	}
 
-	if(dataPort.inb() == 0xfa){
+	if(data_port.inb() == 0xfa){
 
 		//writeByte in Port schreiben
-		dataPort.outb(writeByte);
+		data_port.outb(writeByte);
 
 		//Auf ACK des Tastaturcontrollers warten
-		while(ctrlPort.inb() & 0x01 != 0x01){
+		while((ctrl_port.inb() & 0x01) != 0x01){
 				/*
 				 * Auf Antwort des Tastaturcontrollers warten
 				 */
 		}
-		dataPort.inb();
+		data_port.inb();
 	}
 
           
