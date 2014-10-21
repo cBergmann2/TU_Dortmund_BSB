@@ -26,7 +26,7 @@ unsigned char Keyboard_Controller::normal_tab[] =
 
 unsigned char Keyboard_Controller::shift_tab[] =
 {
-   0, 0, '!', '"', 21, '$', '%', '&', '/', '(', ')', '=', '?', 96, 0,
+   0, 0, '!', '"', 21, '$', '%', '&', '/', '(', './machine/keyctrl.cc:373:33:)', '=', '?', 96, 0,
    0, 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 154, '*', 0,
    0, 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 153, 142, 248, 0, 39,
    'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_', 0,
@@ -258,7 +258,7 @@ Keyboard_Controller::Keyboard_Controller () :
    set_led (led::num_lock, false);
 
    // maximale Geschwindigkeit, minimale Verzoegerung
-   set_repeat_rate (0, 0);  
+   //set_repeat_rate (0, 0);  
  }
 
 // KEY_HIT: Dient der Tastaturabfrage nach dem Auftreten einer Tastatur-
@@ -270,7 +270,7 @@ Keyboard_Controller::Keyboard_Controller () :
 
 Key Keyboard_Controller::key_hit ()
  {
-   Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
+   Key invalid;  // nichctrl_portt explizit initialisierte Tasten sind ungueltig
 
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
@@ -345,7 +345,7 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 				 * Auf Antwort des Tastaturcontrollers warten
 				 */
 		}
-		dataport.inb();
+		dataPort.inb();
 	}
 
           
@@ -355,8 +355,8 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 
 void Keyboard_Controller::set_led (char led, bool on)
  {
-	IO_Port dataPort(0x60);
-	IO_Port ctrlPort(0x64);
+	int temp=0;
+
 
 	/*LED Zustand in Variable leds sichern*/
 	if(on){
@@ -370,7 +370,7 @@ void Keyboard_Controller::set_led (char led, bool on)
  
 	/*Neuen LED Wert in Tastaturcontroller schreiben*/
 
-	while(ctrlPort.inb() & 0x02 == 0x02){
+	while((ctrl_port.inb() & 0x02) == 0x02){
 		/*
 		 * Warten bis Tastaturcontroller ein von der CPU geschriebenes
 		 * Zeichen abgeholt hat.
@@ -378,27 +378,27 @@ void Keyboard_Controller::set_led (char led, bool on)
 	}
 
 	//Befehl set_led schreiben
-	dataPort.outb(0xed);
+	data_port.outb(0xed);
 
 	//Auf ACK des Tastaturcontrollers warten
-	while(ctrlPort.inb() & 0x01 != 0x01){
+	while((ctrl_port.inb() & 0x01) != 0x01){
 			/*
 			 * Auf Antwort des Tastaturcontrollers warten
 			 */
 	}
 
-	if(dataPort.inb() == 0xfa){
+	if(data_port.inb() == 0xfa){
 
 		//Zeichen in Eingabebuffer schreiben
-		dataPort.outb(leds);
+		data_port.outb(leds);
 
 		//Auf ACK des Tastaturcontrollers warten
-		while(ctrlPort.inb() & 0x01 != 0x01){
+		while((ctrl_port.inb() & 0x01) != 0x01){
 				/*
 				 * Auf Antwort des Tastaturcontrollers warten
 				 */
 		}
-		dataport.inb();
+		data_port.inb();
 	}
           
  }

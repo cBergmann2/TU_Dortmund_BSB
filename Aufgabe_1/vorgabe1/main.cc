@@ -2,6 +2,7 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 #include "machine/cgascr.h"
+#include "machine/keyctrl.h"
 
 int main()
 {
@@ -11,15 +12,12 @@ int main()
                          
 /* Hier muesst ihr selbst Code vervollstaendigen */                         
  
-   CGA_Screen t;
-t.setpos(2,0);
-t.print("hallo1", 6);
+	
+	Keyboard_Controller test;
+	
+	do{
+	test.set_led(2,true);
+	 }while(1);
 
-
-//t.setpos(2,8);
-//t.print("hallo2", 6);
-
-//t.setpos(5,5);
-//t.print("hallo3", 6);
-   return 0;
+   	return 0;
  }
