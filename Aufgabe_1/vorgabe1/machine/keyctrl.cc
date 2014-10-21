@@ -310,9 +310,44 @@ void Keyboard_Controller::reboot ()
 
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+	IO_Port dataPort(0x60);
+	IO_Port ctrlPort(0x64);
+
+	unsigned char writeByte = (char) delay <<4;
+	writeByte |= ((char)speed & 0x3F);
+
+
+	while(ctrlPort.inb() & 0x02 == 0x02){
+		/*
+		 * Warten bis Tastaturcontroller ein von der CPU geschriebenes
+		 * Zeichen abgeholt hat.
+		 */
+	}
+
+	//Befehl set_speed schreiben
+	dataPort.outb(0xf3);
+
+	//Auf ACK des Tastaturcontrollers warten
+	while(ctrlPort.inb() & 0x01 != 0x01){
+			/*
+			 * Auf Antwort des Tastaturcontrollers warten
+			 */
+	}
+
+	if(dataPort.inb() == 0xfa){
+
+		//writeByte in Port schreiben
+		dataPort.outb(writeByte);
+
+		//Auf ACK des Tastaturcontrollers warten
+		while(ctrlPort.inb() & 0x01 != 0x01){
+				/*
+				 * Auf Antwort des Tastaturcontrollers warten
+				 */
+		}
+		dataport.inb();
+	}
+
           
  }
 
@@ -365,7 +400,5 @@ void Keyboard_Controller::set_led (char led, bool on)
 		}
 		dataport.inb();
 	}
-
-
           
  }
