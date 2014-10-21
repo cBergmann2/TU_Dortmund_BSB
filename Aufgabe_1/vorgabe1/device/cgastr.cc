@@ -13,4 +13,9 @@
 
 #include "device/cgastr.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+void CGA_Stream::flush()
+{
+	this->print(this->buffer, (int) this->count);
+	
+	return;
+}
