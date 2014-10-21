@@ -271,6 +271,8 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
    Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
+
+
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 /* Hier muesst ihr selbst Code vervollstaendigen */          
  
@@ -318,8 +320,52 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 
 void Keyboard_Controller::set_led (char led, bool on)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+	IO_Port dataPort(0x60);
+	IO_Port ctrlPort(0x64);
+
+	/*LED Zustand in Variable leds sichern*/
+	if(on){
+		//LED setzen
+		this->leds |= led;
+	}
+	else{
+		//LED loeschen
+		this->leds &= ~led;
+	}
  
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+	/*Neuen LED Wert in Tastaturcontroller schreiben*/
+
+	while(ctrlPort.inb() & 0x02 == 0x02){
+		/*
+		 * Warten bis Tastaturcontroller ein von der CPU geschriebenes
+		 * Zeichen abgeholt hat.
+		 */
+	}
+
+	//Befehl set_led schreiben
+	dataPort.outb(0xed);
+
+	//Auf ACK des Tastaturcontrollers warten
+	while(ctrlPort.inb() & 0x01 != 0x01){
+			/*
+			 * Auf Antwort des Tastaturcontrollers warten
+			 */
+	}
+
+	if(dataPort.inb() == 0xfa){
+
+		//Zeichen in Eingabebuffer schreiben
+		dataPort.outb(leds);
+
+		//Auf ACK des Tastaturcontrollers warten
+		while(ctrlPort.inb() & 0x01 != 0x01){
+				/*
+				 * Auf Antwort des Tastaturcontrollers warten
+				 */
+		}
+		dataport.inb();
+	}
+
+
           
  }
