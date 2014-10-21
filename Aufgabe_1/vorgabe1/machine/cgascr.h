@@ -25,6 +25,9 @@ class CGA_Screen
 private:
 	void moveLinesUp(void);
 
+	IO_Port indexregister;
+	IO_Port datenregister;
+	
 	CGA_Screen(const CGA_Screen &copy); // Verhindere Kopieren
 public:
 	CGA_Screen();

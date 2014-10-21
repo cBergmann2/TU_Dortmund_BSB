@@ -14,12 +14,16 @@
 
 #include "machine/cgascr.h"
 
-CGA_Screen::CGA_Screen(const CGA_Screen &copy)
+CGA_Screen::CGA_Screen(const CGA_Screen &copy) : 
+	indexregister(0x3d4),
+	datenregister(0x3d5)
 {
 
 }
 
-CGA_Screen::CGA_Screen()
+CGA_Screen::CGA_Screen() : 
+	indexregister(0x3d4),
+	datenregister(0x3d5)
 {
 	char* ptr;
 
@@ -61,9 +65,6 @@ void CGA_Screen::show(int x, int y, char c, unsigned char attrib)
 void CGA_Screen::setpos(int x, int y)
 {
 	int zeichenoffset=0;
-
-	IO_Port indexregister(0x3d4);
-	IO_Port datenregister(0x3d5);
 	
 	zeichenoffset=x+y*80;						//an welcher bildschirmposition der cursor stehen soll (80*25 stk)
 
@@ -86,9 +87,6 @@ void CGA_Screen::getpos(int &x, int &y)
 {
 	int lowbyte=0, highbyte=0;
 	unsigned short zeichenoffset=0;
-  
-	IO_Port indexregister(0x3d4);
-	IO_Port datenregister(0x3d5);
 	
 	indexregister.outb(CURSOR_POS_LOW);					//indexregister=15 (lowbyte)
 	lowbyte=datenregister.inb();
@@ -96,14 +94,12 @@ void CGA_Screen::getpos(int &x, int &y)
 	indexregister.outb(CURSOR_POS_HIGH);				//indexregister=14 (highbyte)
 	highbyte=datenregister.inb();
 
-	zeichenoffset=(unsigned short) highbyte;
-	zeichenoffset=(zeichenoffset<<8) & 0xff00;			//highbyte auf richtige position, lowbyte nullen
-
-	zeichenoffset=zeichenoffset | lowbyte;
+	zeichenoffset+=(highbyte<<8);
+	zeichenoffset+=lowbyte;
 
 	x=(int) (zeichenoffset % 80);
 
-	y=(int) ((float)zeichenoffset / 80.0);							//nachkommastellen abschneiden
+	y=(int) (zeichenoffset / 80);							//nachkommastellen abschneiden
 
 	return;
 }
