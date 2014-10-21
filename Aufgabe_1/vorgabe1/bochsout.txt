@@ -38,7 +38,7 @@
 00000000000i[MEM0 ] rom at 0xc0000/32768 ('/home/bsb/bochs/bios/VGABIOS-elpin-2.40')
 00000000000i[VTIME] using 'realtime pit' synchronization method
 00000000000i[CMOS ] Using local time for initial clock
-00000000000i[CMOS ] Setting initial clock to: Tue Oct 21 16:48:11 2014 (time0=1413902891)
+00000000000i[CMOS ] Setting initial clock to: Tue Oct 21 18:15:36 2014 (time0=1413908136)
 00000000000i[DMA  ] channel 4 used by cascade
 00000000000i[DMA  ] channel 2 used by Floppy Drive
 00000000000i[FDD  ] fd0: './build/bootdisk.img' ro=0, h=2,t=80,spt=18
@@ -94,28 +94,28 @@
 00000504000e[VGA  ] character height = 1, skipping text update
 00000588000i[XGUI ] charmap update. Font Height is 16
 00001725126i[BIOS ] Booting from 0000:7C00
-00001828900i[FDD  ] partial read() on floppy image returns 364/512
-00002095087i[CPU  ] WARNING: HLT instruction with IF=0!
-01641256120p[     ] >>PANIC<< SIGNAL 2 caught
-01641256120i[CPU  ] protected mode
-01641256120i[CPU  ] CS.d_b = 32 bit
-01641256120i[CPU  ] SS.d_b = 32 bit
-01641256120i[CPU  ] | EAX=00000000  EBX=00000010  ECX=00000030  EDX=000003d5
-01641256120i[CPU  ] | ESP=0010456c  EBP=000000b2  ESI=00013600  EDI=00102271
-01641256120i[CPU  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
-01641256120i[CPU  ] | SEG selector     base    limit G D
-01641256120i[CPU  ] | SEG sltr(index|ti|rpl)     base    limit G D
-01641256120i[CPU  ] |  CS:0008( 0001| 0|  0) 00000000 000fffff 1 1
-01641256120i[CPU  ] |  DS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-01641256120i[CPU  ] |  SS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-01641256120i[CPU  ] |  ES:0010( 0002| 0|  0) 00000000 000fffff 1 1
-01641256120i[CPU  ] |  FS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-01641256120i[CPU  ] |  GS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-01641256120i[CPU  ] | EIP=0010005d (0010005d)
-01641256120i[CPU  ] | CR0=0x00000011 CR1=0 CR2=0x00000000
-01641256120i[CPU  ] | CR3=0x00000000 CR4=0x00000000
-01641256120i[CPU  ] >> mov edi, 0x00102271 : BF71221000
-01641256120i[CMOS ] Last time is 1413908752 (Tue Oct 21 18:25:52 2014)
-01641256120i[XGUI ] Exit.
-01641256120i[     ] restoring default signal behavior
-01641256120i[CTRL ] quit_sim called with exit code 1
+00001828900i[FDD  ] partial read() on floppy image returns 372/512
+00001993737i[CPU  ] WARNING: HLT instruction with IF=0!
+01350781490p[     ] >>PANIC<< SIGNAL 2 caught
+01350781490i[CPU  ] protected mode
+01350781490i[CPU  ] CS.d_b = 32 bit
+01350781490i[CPU  ] SS.d_b = 32 bit
+01350781490i[CPU  ] | EAX=00000000  EBX=00000010  ECX=00000064  EDX=000003d5
+01350781490i[CPU  ] | ESP=00104574  EBP=000000b2  ESI=00013600  EDI=00102219
+01350781490i[CPU  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
+01350781490i[CPU  ] | SEG selector     base    limit G D
+01350781490i[CPU  ] | SEG sltr(index|ti|rpl)     base    limit G D
+01350781490i[CPU  ] |  CS:0008( 0001| 0|  0) 00000000 000fffff 1 1
+01350781490i[CPU  ] |  DS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01350781490i[CPU  ] |  SS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01350781490i[CPU  ] |  ES:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01350781490i[CPU  ] |  FS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01350781490i[CPU  ] |  GS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01350781490i[CPU  ] | EIP=0010005d (0010005d)
+01350781490i[CPU  ] | CR0=0x00000011 CR1=0 CR2=0x00000000
+01350781490i[CPU  ] | CR3=0x00000000 CR4=0x00000000
+01350781490i[CPU  ] >> mov edi, 0x00102219 : BF19221000
+01350781490i[CMOS ] Last time is 1413912960 (Tue Oct 21 19:36:00 2014)
+01350781490i[XGUI ] Exit.
+01350781490i[     ] restoring default signal behavior
+01350781490i[CTRL ] quit_sim called with exit code 1
