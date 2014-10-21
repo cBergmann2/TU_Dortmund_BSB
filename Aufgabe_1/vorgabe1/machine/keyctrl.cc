@@ -270,14 +270,36 @@ Keyboard_Controller::Keyboard_Controller () :
 
 Key Keyboard_Controller::key_hit ()
  {
-   Key invalid;  // nichctrl_portt explizit initialisierte Tasten sind ungueltig
+	  Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
 
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-   return invalid;
+	   if(ctrlPort.inb() & 0x01 == 0x01){
+		   //Port enthällt Wert
+		   this->code = data_port.inb();
+
+		   if(this->key_decoded()){
+			   //Scancode richtig interpretiert
+			   return this->gather;
+		   }
+		   else{
+			   //Weitere 8 Bit benötigt
+			   if(ctrlPort.inb() & 0x01 == 0x01){
+				   //Port enthällt Wert
+
+
+				   this->prefix = this->code;
+				   this->code = data_port.inb();
+
+				   if(this->key_decoded()){
+					   //Scancode richtig interpretiert
+					   return this->gather;
+				   }
+			   }
+		   }
+	   }
+
+	   //Scancode nicht richtig interpretiert
+	   return invalid;
  }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht

@@ -15,9 +15,20 @@ int main()
 	
 	Keyboard_Controller test;
 	
+	Key key;
+
 	do{
-	test.set_led(2,true);
-	 }while(1);
+
+		key = test.key_hit();
+		if(key.asc == '1'){
+			test.set_led(1, true)
+		}
+		else{
+			test.set_led(1, false)
+		}
+
+		key.asc = '0';
+	}while(1);
 
    	return 0;
  }
