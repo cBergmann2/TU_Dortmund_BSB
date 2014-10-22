@@ -26,7 +26,7 @@ unsigned char Keyboard_Controller::normal_tab[] =
 
 unsigned char Keyboard_Controller::shift_tab[] =
 {
-   0, 0, '!', '"', 21, '$', '%', '&', '/', '(', ')', '=', '?', 96, 0,
+   0, 0, '!', '"', 21, '$', '%', '&', '/', '(', './machine/keyctrl.cc:373:33:)', '=', '?', 96, 0,
    0, 'Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 154, '*', 0,
    0, 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 153, 142, 248, 0, 39,
    'Y', 'X', 'C', 'V', 'B', 'N', 'M', ';', ':', '_', 0,
@@ -258,7 +258,7 @@ Keyboard_Controller::Keyboard_Controller () :
    set_led (led::num_lock, false);
 
    // maximale Geschwindigkeit, minimale Verzoegerung
-   set_repeat_rate (0, 0);  
+   //set_repeat_rate (0, 0);  
  }
 
 // KEY_HIT: Dient der Tastaturabfrage nach dem Auftreten einer Tastatur-
@@ -270,12 +270,36 @@ Keyboard_Controller::Keyboard_Controller () :
 
 Key Keyboard_Controller::key_hit ()
  {
-   Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-   return invalid;
+	  Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
+
+
+	   if((ctrl_port.inb() & 0x01) == 0x01){
+		   //Port enthaellt Wert
+		   this->code = data_port.inb();
+
+		   if(this->key_decoded()){
+			   //Scancode richtig interpretiert
+			   return this->gather;
+		   }
+		   else{
+			   //Weitere 8 Bit benaetigt
+			   if((ctrl_port.inb() & 0x01) == 0x01){
+				   //Port enthaellt Wert
+
+
+				   this->prefix = this->code;
+				   this->code = data_port.inb();
+
+				   if(this->key_decoded()){
+					   //Scancode richtig interpretiert
+					   return this->gather;
+				   }
+			   }
+		   }
+	   }
+
+	   //Scancode nicht richtig interpretiert
+	   return invalid;
  }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
@@ -308,9 +332,41 @@ void Keyboard_Controller::reboot ()
 
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+	unsigned char writeByte = (char) delay <<4;
+	writeByte |= ((char)speed & 0x3F);
+
+
+	while((ctrl_port.inb() & 0x02) == 0x02){
+		/*
+		 * Warten bis Tastaturcontroller ein von der CPU geschriebenes
+		 * Zeichen abgeholt hat.
+		 */
+	}
+
+	//Befehl set_speed schreiben
+	data_port.outb(0xf3);
+
+	//Auf ACK des Tastaturcontrollers warten
+	while((ctrl_port.inb() & 0x01) != 0x01){
+			/*
+			 * Auf Antwort des Tastaturcontrollers warten
+			 */
+	}
+
+	if(data_port.inb() == 0xfa){
+
+		//writeByte in Port schreiben
+		data_port.outb(writeByte);
+
+		//Auf ACK des Tastaturcontrollers warten
+		while((ctrl_port.inb() & 0x01) != 0x01){
+				/*
+				 * Auf Antwort des Tastaturcontrollers warten
+				 */
+		}
+		data_port.inb();
+	}
+
           
  }
 
@@ -318,8 +374,50 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 
 void Keyboard_Controller::set_led (char led, bool on)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+	int temp=0;
+
+
+	/*LED Zustand in Variable leds sichern*/
+	if(on){
+		//LED setzen
+		this->leds |= led;
+	}
+	else{
+		//LED loeschen
+		this->leds &= ~led;
+	}
  
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+	/*Neuen LED Wert in Tastaturcontroller schreiben*/
+
+	while((ctrl_port.inb() & 0x02) == 0x02){
+		/*
+		 * Warten bis Tastaturcontroller ein von der CPU geschriebenes
+		 * Zeichen abgeholt hat.
+		 */
+	}
+
+	//Befehl set_led schreiben
+	data_port.outb(0xed);
+
+	//Auf ACK des Tastaturcontrollers warten
+	while((ctrl_port.inb() & 0x01) != 0x01){
+			/*
+			 * Auf Antwort des Tastaturcontrollers warten
+			 */
+	}
+
+	if(data_port.inb() == 0xfa){
+
+		//Zeichen in Eingabebuffer schreiben
+		data_port.outb(leds);
+
+		//Auf ACK des Tastaturcontrollers warten
+		while((ctrl_port.inb() & 0x01) != 0x01){
+				/*
+				 * Auf Antwort des Tastaturcontrollers warten
+				 */
+		}
+		data_port.inb();
+	}
           
  }
