@@ -13,4 +13,16 @@
 
 #include "device/cgastr.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+CGA_Stream::CGA_Stream() : 
+	CGA_Screen(),
+	O_Stream()
+{
+	this->setpos(0,0);
+}
+
+void CGA_Stream::flush()
+{
+	this->print(this->buffer, (int) this->count);
+	this->count = 0;
+	return;
+}
