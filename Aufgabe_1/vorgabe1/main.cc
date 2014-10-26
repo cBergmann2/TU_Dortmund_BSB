@@ -2,7 +2,7 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 #include "device/cgastr.h"
-#include "maschine/keyctrl.h"
+#include "mashine/keyctrl.h"
 
 CGA_Stream kout;
 
