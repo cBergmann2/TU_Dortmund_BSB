@@ -2,7 +2,7 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 #include "device/cgastr.h"
-#include "mashine/keyctrl.h"
+#include "machine/keyctrl.h"
 
 CGA_Stream kout;
 
@@ -27,6 +27,9 @@ int main()
 		index=0;
 		do
 		{
+			//!!! Achtung !!!
+			//Momentan wird die Anzeige nicht in der Konsole angezeigt
+			//Desweiteren muss dann auch das Backspace berücksichtigt werden
 			input = kc.key_hit();
 			if(input.ascii() == '\n')
 			{
