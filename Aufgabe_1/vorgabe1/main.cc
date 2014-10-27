@@ -4,6 +4,7 @@
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 
+#define BUFFERSIZE 100
 CGA_Stream kout;
 
 int main()
@@ -12,19 +13,22 @@ int main()
 	unsigned int fehler=0;
 	Keyboard_Controller kc;
 	Key input;
-	unsigned char inbuffer[11] = {0};
+	char inbuffer[BUFFERSIZE] = {0};
 	unsigned char index=0;
-	unsigned char zeichen;
+	char zeichen;
 	
+	kc.set_repeat_rate(0x00,0x00);
+
 	//Bildshirm initialisieren
 	kout << "Guten Tag,\n das ist OOSTUBS, ein kleines OS von Stundenten für Studenten";
-	
+	kout.flush();
 	
 
 	do
 	{
-		kout << endl << "Geben sie hier eine Zeichenkette ein: ";
-		
+		kout << endl << "Geben sie hier eine Zeichenkette ein (max. 10 Zeichen): ";
+		kout.flush();
+
 		//Eingabe abfragen
 		index=0;
 		do
@@ -32,7 +36,11 @@ int main()
 			//!!! Achtung !!!
 			//Momentan wird die Anzeige nicht in der Konsole angezeigt
 			//Desweiteren muss dann auch das Backspace berücksichtigt werden
-			input = kc.key_hit();
+			
+			do
+ 			{
+				input = kc.key_hit();
+			}while(!input.valid());
 			zeichen = input.ascii();
 			kout.print(&zeichen, 1);
 			
@@ -43,7 +51,7 @@ int main()
 			}else{
 				inbuffer[index] = zeichen;
 				index++;
-				if(index==10)
+				if(index==(BUFFERSIZE-1))
 				{
 					fehler = 1;
 					goto ERROR;
@@ -55,12 +63,15 @@ int main()
 		kout << endl << "Sie haben folgende Zeichenkette eingeben: ";
 		kout << inbuffer;
 		kout << endl;
+
+		kc.set_repeat_rate(0x00,0x03);
 	} while (1);
    
 ERROR:
 	//Error-handler:
 	kout << endl << endl << "Hier ist ein Fehler aufgetreten." << endl;
-	kout << "Fehlernummer "  << fehler;
+	kout << "Fehlernummer "<< dec  << fehler;
+	kout.flush();
 	while(1);
    
    return 0;

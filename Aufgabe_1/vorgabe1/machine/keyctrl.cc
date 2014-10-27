@@ -271,13 +271,14 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
 	  Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-		
+	
+	  int ctrl = ctrl_port.inb();
 
-	   if((ctrl_port.inb() & 0x01) == 0x01){
+	   if((ctrl & 0x01) == 0x01){
 		   //Port enthaellt Wert
 		   this->code = data_port.inb();
 
-		   if(ctrl_port.inb()&0x20)
+		   if(ctrl&0x20)
 		   {
 				return invalid;
 		   }
@@ -337,8 +338,9 @@ void Keyboard_Controller::reboot ()
 
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-	unsigned char writeByte = (char) delay <<4;
-	writeByte |= ((char)speed & 0x3F);
+	unsigned char writeByte = 0;
+	writeByte = delay <<5;
+	writeByte += (speed & 0x1F);
 
 
 	while((ctrl_port.inb() & 0x02) == 0x02){
@@ -358,7 +360,7 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 			 */
 	}
 
-	if(data_port.inb() == 0xfa){
+	if(data_port.inb() == ACK){
 
 		//writeByte in Port schreiben
 		data_port.outb(writeByte);
@@ -369,7 +371,10 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 				 * Auf Antwort des Tastaturcontrollers warten
 				 */
 		}
-		data_port.inb();
+		if(data_port.inb() != ACK)
+		{
+			kout << "\nERROR: Kein ACK von Tastatur\n";
+		}
 	}
 
           

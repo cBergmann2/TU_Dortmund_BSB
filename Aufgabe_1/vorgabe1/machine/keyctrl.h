@@ -14,6 +14,12 @@
 #include "machine/io_port.h"
 #include "machine/key.h"
 
+#include "device/cgastr.h"
+
+extern CGA_Stream kout;
+
+#define ACK 0xfa
+
 class Keyboard_Controller
  {
 private:

@@ -312,6 +312,7 @@ void O_Stream::convertValue(long long value, unsigned int base, bool isUnsigned)
     char *ptr = &(array[0]);
     char *end = &(array[32]);
     long temp = (long)value;
+
     if(value<0) {
         if(!isUnsigned) put('-');
         value*=-1;
