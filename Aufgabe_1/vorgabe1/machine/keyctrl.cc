@@ -11,6 +11,7 @@
 /* INCLUDES */
 
 #include "machine/keyctrl.h"
+
  
 /* STATIC MEMERS */
 
@@ -271,7 +272,8 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
 	  Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-		
+
+
 
 	   if((ctrl_port.inb() & 0x01) == 0x01){
 		   //Port enthaellt Wert
@@ -279,10 +281,14 @@ Key Keyboard_Controller::key_hit ()
 
 		   if(ctrl_port.inb()&0x20)
 		   {
-				return invalid;
+			   kout << "Mauseingabe \n";
+			   return invalid;
 		   }
 		   
 		   if(this->key_decoded()){
+
+			   kout << "Key vollstaendig eingelesen: " << this.code << "\n";
+
 			   //Scancode richtig interpretiert
 			   return this->gather;
 		   }
@@ -291,6 +297,9 @@ Key Keyboard_Controller::key_hit ()
 			   if((ctrl_port.inb() & 0x01) == 0x01){
 				   //Port enthaellt Wert
 
+				   kout << "Weitere 8 Bit einlesen\n";
+				   kout << "prefix: " << this.prefix << "\n";
+				   kout << "code: " << this.code << "\n";
 
 				   this->prefix = this->code;
 				   this->code = data_port.inb();

@@ -13,6 +13,7 @@
 
 #include "machine/io_port.h"
 #include "machine/key.h"
+#include "device/cgastr.h"
 
 class Keyboard_Controller
  {
@@ -23,6 +24,8 @@ private:
     unsigned char prefix;
     Key gather;
     char leds;
+
+    CGA_Stream kout; // zum testen
 
     // Benutzte Ports des Tastaturcontrollers
     const IO_Port ctrl_port; // Status- (R) u. Steuerregister (W)
