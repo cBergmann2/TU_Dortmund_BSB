@@ -323,7 +323,7 @@ void O_Stream::convertValue(long long value, unsigned int base, bool isUnsigned)
         *ptr = (temp%base)+'0';
 	ptr++;
         temp=temp/base;
-    }while(value && ptr!=end);
+    }while(temp && ptr!=end);
 
     putReverseString(&(array[0]), ptr-1);
 }

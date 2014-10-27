@@ -16,13 +16,14 @@ int main()
 	char inbuffer[BUFFERSIZE] = {0};
 	unsigned char index=0;
 	char zeichen;
+
 	
-	kc.set_repeat_rate(0x00,0x00);
+	kc.set_repeat_rate(0xFF,0x03);
+	
 
 	//Bildshirm initialisieren
 	kout << "Guten Tag,\n das ist OOSTUBS, ein kleines OS von Stundenten für Studenten";
 	kout.flush();
-	
 
 	do
 	{

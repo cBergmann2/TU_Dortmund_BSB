@@ -38,7 +38,7 @@
 00000000000i[MEM0 ] rom at 0xc0000/32768 ('/home/bsb/bochs/bios/VGABIOS-elpin-2.40')
 00000000000i[VTIME] using 'realtime pit' synchronization method
 00000000000i[CMOS ] Using local time for initial clock
-00000000000i[CMOS ] Setting initial clock to: Mon Oct 27 17:40:12 2014 (time0=1414428012)
+00000000000i[CMOS ] Setting initial clock to: Mon Oct 27 18:20:38 2014 (time0=1414430438)
 00000000000i[DMA  ] channel 4 used by cascade
 00000000000i[DMA  ] channel 2 used by Floppy Drive
 00000000000i[FDD  ] fd0: './build/bootdisk.img' ro=0, h=2,t=80,spt=18
@@ -94,36 +94,44 @@
 00000504000e[VGA  ] character height = 1, skipping text update
 00000588000i[XGUI ] charmap update. Font Height is 16
 00001725126i[BIOS ] Booting from 0000:7C00
-00001839835i[FDD  ] partial read() on floppy image returns 480/512
-00001993055i[KBD  ] setting typematic info
-00001993179i[KBD  ] setting delay to 250 mS (unused)
-00001993179i[KBD  ] setting repeat rate to 30,0 cps (unused)
-00081919731i[KBD  ] setting typematic info
-00081919805i[KBD  ] setting delay to 1000 mS (unused)
-00081919805i[KBD  ] setting repeat rate to 30,0 cps (unused)
-00125046009i[KBD  ] setting typematic info
-00125046108i[KBD  ] setting delay to 1000 mS (unused)
-00125046108i[KBD  ] setting repeat rate to 30,0 cps (unused)
-00192046239p[     ] >>PANIC<< SIGNAL 2 caught
-00192046239i[CPU  ] protected mode
-00192046239i[CPU  ] CS.d_b = 32 bit
-00192046239i[CPU  ] SS.d_b = 32 bit
-00192046239i[CPU  ] | EAX=00104af9  EBX=00104b30  ECX=00000063  EDX=00104b98
-00192046239i[CPU  ] | ESP=00104adc  EBP=00104b08  ESI=00013c00  EDI=00104b94
-00192046239i[CPU  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf af pf cf
-00192046239i[CPU  ] | SEG selector     base    limit G D
-00192046239i[CPU  ] | SEG sltr(index|ti|rpl)     base    limit G D
-00192046239i[CPU  ] |  CS:0008( 0001| 0|  0) 00000000 000fffff 1 1
-00192046239i[CPU  ] |  DS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-00192046239i[CPU  ] |  SS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-00192046239i[CPU  ] |  ES:0010( 0002| 0|  0) 00000000 000fffff 1 1
-00192046239i[CPU  ] |  FS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-00192046239i[CPU  ] |  GS:0010( 0002| 0|  0) 00000000 000fffff 1 1
-00192046239i[CPU  ] | EIP=001024d0 (001024d0)
-00192046239i[CPU  ] | CR0=0x00000011 CR1=0 CR2=0x00000000
-00192046239i[CPU  ] | CR3=0x00000000 CR4=0x00000000
-00192046239i[CPU  ] >> ret  : C3
-00192046239i[CMOS ] Last time is 1414428697 (Mon Oct 27 17:51:37 2014)
-00192046239i[XGUI ] Exit.
-00192046239i[     ] restoring default signal behavior
-00192046239i[CTRL ] quit_sim called with exit code 1
+00001843480i[FDD  ] partial read() on floppy image returns 32/512
+00001997589i[KBD  ] setting typematic info
+00001997663i[KBD  ] setting delay to 1000 mS (unused)
+00001997663i[KBD  ] setting repeat rate to 2,0 cps (unused)
+00289028320i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00290069920i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+00290069920i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00291110120i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+00291110120i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00292157040i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+00292157040i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00293191640i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+00293191640i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00294228760i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+00294228760i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00295268960i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+00295268960i[KBD  ] internal keyboard buffer full, ignoring scancode.(20)
+00295903160i[KBD  ] internal keyboard buffer full, ignoring scancode.(a0)
+01030776320i[     ] cpu loop quit, shutting down simulator
+01030776320i[CPU  ] protected mode
+01030776320i[CPU  ] CS.d_b = 32 bit
+01030776320i[CPU  ] SS.d_b = 32 bit
+01030776320i[CPU  ] | EAX=00104c20  EBX=00104b70  ECX=00000031  EDX=000003d5
+01030776320i[CPU  ] | ESP=00104b50  EBP=00104c08  ESI=00013e00  EDI=00104bd4
+01030776320i[CPU  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf af PF cf
+01030776320i[CPU  ] | SEG selector     base    limit G D
+01030776320i[CPU  ] | SEG sltr(index|ti|rpl)     base    limit G D
+01030776320i[CPU  ] |  CS:0008( 0001| 0|  0) 00000000 000fffff 1 1
+01030776320i[CPU  ] |  DS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01030776320i[CPU  ] |  SS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01030776320i[CPU  ] |  ES:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01030776320i[CPU  ] |  FS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01030776320i[CPU  ] |  GS:0010( 0002| 0|  0) 00000000 000fffff 1 1
+01030776320i[CPU  ] | EIP=00102476 (00102476)
+01030776320i[CPU  ] | CR0=0x00000011 CR1=0 CR2=0x00000000
+01030776320i[CPU  ] | CR3=0x00000000 CR4=0x00000000
+01030776320i[CPU  ] >> jmp .+0xfffffffe (0x00102476) : EBFE
+01030776320i[CMOS ] Last time is 1414434119 (Mon Oct 27 19:21:59 2014)
+01030776320i[XGUI ] Exit.
+01030776320i[     ] restoring default signal behavior
+01030776320i[CTRL ] quit_sim called with exit code 1
