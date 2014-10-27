@@ -271,12 +271,17 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
 	  Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-
+		
 
 	   if((ctrl_port.inb() & 0x01) == 0x01){
 		   //Port enthaellt Wert
 		   this->code = data_port.inb();
 
+		   if(ctrl_port.inb()&0x20)
+		   {
+				return invalid;
+		   }
+		   
 		   if(this->key_decoded()){
 			   //Scancode richtig interpretiert
 			   return this->gather;

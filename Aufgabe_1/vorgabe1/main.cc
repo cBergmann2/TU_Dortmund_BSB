@@ -14,6 +14,8 @@ int main()
 	Key input;
 	unsigned char inbuffer[11] = {0};
 	unsigned char index=0;
+	unsigned char zeichen;
+	
 	//Bildshirm initialisieren
 	kout << "Guten Tag,\n das ist OOSTUBS, ein kleines OS von Stundenten für Studenten";
 	
@@ -31,12 +33,15 @@ int main()
 			//Momentan wird die Anzeige nicht in der Konsole angezeigt
 			//Desweiteren muss dann auch das Backspace berücksichtigt werden
 			input = kc.key_hit();
-			if(input.ascii() == '\n')
+			zeichen = input.ascii();
+			kout.print(&zeichen, 1);
+			
+			if(zeichen == '\n')
 			{
 				inbuffer[index] = 0;
 				break;
 			}else{
-				inbuffer[index] = input.ascii();
+				inbuffer[index] = zeichen;
 				index++;
 				if(index==10)
 				{
