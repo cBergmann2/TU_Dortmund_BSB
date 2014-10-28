@@ -8,6 +8,7 @@
 CGA_Stream kout;
 
 void decrementPos();
+bool compare(char* str1, unsigned int length1, char* str2, unsigned int length2);
 
 int main()
 {
@@ -63,6 +64,7 @@ int main()
 			      	 decrementPos();
 			     	 kout.print(" ",1);	//Leeres Zeichen einfügen
 			     	 decrementPos();
+			 	 index--;
 			      }
 			}else{
 			      kout.print(&zeichen, 1);
@@ -85,6 +87,9 @@ int main()
 				
 		}while(1);
 		
+		if(compare("restart",7,(char*)inbuffer, index))
+			kc.reboot();
+
 		//Zahl ausgeben
 		kout << endl << "Sie haben folgende Zeichenkette eingeben: ";
 		kout << inbuffer;
@@ -120,4 +125,21 @@ void decrementPos()
     
     kout.setpos(spalte, zeile);
   
+}
+
+
+bool compare(char* str1, unsigned int length1, char* str2, unsigned int length2)
+{
+	if(length1 != length2)
+		return false;
+
+	for(int i=0; i<length1; i++)
+	{
+		if(*str1 != *str2)
+			return false;
+		
+		str1++;
+		str2++;
+	}
+	return true;
 }
