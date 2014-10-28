@@ -97,7 +97,7 @@ void decrementPos()
 {
     int zeile, spalte;
     
-    kout.getPos(spalte,zeile);
+    kout.getpos(spalte,zeile);
     
     if(spalte==0)
     {
@@ -107,6 +107,6 @@ void decrementPos()
 	spalte--;
     }
     
-    kout.setPos(spalte, zeile);
+    kout.setpos(spalte, zeile);
   
 }
