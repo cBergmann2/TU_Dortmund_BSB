@@ -24,13 +24,15 @@ int main()
 	
 
 	//Bildshirm initialisieren
-	kout << "Guten Tag,\n das ist OOSTUBS, ein kleines OS von Stundenten für Studenten";
-	kout.flush();
-
-	kout << "\nJetzt folgen zunächst ein paar Testausgaben:\n";
-	kout << "int 25500: " << 25500 << " hex: " << hex << 25500 << " oct: " << oct << 25500;
+	kout << "Guten Tag,\n das ist OOSTUBS, ein kleines OS von Stundenten fuer Studenten";
 	kout << endl;
-	kout << "char 2500: " << (char)25500 << " hex: " << hex << (char)25500 << " oct: " << oct << (char)25500;
+	kout.flush();
+	
+
+	kout << "\nJetzt folgen zunaechst ein paar Testausgaben:\n";
+	kout << "int 25500: " << 25500 << " hex: " << hex << 25500 << " oct: " << oct << 25500;
+	kout << endl << dec;
+	kout << "short 25500: " << (short)25500 << " hex: " << hex << (short)25500 << " oct: " << oct << (short)25500;
 	kout << endl;
 	kout << "Zeiger-Typ: " << &index;
 	
@@ -47,14 +49,21 @@ int main()
 			//Momentan wird die Anzeige nicht in der Konsole angezeigt
 			//Desweiteren muss dann auch das Backspace berücksichtigt werden
 			
-			do
+			do //Zeichen abfangen und auf gültigkeit prüfen
  			{
 				input = kc.key_hit();
 			}while(!input.valid());
+			
+			//Ausgelesenes zeichen abfangen
 			zeichen = input.ascii();
 			if(zeichen == '\b')
 			{
-			      decrementPos();
+			      if(index!=0)
+			      {
+			      	 decrementPos();
+			     	 kout.print(" ",1);	//Leeres Zeichen einfügen
+			     	 decrementPos();
+			      }
 			}else{
 			      kout.print(&zeichen, 1);
 			}
