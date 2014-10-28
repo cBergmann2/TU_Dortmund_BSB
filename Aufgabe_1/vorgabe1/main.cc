@@ -66,21 +66,23 @@ int main()
 			      }
 			}else{
 			      kout.print(&zeichen, 1);
+			      
+			      if(zeichen == '\n')
+			      {
+				      inbuffer[index] = 0;
+				      break;
+			      }else{
+				      inbuffer[index] = zeichen;
+				      index++;
+				      if(index==(BUFFERSIZE-1))
+				      {
+					      fehler = 1;
+					      goto ERROR;
+				      }
+			      }
 			}
 			
-			if(zeichen == '\n')
-			{
-				inbuffer[index] = 0;
-				break;
-			}else{
-				inbuffer[index] = zeichen;
-				index++;
-				if(index==(BUFFERSIZE-1))
-				{
-					fehler = 1;
-					goto ERROR;
-				}
-			}	
+				
 		}while(1);
 		
 		//Zahl ausgeben
