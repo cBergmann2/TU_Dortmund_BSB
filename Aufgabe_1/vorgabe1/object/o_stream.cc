@@ -99,7 +99,7 @@ O_Stream& O_Stream::operator<< (unsigned int number){
         break;
 
     case OCT:
-        convertValue((long long)number, 8);
+        convertValue((long long)number, 8, true);
         break;
 
     case DEC:
@@ -122,7 +122,7 @@ O_Stream& O_Stream::operator<< (int number){
         break;
 
     case OCT:
-        convertValue((long long)number, 8);
+        convertValue((long long)number, 8, true);
         break;
 
     case DEC:
@@ -311,13 +311,14 @@ void O_Stream::convertValue(long long value, unsigned int base, bool isUnsigned)
     char array[32];
     char *ptr = &(array[0]);
     char *end = &(array[32]);
-    long temp = (long)value;
+    long temp;
 
-    if(value<0) {
-        if(!isUnsigned) put('-');
+    if((isUnsigned==false) && (value<0)) {        
+	put('-');
         value*=-1;
     }
-
+	 
+    temp = (long long) value;
     do
     {
         *ptr = (temp%base)+'0';

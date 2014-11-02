@@ -12,6 +12,7 @@ bool compare(char* str1, unsigned int length1, char* str2, unsigned int length2)
 
 int main()
 {
+kout << -24400;
 	//Initialisierungen
 	unsigned int fehler=0;
 	Keyboard_Controller kc;
@@ -36,7 +37,11 @@ int main()
 	kout << "short 25500: " << (short)25500 << " hex: " << hex << (short)25500 << " oct: " << oct << (short)25500;
 	kout << endl;
 	kout << "Zeiger-Typ: " << &index;
-	
+
+	kout << endl;	
+kout << "int -25500: " << dec <<(signed int)-25500 << oct<< "oct: " << -25500 << "hex: " << hex << -25500;
+
+	kout << endl;
 	do
 	{
 		kout << endl << "Geben sie hier eine Zeichenkette ein (max. 10 Zeichen): ";
