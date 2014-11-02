@@ -15,9 +15,18 @@
 /*****************************************************************************/
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "machine/pic.h"
 
+PIC::PIC() :
+      master(0x21), 
+      slave(0xa1)
+{
+  
+}
 
-PIC::PIC(const PIC &copy) // Verhindere Kopieren
+PIC::PIC(const PIC &copy) :// Verhindere Kopieren
+      master(0x21), 
+      slave(0xa1)
 {
     
 }
@@ -29,7 +38,29 @@ PIC::PIC(const PIC &copy) // Verhindere Kopieren
 */
 void PIC::allow (int interrupt_device)
 {
+    int maske;
+    IO_Port *access;
     
+    //Interrupt_device prüfen
+    //master oder slave?
+    if(interrupt_device <= 7)
+    {
+      //master
+      access = &master;
+    }else{
+      //slave
+      access = &slave;
+      interrupt_device-=8;
+    }
+      
+    //aktuelle maske 
+    maske = access->inb();
+    
+    //neue maske berechnen (Bit löschen)
+    maske &= ~(1<<interrupt_device);
+    
+    //maske aktualisieren
+    access->outw(maske);
 }
 
 
@@ -39,6 +70,28 @@ void PIC::allow (int interrupt_device)
 */
 void PIC::forbid (int interrupt_device)
 {
-  
+    int maske;
+    IO_Port *access;
+    
+    //Interrupt_device prüfen
+    //master oder slave?
+    if(interrupt_device <= 7)
+    {
+      //master
+      access = &master;
+    }else{
+      //slave
+      access = &slave;
+      interrupt_device-=8;
+    }
+      
+    //aktuelle maske 
+    maske = access->inb();
+    
+    //neue maske berechnen (Bit setzen)
+    maske |= (1<<interrupt_device);
+    
+    //maske aktualisieren
+    access->outw(maske);
 }
   

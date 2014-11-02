@@ -19,10 +19,20 @@
 
 #include "machine/io_port.h"
 
-
 enum{
-  timer = 0;
-  keyboard = 1;
+  timer = 0,
+  keyboard = 1,
+  kaskadierung = 2,
+  com_2 = 3,
+  com_1 = 4,
+  floppy = 6,
+  lpt_1 = 7,
+  cmos_clock = 8,
+  PS2 = 12,
+  numCoPro = 13,
+  ide_1 = 14,
+  ide_2 = 15
+  
 };
 
 class PIC
@@ -30,7 +40,8 @@ class PIC
 private:
     PIC(const PIC &copy); // Verhindere Kopieren
 public:
-    PIC() {}
+    PIC();
+    
     
     /* 
      * Lässt zu, dass der PIC Unterbrechungen des Geräts 
@@ -47,7 +58,7 @@ public:
 
  private:
    
-  
+  IO_Port master, slave;
 
 
  };

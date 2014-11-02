@@ -12,8 +12,8 @@ bool compare(char* str1, unsigned int length1, char* str2, unsigned int length2)
 
 int main()
 {
-kout << -24400;
-	//Initialisierungen
+  
+	/*//Initialisierungen
 	unsigned int fehler=0;
 	Keyboard_Controller kc;
 	Key input;
@@ -39,7 +39,7 @@ kout << -24400;
 	kout << "Zeiger-Typ: " << &index;
 
 	kout << endl;	
-kout << "int -25500: " << dec <<(signed int)-25500 << oct<< "oct: " << -25500 << "hex: " << hex << -25500;
+	kout << "int -25500: " << dec <<(signed int)-25500 << oct<< "oct: " << -25500 << "hex: " << hex << -25500;
 
 	kout << endl;
 	do
@@ -109,7 +109,8 @@ ERROR:
 	kout << "Fehlernummer "<< dec  << fehler;
 	kout.flush();
 	while(1);
-   
+   */
+  while(1) kout.flush();
    return 0;
 }
 

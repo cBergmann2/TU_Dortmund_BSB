@@ -10,15 +10,20 @@
 /*****************************************************************************/
 
 /* INCLUDES */
+#include "device/cgastr.h"
+
 
 /* FUNKTIONEN */
                
 extern "C" void guardian (unsigned int slot);
+
+
+extern CGA_Stream kout;
 
 /* GUARDIAN: Low-Level Interrupt-Behandlung. Die Funktion wird spaeter noch */
 /*           erweitert.                                                     */
 
 void guardian (unsigned int slot)
  {
- 
+  kout << "Interrupt mit slot:" << slot;
  }
