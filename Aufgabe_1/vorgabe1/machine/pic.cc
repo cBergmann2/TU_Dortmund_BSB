@@ -15,3 +15,30 @@
 /*****************************************************************************/
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+
+PIC::PIC(const PIC &copy) // Verhindere Kopieren
+{
+    
+}
+
+
+/* 
+* Lässt zu, dass der PIC Unterbrechungen des Geräts 
+* Nummer interrupt_device an den Prozessor weiterleitet.
+*/
+void PIC::allow (int interrupt_device)
+{
+    
+}
+
+
+/*
+* Verhindert, dass der PIC Unterbrechungen des Geräts 
+* Nummer interrupt_device an den Prozessor weiterleitet.
+*/
+void PIC::forbid (int interrupt_device)
+{
+  
+}
+  

@@ -17,13 +17,39 @@
 #ifndef __pic_include__
 #define __pic_include__
 
+#include "machine/io_port.h"
+
+
+enum{
+  timer = 0;
+  keyboard = 1;
+};
+
 class PIC
  {
 private:
     PIC(const PIC &copy); // Verhindere Kopieren
 public:
     PIC() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+    
+    /* 
+     * Lässt zu, dass der PIC Unterbrechungen des Geräts 
+     * Nummer interrupt_device an den Prozessor weiterleitet.
+     */
+    void allow (int interrupt_device);
+    
+    /*
+     * Verhindert, dass der PIC Unterbrechungen des Geräts 
+     * Nummer interrupt_device an den Prozessor weiterleitet.
+     */
+    void forbid (int interrupt_device);
+    
+
+ private:
+   
+  
+
+
  };
 
 #endif
