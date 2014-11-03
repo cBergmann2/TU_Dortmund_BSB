@@ -4,6 +4,9 @@
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 
+#include "machine/cpu.h"
+#include "machine/pic.h"
+
 #define BUFFERSIZE 100
 CGA_Stream kout;
 
@@ -12,6 +15,11 @@ bool compare(char* str1, unsigned int length1, char* str2, unsigned int length2)
 
 int main()
 {
+  PIC pic;
+  pic.allow(keyboard);
+  CPU cpu;
+  cpu.enable_int();
+  
   
 	/*//Initialisierungen
 	unsigned int fehler=0;
