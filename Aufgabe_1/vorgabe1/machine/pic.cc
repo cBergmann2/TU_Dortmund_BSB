@@ -38,7 +38,7 @@ PIC::PIC(const PIC &copy) :// Verhindere Kopieren
 */
 void PIC::allow (int interrupt_device)
 {
-    int maske;
+    int maske=0;
     IO_Port *access;
     
     //Interrupt_device prüfen
@@ -60,7 +60,7 @@ void PIC::allow (int interrupt_device)
     maske &= ~(1<<interrupt_device);
     
     //maske aktualisieren
-    access->outw(maske);
+    access->outb(maske);
 }
 
 
@@ -70,7 +70,7 @@ void PIC::allow (int interrupt_device)
 */
 void PIC::forbid (int interrupt_device)
 {
-    int maske;
+    int maske=0;
     IO_Port *access;
     
     //Interrupt_device prüfen
@@ -92,6 +92,6 @@ void PIC::forbid (int interrupt_device)
     maske |= (1<<interrupt_device);
     
     //maske aktualisieren
-    access->outw(maske);
+    access->outb(maske);
 }
   
