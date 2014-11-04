@@ -5,9 +5,11 @@
 
 #include "user/appl.h"
 #include "device/cgastr.h"
+#include "machine/plugbox.h"
 
-//Globale Instanz
+//Globale Instanzen
 CGA_Stream kout;
+Plugbox plugbox;
 
 int main()
 {

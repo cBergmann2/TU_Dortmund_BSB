@@ -13,6 +13,8 @@
 
 #include "device/keyboard.h"
 
+extern Plugbox plugbox;
+extern CGA_Stream kout;
  
 Keyboard::Keyboard() :
 	Gate(),
@@ -21,9 +23,9 @@ Keyboard::Keyboard() :
 
 void Keyboard::plugin()
 {
-	Pic pic;
+	PIC pic;
 
-	plugbox.assign(plugbox.keyboard, this);
+	plugbox.assign(plugbox.keyboard, *this);
 	pic.allow(keyboard); //1 - Keyboard, 0 - timer
 
 	return;
@@ -38,7 +40,7 @@ void Keyboard::trigger()
 	
 	if(input.valid())
 	{
-		if(input.ctrl_left()==true && input.alt_left()==true && input.ascii==127)
+		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
 			this->reboot();
 		else
 		{

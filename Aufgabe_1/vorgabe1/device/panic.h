@@ -12,7 +12,7 @@
 #define __panic_include__
 
 /* INCLUDES */
-
+#include "device/cgastr.h"
 #include "guard/gate.h"
 #include "machine/cpu.h"
 
@@ -21,10 +21,10 @@ class Panic:public Gate{
 private:
     Panic (const Panic &copy); // Verhindere Kopieren
 
-    extern CGA_Stream kout;
+    
 
 public:
-    Panic () {}
+    Panic ();
 
     void trigger();
           

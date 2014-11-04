@@ -16,6 +16,7 @@
 #include "machine/key.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
+#include "device/cgastr.h"
  
 class Keyboard : public Gate, public Keyboard_Controller    
 {        
@@ -26,10 +27,10 @@ private:
          
 public:
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
-	  Keyboard ();
-      // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
-      void plugin ();
-	  void trigger();
+  Keyboard ();
+  // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
+  void plugin ();
+  void trigger();
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
         

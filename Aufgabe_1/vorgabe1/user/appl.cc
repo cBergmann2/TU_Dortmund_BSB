@@ -12,22 +12,32 @@
 
 #include "user/appl.h"
 #include "device/cgastr.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */         
+#include "device/keyboard.h"
+#include "machine/cpu.h"
+
          
 /* GLOBALE VARIABLEN */
-
 extern CGA_Stream kout;
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-         
+
+
+
+
 void Application::action ()
 {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
+  Keyboard board;
+  CPU cpu;
   int i=0;
   bool b=true;
 
+  //Initialisierungen
   kout.setpos(0,1);
-
+  board.plugin();
+  
+  
+  cpu.enable_int();
+  
+  
   while (1)
   {
       i++;
