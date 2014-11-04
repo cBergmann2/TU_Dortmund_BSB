@@ -14,6 +14,7 @@
 /* INCLUDES */
 
 #include "guard/gate.h"
+#include "machine/cpu.h"
 
 class Panic:public Gate{
 

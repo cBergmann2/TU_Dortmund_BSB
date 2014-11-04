@@ -20,4 +20,6 @@ void Panic::trigger(){
 	kout << "->System wird angehlaten";
 
 	//System anhalten
+	CPU cpu;
+	cpu.halt();
 }
