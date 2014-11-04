@@ -20,7 +20,26 @@ extern CGA_Stream kout;
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
          
 void Application::action ()
- {
+{
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
- }
+
+  int i=0;
+  bool b=true;
+
+  kout.setpos(0,1);
+
+  while (1)
+  {
+      i++;
+      if(i>0x100000)
+      {
+	i=0;
+	if(b)
+	  kout.show(0,0,' ');
+	else
+	  kout.show(0,0,'*');
+	b=!b;
+      }
+  }
+
+}

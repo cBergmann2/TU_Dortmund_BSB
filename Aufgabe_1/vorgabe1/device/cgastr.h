@@ -17,6 +17,8 @@
 #include "object/o_stream.h"
 #include "machine/cgascr.h"
 
+
+
 class CGA_Stream : public CGA_Screen, public O_Stream
 /* Hier muesst ihr selbst Code vervollstaendigen */         
 {
@@ -30,5 +32,7 @@ public:
 	CGA_Stream();
 	void flush();
 };
+
+
 
 #endif
