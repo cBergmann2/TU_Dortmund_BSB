@@ -25,10 +25,13 @@ void Application::action ()
 
   int i=0;
   bool b=true;
+
+  kout.setpos(0,1);
+
   while (1)
   {
       i++;
-      if(i>0xF000)
+      if(i>0x100000)
       {
 	i=0;
 	if(b)
