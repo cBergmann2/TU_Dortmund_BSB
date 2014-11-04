@@ -15,6 +15,7 @@
 #include "guard/gate.h"
 #include "machine/key.h"
 #include "machine/plugbox.h"
+#include "machine/pic.h"
  
 class Keyboard : public Gate, public Keyboard_Controller    
 {        

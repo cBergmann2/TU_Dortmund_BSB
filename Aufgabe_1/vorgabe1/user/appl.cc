@@ -33,12 +33,12 @@ void Application::action ()
       i++;
       if(i>0x100000)
       {
-	i=0;
-	if(b)
-	  kout.show(0,0,' ');
-	else
-	  kout.show(0,0,'*');
-	b=!b;
+		i=0;
+		if(b)
+			kout.show(0,0,' ');
+		else
+			kout.show(0,0,'*');
+		b=!b;
       }
   }
 

@@ -11,6 +11,7 @@
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 
+#include "device/keyboard.h"
 
  
 Keyboard::Keyboard() :
@@ -41,7 +42,7 @@ void Keyboard::trigger()
 			this->reboot();
 		else
 		{
-			this->zeichen=input.ascii();
+			zeichen=input.ascii();
 			kout << zeichen;
 		}
 	}
