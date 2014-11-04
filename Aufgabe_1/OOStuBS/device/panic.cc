@@ -8,12 +8,13 @@
 /* Standard Unterbrechungsbehandlung.                                        */
 /*****************************************************************************/
 
+#include "panic.h"
  
 Panic::Panic(){
 
 }
 
-void Gate::trigger(){
+void Panic::trigger(){
 	//Fehlermeldung anhalten
 	kout << "Fehler: Interrupt eingetreten der von keiner ISR beahndelt wird!\n";
 	kout << "->System wird angehlaten";

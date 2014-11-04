@@ -14,7 +14,7 @@
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 class Gate{
 public:
-	void trigger() = 0;
+	virtual void trigger() = 0;
 };
                 
 #endif
