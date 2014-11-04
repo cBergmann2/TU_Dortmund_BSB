@@ -14,15 +14,19 @@
 /* INCLUDES */
 
 #include "guard/gate.h"
+#include "machine/cpu.h"
 
-class Panic 
-/* Hier muesst ihr selbst Code vervollstaendigen */         
- {
+class Panic:public Gate{
+
 private:
     Panic (const Panic &copy); // Verhindere Kopieren
+
+    extern CGA_Stream kout;
+
 public:
     Panic () {}
-/* Hier muesst ihr selbst Code vervollstaendigen */                  
+
+    void trigger();
           
  };
 

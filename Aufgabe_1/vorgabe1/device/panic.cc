@@ -7,6 +7,19 @@
 /*---------------------------------------------------------------------------*/
 /* Standard Unterbrechungsbehandlung.                                        */
 /*****************************************************************************/
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+#include "panic.h"
  
+Panic::Panic(){
+
+}
+
+void Panic::trigger(){
+	//Fehlermeldung anhalten
+	kout << "Fehler: Interrupt eingetreten der von keiner ISR beahndelt wird!\n";
+	kout << "->System wird angehlaten";
+
+	//System anhalten
+	CPU cpu;
+	cpu.halt();
+}

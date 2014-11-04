@@ -14,12 +14,21 @@
 #define __Plugbox_include__
 
 #include "guard/gate.h"
+#include "device/panic.h"
 
 class Plugbox
  {
+public:
+	const int timer = 32;			//Interrupt-Nummer des Timer Bausteins
+	const int keyboard = 33;		//Interrupt-Nummer der Tastatur
+
+	Plugbox();
+	void assign(unsigned int slot, Gate& gate);
+	Gate& report(unsigned int slot);
+
 private:
-    Plugbox(const Plugbox &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+    Plugbox(const Plugbox &copy); 	// Verhindere Kopieren
+    Gate* interruptTabelle[64];		//Interrupt-Vektor-Tabelle
  };
 
 #endif
