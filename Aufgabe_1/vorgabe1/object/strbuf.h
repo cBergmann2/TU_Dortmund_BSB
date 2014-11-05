@@ -16,7 +16,7 @@
 #ifndef __strbuf_include__
 #define __strbuf_include__
 
-#define BUF_SIZE 80
+#define BUF_SIZE 1
 
 class Stringbuffer
 {    
