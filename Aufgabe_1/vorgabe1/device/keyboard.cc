@@ -33,21 +33,26 @@ void Keyboard::plugin()
 
 void Keyboard::trigger()
 {
-	char zeichen;
-	Key input;
+  char zeichen;
+  Key input;
+  int x,y;
+  
+  input=this->key_hit();
 
-	input=this->key_hit();
-	
-	if(input.valid())
-	{
-		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
-			this->reboot();
-		else
-		{
-			zeichen=input.ascii();
-			kout << zeichen;
-		}
-	}
-
+  if(input.valid())
+  {
+    if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
+      this->reboot();
+    else
+    {
+      kout.flush();
+      kout.getpos(x,y);
+      kout.setpos(0,0);
+      zeichen=input.ascii();
+      kout << zeichen;
+      kout.flush();
+      kout.setpos(x,y);
+    }
+  }
 }
 

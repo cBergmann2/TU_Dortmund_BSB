@@ -27,8 +27,7 @@ void Application::action ()
 
   Keyboard board;
   CPU cpu;
-  int i=0;
-  bool b=true;
+  int i=0, count=0;
 
   //Initialisierungen
   kout.setpos(0,1);
@@ -44,11 +43,10 @@ void Application::action ()
       if(i>0x100000)
       {
 		i=0;
-		if(b)
-			kout.show(0,0,' ');
-		else
-			kout.show(0,0,'*');
-		b=!b;
+		if(count>0xFFFF) count=0;
+		kout << hex << count;
+
+		count++;
       }
   }
 
