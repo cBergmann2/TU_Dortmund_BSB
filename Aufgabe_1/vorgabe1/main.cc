@@ -6,8 +6,11 @@
 #include "user/appl.h"
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
+#include "guard/guard.h"
+
 
 //Globale Instanzen
+Guard guard;
 CGA_Stream kout;
 Plugbox plugbox;
 

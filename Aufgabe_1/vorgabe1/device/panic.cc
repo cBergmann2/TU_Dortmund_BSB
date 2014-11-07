@@ -12,7 +12,9 @@
 
 extern CGA_Stream kout;
 
-Panic::Panic(){
+Panic::Panic() :
+  Gate()
+{
 
 }
 
@@ -24,4 +26,14 @@ void Panic::trigger(){
 	//System anhalten
 	CPU cpu;
 	cpu.halt();
+}
+
+
+/**
+  * Einfachste Form der Unterbrechungsbehandlung: Es wird eine 
+  * Fehlermeldung ausgegeben und der Prozessor angehalten. 
+  */
+bool Panic::prologue()
+{
+  
 }

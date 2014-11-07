@@ -11,10 +11,49 @@
 #ifndef __Gate_include__
 #define __Gate_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-class Gate{
+#include "object/chain.h"
+
+class Gate : public Chain 
+{
 public:
-	virtual void trigger() = 0;
+  Gate()
+  {
+    isQueued = false;
+  }
+  
+  virtual void trigger() = 0;
+  
+  /**
+  * Prolog der Unterbrechungsbehandlung. Ein Rückgabewert true zeigt an, 
+  * dass der zugehörige Epilog ausgeführt werden soll.
+  */
+  virtual bool prologue () = 0;
+      
+  /**
+  * Epilogue der Unterbrechungsbehandlung.
+  */
+  void epilogue () {}
+      
+  /**
+  * Speichert, ob das jeweilige Objekt sich gerade in einer Epilog-Warteschlange befindet.
+  */
+  void queued (bool q)
+  {
+    this->isQueued = q;
+  }
+      
+  /**
+  * Methode zum Abfragen, ob sich das jeweilige Objekte gerade in einer 
+  * Epilog-Warteschlange befindet. 
+  */
+  bool queued ()
+  {
+    return isQueued;
+  }
+  
+private:
+  bool isQueued;
+    
 };
                 
 #endif
