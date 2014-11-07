@@ -21,8 +21,6 @@ public:
     isQueued = false;
   }
   
-  virtual void trigger() = 0;
-  
   /**
   * Prolog der Unterbrechungsbehandlung. Ein Rückgabewert true zeigt an, 
   * dass der zugehörige Epilog ausgeführt werden soll.

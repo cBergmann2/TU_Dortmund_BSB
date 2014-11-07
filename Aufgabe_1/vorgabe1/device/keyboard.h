@@ -32,7 +32,6 @@ public:
   Keyboard ();
   // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
   void plugin ();
-  void trigger();
 
   /**
    * Mit dieser Methode wird auf die Unterbrechungen durch die Tastatur 

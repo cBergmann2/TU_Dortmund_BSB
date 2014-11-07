@@ -30,7 +30,7 @@ void Keyboard::plugin()
 
 	return;
 }
-
+/*
 void Keyboard::trigger()
 {
 	char zeichen;
@@ -61,7 +61,7 @@ void Keyboard::trigger()
 		input=this->key_hit();
 	}while(input.valid());
 }
-
+*/
 
 /**
   * Mit dieser Methode wird auf die Unterbrechungen durch die Tastatur 

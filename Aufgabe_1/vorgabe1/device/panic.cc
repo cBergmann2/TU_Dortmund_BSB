@@ -18,22 +18,20 @@ Panic::Panic() :
 
 }
 
-void Panic::trigger(){
-	//Fehlermeldung anhalten
-	kout << "Fehler: Interrupt eingetreten der von keiner ISR beahndelt wird!\n";
-	kout << "->System wird angehlaten";
-
-	//System anhalten
-	CPU cpu;
-	cpu.halt();
-}
-
-
 /**
   * Einfachste Form der Unterbrechungsbehandlung: Es wird eine 
   * Fehlermeldung ausgegeben und der Prozessor angehalten. 
   */
 bool Panic::prologue()
 {
-  
+//Aus der vorherigen Mehtode trigger() kopiert:
+
+  //Fehlermeldung anhalten
+	kout << "Fehler: Interrupt eingetreten der von keiner ISR beahndelt wird!\n";
+	kout << "->System wird angehlaten";
+	kout.flush();
+	
+	//System anhalten
+	CPU cpu;
+	cpu.halt();
 }
