@@ -29,6 +29,9 @@ void Application::action ()
 	CPU cpu;
 	int i=0, count=0; 
 	int x,y, x2,y2;
+	char zeichen;
+	int wait=0;
+
 	//Initialisierungen
 	kout.setpos(0,1);
 	board.plugin();
@@ -50,9 +53,14 @@ void Application::action ()
 			kout.setpos(count%10,1);
 			
 			//Hier kann ein Fehler durch Interrupt entstehen
+
+			//provozieren
+			while(wait++ < 0x500000);
+			wait=0;
 			
-			kout.print(count%10+'0',1);
-			kout.print(' ',1);
+			zeichen = count%10+'0';			
+			kout.print(&zeichen,1);
+			kout.print(" ",1);
 			
 			
 			/* 2.Testprogramm

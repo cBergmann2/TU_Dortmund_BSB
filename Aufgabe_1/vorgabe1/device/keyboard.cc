@@ -48,12 +48,14 @@ void Keyboard::trigger()
 		}
 		else
 		{
+			zeichen = input.ascii();
+
 			//Zeichen in erster Zeile ausgeben
 			kout.setpos(x,0);
 			if(++x >= 80)
 			x=0;
 
-			kout.print(input.ascii(),1);		
+			kout.print(&zeichen,1);		
 		}
 		
 		input=this->key_hit();
