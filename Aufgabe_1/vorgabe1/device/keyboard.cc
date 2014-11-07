@@ -33,24 +33,30 @@ void Keyboard::plugin()
 
 void Keyboard::trigger()
 {
-  char zeichen;
-  Key input;
-  static int x=0;
-  
-  input=this->key_hit();
+	char zeichen;
+	Key input;
+	static int x=0;
 
-  if(input.valid())
-  {
-    if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
-		this->reboot();
-    else
-    {
-		kout.setpos(x,0);
-		if(++x >= 80)
+	input=this->key_hit();
+
+	do
+	{
+		//CTRL + ALT + DEL abfragen
+		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
+		{
+			this->reboot();
+		}
+		else
+		{
+			//Zeichen in erster Zeile ausgeben
+			kout.setpos(x,0);
+			if(++x >= 80)
 			x=0;
-			
-		kout.print(input.ascii(),1);		
-    }
-  }
+
+			kout.print(input.ascii(),1);		
+		}
+		
+		input=this->key_hit();
+	}while(input.valid());
 }
 
