@@ -25,40 +25,60 @@ extern CGA_Stream kout;
 void Application::action ()
 {
 
-  Keyboard board;
-  CPU cpu;
-  int i=0, count=0; 
-  int x,y, x2,y2;
-  //Initialisierungen
-  kout.setpos(0,1);
-  board.plugin();
-  
-  
-  cpu.enable_int();
-  
-  
-  while (1)
-  {
-      i++;
-      if(i>0x500000)
-      {
-		i=0;
-		if(count>0xFFFF) count=0;
-		kout.getpos(x,y); //Position Speichern
-		
-		//Ausgabe 
-		kout << " " << count;
-		kout.flush();
+	Keyboard board;
+	CPU cpu;
+	int i=0, count=0; 
+	int x,y, x2,y2;
+	//Initialisierungen
+	kout.setpos(0,1);
+	board.plugin();
+	
 
-		//vergleichswert besorgen
-		kout.getpos(x2,y2);
-		if(y2 > y)
+	cpu.enable_int();
+
+
+	while (1)
+	{
+		i++;
+		if(i>0x500000)
 		{
-			kout.setpos(0,y);
-		}
+			
+			i=0;
+			if(count>=80) count=0;
+			
+			//Zeichen in 2. Zeile ausgeben
+			kout.setpos(count%10,1);
+			
+			//Hier kann ein Fehler durch Interrupt entstehen
+			
+			kout.print(count%10+'0',1);
+			kout.print(' ',1);
+			
+			
+			/* 2.Testprogramm
+			
+			kout.getpos(x,y); //Position Speichern
+			
+			//Ausgabe 
+			kout << " " << count;
+			kout.flush();
 
-		count++;
-      }
-  }
+			//vergleichswert besorgen
+			kout.getpos(x2,y2);
+			if(y2 > y)
+			{
+				kout.setpos(0,y);
+			}
+
+			*/
+
+			
+		
+		
+		
+			count++;
+
+		}
+	}
 
 }

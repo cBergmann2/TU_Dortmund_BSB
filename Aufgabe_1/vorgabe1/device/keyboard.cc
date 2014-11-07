@@ -35,23 +35,21 @@ void Keyboard::trigger()
 {
   char zeichen;
   Key input;
-  int x,y;
+  static int x=0;
   
   input=this->key_hit();
 
   if(input.valid())
   {
     if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
-      this->reboot();
+		this->reboot();
     else
     {
-      kout.flush();
-      kout.getpos(x,y);
-      kout.setpos(0,0);
-      zeichen=input.ascii();
-      kout << zeichen;
-      kout.flush();
-      kout.setpos(x,y);
+		kout.setpos(x,0);
+		if(++x >= 80)
+			x=0;
+			
+		kout.print(input.ascii(),1);		
     }
   }
 }
