@@ -39,7 +39,7 @@ void Queue::enqueue (Chain* item)
 Chain* Queue::dequeue ()
 {
 	Chain* item;
-
+	
 	item = head;            	// Der head Zeiger bezeichnet das erste Element.
 	if (item)               	// oder Null, wenn die Liste leer ist.
 	{

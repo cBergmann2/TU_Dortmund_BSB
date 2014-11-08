@@ -15,21 +15,25 @@
 #ifndef __Secure_include__
 #define __Secure_include__
 
+#include "guard/guard.h"
+
+extern Guard guard;
+
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 class Secure
 {
-  
+ 
 public:
-  //Im Konstruktor wird der durch das Guard Objekt guard geschützte kritische Abschnitt betreten.
-  Secure ()
-  {
+	//Im Konstruktor wird der durch das Guard Objekt guard geschützte kritische Abschnitt betreten.
+	Secure ()
+	{
+		guard.enter();
+	}
     
-  }
-    
-  //Im Destruktor wird der kritische Abschnitt wieder verlassen. 
-  ~Secure ()
-  {
-    
-  }    
+	//Im Destruktor wird der kritische Abschnitt wieder verlassen. 
+	~Secure ()
+	{
+		guard.leave();
+	}    
 };
 #endif

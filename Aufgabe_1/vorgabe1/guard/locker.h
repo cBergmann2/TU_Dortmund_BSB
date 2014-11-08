@@ -41,6 +41,7 @@ public:
 		available = false;
 	}
 
+protected:
 	//Mit dieser Methode wird der kritische Abschnitt wieder verlassen.
 	void retne ()
 	{

@@ -48,7 +48,12 @@ void Guard::relay (Gate* item)
 {
 	if(avail())
 	{
-		item->epilogue();	
+		enter();		//Kritischen Bereich betreten
+		
+		item->epilogue();	//Epilog ausführen
+		
+		leave();		// Krit. Bereich wieder verlassen
+		
 	}else{
 		gates.enqueue((Chain*)item);
 	}
