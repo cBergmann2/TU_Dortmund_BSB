@@ -17,29 +17,33 @@
 #include "guard/locker.h"
 #include "guard/gate.h"
 
+#include "object/queue.h"
+
 class Guard : public Locker
  {
 private:
     Guard (const Guard &copy); // Verhindere Kopieren
     
 public:
-  Guard ();  
+	Guard ();  
 
-  /**
-   * Mit dieser Methode wird der kritische Abschnitt verlassen und 
-   * die angestauten Epiloge werden abgearbeitet.
-   */
-  void leave ();
-    
-  /**
-   * Diese Methode wird von guardian () aufgerufen, falls der zuvor 
-   * ausgeführte Prolog durch einen Rückgabewert true angezeigt hat, 
-   * dass sein Epilog ausgeführt werden soll. Ob der Epilog sofort 
-   * behandelt oder zunächst nur in die Epilogliste eingehängt wird, 
-   * hängt davon ab, ob der kritische Abschnitt frei oder besetzt ist.   
-   */   
-  void relay (Gate* item);
-    
- };
+	/**
+	* Mit dieser Methode wird der kritische Abschnitt verlassen und 
+	* die angestauten Epiloge werden abgearbeitet.
+	*/
+	void leave ();
+
+	/**
+	* Diese Methode wird von guardian () aufgerufen, falls der zuvor 
+	* ausgeführte Prolog durch einen Rückgabewert true angezeigt hat, 
+	* dass sein Epilog ausgeführt werden soll. Ob der Epilog sofort 
+	* behandelt oder zunächst nur in die Epilogliste eingehängt wird, 
+	* hängt davon ab, ob der kritische Abschnitt frei oder besetzt ist.   
+	*/   
+	void relay (Gate* item);
+
+private:
+	Queue gates;
+};
 
 #endif

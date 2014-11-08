@@ -25,7 +25,16 @@ Guard::Guard () :
   */
 void Guard::leave ()
 {
-  
+	Gate* item = (Gate*)gates.dequeue();
+	
+	//Alle Epiloge ausführen
+	while(item){
+		item->epilogue();		
+		item = (Gate*)gates.dequeue();
+	}
+	
+	//Bereich freigeben
+	this->retne();
 }
   
 /**
@@ -37,5 +46,10 @@ void Guard::leave ()
   */   
 void Guard::relay (Gate* item)
 {
-  
+	if(avail())
+	{
+		item->epilogue();	
+	}else{
+		gates.enqueue((Chain*)item);
+	}
 }

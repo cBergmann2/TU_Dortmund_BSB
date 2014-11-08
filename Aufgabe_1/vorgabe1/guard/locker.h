@@ -21,37 +21,41 @@
 #define __Locker_include__
 
 class Locker
- {
+{
 private:
-    Locker(const Locker &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+	Locker(const Locker &copy); // Verhindere Kopieren
+	/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
-  public:
-   
-  //Initialisiert die Sperrvariable so, dass der kritische Abschnitt als frei markiert wird.
-  Locker ()
-  {
-    
-  }
-      
-  //Diese Methode muss aufgerufen werden, wenn der kritische Abschnitt betreten wird.
-  void enter ()
-  {
-    
-  }
-      
-  //Mit dieser Methode wird der kritische Abschnitt wieder verlassen.
-  void retne ()
-  {
-    
-  }
-      
-  //Diese Methode gibt an, ob der kritische Abschnitt frei ist.
-  bool avail ()
-  {
-    
-  }
-      
+public:
+
+	//Initialisiert die Sperrvariable so, dass der kritische Abschnitt als frei markiert wird.
+	Locker () :
+		available(true)
+	{
+		
+	}
+
+	//Diese Methode muss aufgerufen werden, wenn der kritische Abschnitt betreten wird.
+	void enter ()
+	{
+		available = false;
+	}
+
+	//Mit dieser Methode wird der kritische Abschnitt wieder verlassen.
+	void retne ()
+	{
+		available = true;
+	}
+
+	//Diese Methode gibt an, ob der kritische Abschnitt frei ist.
+	bool avail ()
+	{
+		return available;
+	}
+	
+private:
+	bool available;
+
 };
 
 #endif
