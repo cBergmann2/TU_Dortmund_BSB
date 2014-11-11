@@ -38,7 +38,7 @@ void Application::action ()
 	while (1)
 	{
 		i++;
-		if(i>0x500000)
+		if(i>0x20000000)
 		{
 			
 			i=0;
@@ -52,7 +52,7 @@ void Application::action ()
 				//Hier kann ein Fehler durch Interrupt entstehen
 
 				//provozieren
-				while(wait++ < 0x500000);
+				while(wait++ < 0x20000000);
 				wait=0;
 				
 				zeichen = count%10+'0';			

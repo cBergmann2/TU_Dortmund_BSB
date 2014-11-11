@@ -20,7 +20,8 @@ extern Guard guard;
  
 Keyboard::Keyboard() :
 	Gate(),
-	Keyboard_Controller()
+	Keyboard_Controller(),
+	zeichen(0)
 {}
 
 void Keyboard::plugin()
@@ -88,27 +89,29 @@ bool Keyboard::prologue ()
 		// ausgelöst wurde.
 		
 		//CTRL + ALT + DEL abfragen
-		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
+		if((input.ctrl()==true) && (input.alt()==true) && (input.scancode()==0x53))
 		{
 			this->reboot();
 		}
 		else
 		{
-			if(input.valid())
+		
+			//Gültiges Zeichen ausgelesen				
+			zeichen = input.ascii();
+			if(zeichen)	//Zeichen interpretieren
 			{
-				//Gültiges Zeichen ausgelesen				
-				zeichen = input.ascii();
-				if(zeichen)	//Zeichen interpretieren
+				//Für Ausgabe vorbereiten
+				//Theoretisch in Ringbuffer speichern, 
+				//damit weitere Zeichen ausgelesen werden können
+				if(this->zeichen!=0) 
 				{
-					//Für Ausgabe vorbereiten
-					//Theoretisch in Ringbuffer speichern, 
-					//damit weitere Zeichen ausgelesen werden können
-					this->zeichen = zeichen;
-					
-					//Epilogue anfordern
-					return true;
-					
+					//bereits ein Zeichen im buffer.
+					return false;
 				}
+				this->zeichen = zeichen;
+				
+				//Epilogue anfordern
+				return true;
 			}
 		}
 		
@@ -134,4 +137,7 @@ void Keyboard::epilogue ()
 	x=0;
 
 	kout.print(&zeichen,1);		
+	
+	//Buffer zurücksetzen
+	zeichen = 0;
 }
