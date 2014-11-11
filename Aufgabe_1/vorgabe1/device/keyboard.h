@@ -17,15 +17,18 @@
 #include "machine/pic.h"
 
 #include "guard/gate.h"
+#include "guard/guard.h"
 
 #include "device/cgastr.h"
  
 class Keyboard : public Gate, public Keyboard_Controller    
 {        
 private:
-      Keyboard (const Keyboard &copy); // Verhindere Kopieren
+
+	Keyboard (const Keyboard &copy); // Verhindere Kopieren
 
 
+	char zeichen;  
          
 public:
 

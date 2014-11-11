@@ -11,6 +11,14 @@
 #ifndef __application_include__
 #define __application_include__
 
+
+#include "device/cgastr.h"
+#include "device/keyboard.h"
+
+#include "machine/cpu.h"
+
+#include "guard/secure.h"
+
 class Application 
  
  {

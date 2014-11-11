@@ -11,6 +11,7 @@
 
 /* INCLUDES */
 #include "machine/plugbox.h"
+#include "guard/guard.h"
 
 /* FUNKTIONEN */
 
@@ -20,6 +21,7 @@ extern "C" void guardian (unsigned int slot);
 /* GUARDIAN: Low-Level Interrupt-Behandlung. Die Funktion wird spaeter noch */
 /*           erweitert.                                                     */
 
+extern Guard guard;
 extern Plugbox plugbox;
 
 /**
@@ -29,6 +31,10 @@ extern Plugbox plugbox;
  * prologue() Methode ausgeführt. Gegebenenfalls wird auch ein Epilog angefordert. 
  */
 void guardian (unsigned int slot)
- {
-    //plugbox.report(slot).prologue();
- }
+{
+    if(plugbox.report(slot).prologue())
+	{
+		//Epilog einreihen
+		guard.relay(&plugbox.report(slot));
+	}    
+} 

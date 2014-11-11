@@ -30,7 +30,7 @@ public:
   /**
   * Epilogue der Unterbrechungsbehandlung.
   */
-  void epilogue () {}
+  virtual void epilogue () {}
       
   /**
   * Speichert, ob das jeweilige Objekt sich gerade in einer Epilog-Warteschlange befindet.

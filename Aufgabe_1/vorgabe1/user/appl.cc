@@ -11,14 +11,9 @@
 /* INCLUDES */
 
 #include "user/appl.h"
-#include "device/cgastr.h"
-#include "device/keyboard.h"
-#include "machine/cpu.h"
-
          
 /* GLOBALE VARIABLEN */
 extern CGA_Stream kout;
-
 
 
 
@@ -49,19 +44,21 @@ void Application::action ()
 			i=0;
 			if(count>=80) count=0;
 			
-			//Zeichen in 2. Zeile ausgeben
-			kout.setpos(count%10,1);
-			
-			//Hier kann ein Fehler durch Interrupt entstehen
+			{ Secure section;
+				
+				//Zeichen in 2. Zeile ausgeben
+				kout.setpos(count%10,1);
+				
+				//Hier kann ein Fehler durch Interrupt entstehen
 
-			//provozieren
-			while(wait++ < 0x500000);
-			wait=0;
-			
-			zeichen = count%10+'0';			
-			kout.print(&zeichen,1);
-			kout.print(" ",1);
-			
+				//provozieren
+				while(wait++ < 0x500000);
+				wait=0;
+				
+				zeichen = count%10+'0';			
+				kout.print(&zeichen,1);
+				kout.print(" ",1);
+			}
 			
 			/* 2.Testprogramm
 			

@@ -15,6 +15,8 @@
 
 extern Plugbox plugbox;
 extern CGA_Stream kout;
+extern Guard guard;
+
  
 Keyboard::Keyboard() :
 	Gate(),
@@ -76,7 +78,45 @@ void Keyboard::trigger()
   */
 bool Keyboard::prologue ()
 {
-  
+	char zeichen;
+	Key input;
+
+	input=this->key_hit();
+
+	do
+	{	//Der erste Eintrag sollte gültig sein, da sonst kein Interrupt 
+		// ausgelöst wurde.
+		
+		//CTRL + ALT + DEL abfragen
+		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
+		{
+			this->reboot();
+		}
+		else
+		{
+			if(input.valid())
+			{
+				//Gültiges Zeichen ausgelesen				
+				zeichen = input.ascii();
+				if(zeichen)	//Zeichen interpretieren
+				{
+					//Für Ausgabe vorbereiten
+					//Theoretisch in Ringbuffer speichern, 
+					//damit weitere Zeichen ausgelesen werden können
+					this->zeichen = zeichen;
+					
+					//Epilogue anfordern
+					return true;
+					
+				}
+			}
+		}
+		
+		//weitere Zeichen auslesen, wenn vorhanden
+		input=this->key_hit();	
+	}while(input.valid());	
+	
+	return false;
 }
     
 
@@ -86,5 +126,12 @@ bool Keyboard::prologue ()
   */
 void Keyboard::epilogue ()
 {
-  
+	static int x=0;
+	
+	//Zeichen in erster Zeile ausgeben
+	kout.setpos(x,0);
+	if(++x >= 80)
+	x=0;
+
+	kout.print(&zeichen,1);		
 }
