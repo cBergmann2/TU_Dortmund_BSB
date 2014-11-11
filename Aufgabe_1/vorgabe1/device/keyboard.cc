@@ -37,27 +37,33 @@ void Keyboard::trigger()
 	Key input;
 	static int x=0;
 
+	
 	input=this->key_hit();
-
+	
 	do
 	{
-		//CTRL + ALT + DEL abfragen
-		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
+		//input sollte valid sein, da interrupt ausgelöst
+		
+// 		//CTRL + ALT + DEL abfragen
+		if((input.ctrl()==true) && (input.alt()==true) && (input.scancode()==0x53))
 		{
 			this->reboot();
 		}
 		else
 		{
 			zeichen = input.ascii();
+			if(zeichen)
+			{
+				//Zeichen in erster Zeile ausgeben
+				kout.setpos(x,0);
+				if(++x >= 80)
+				x=0;
 
-			//Zeichen in erster Zeile ausgeben
-			kout.setpos(x,0);
-			if(++x >= 80)
-			x=0;
-
-			kout.print(&zeichen,1);		
+				kout.print(&zeichen,1);		
+			}
 		}
 		
+		//Weitere Zeichen auslesen, wenn vorhanden
 		input=this->key_hit();
 	}while(input.valid());
 }
