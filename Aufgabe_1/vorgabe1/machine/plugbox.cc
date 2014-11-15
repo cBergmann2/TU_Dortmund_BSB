@@ -20,7 +20,7 @@
 Plugbox::Plugbox(){
 
 	//Standard ISR
-	Panic panic;
+	static Panic panic;
 
 	//Interrupt-Vektor-Tabelle initialisieren
 	for(int i=0;i<64;i++){
