@@ -25,16 +25,33 @@ Guard::Guard () :
   */
 void Guard::leave ()
 {
+	CPU cpu;
+	
+	//Kurzfristiges Entkoppeln der Prologue-Funktion
+	//In Prologue kann enqueue aufgerufen werden
+	cpu.disable_int();
 	Gate* item = (Gate*)gates.dequeue();
+	
 	
 	//Alle Epiloge ausführen
 	while(item){
-		item->epilogue();		
+		item->queued(false);
+		
+		//Freigabe für Prologues 
+		cpu.enable_int();
+		item->epilogue();
+
+		//Interrupts sperren für sichere Abfrage
+		cpu.disable_int();
 		item = (Gate*)gates.dequeue();
 	}
 	
 	//Bereich freigeben
 	this->retne();
+	
+	cpu.enable_int();
+	//Eingetroffene Interrupts werden bearbeitet, da 
+	// locker::available = true
 }
   
 /**
@@ -48,13 +65,12 @@ void Guard::relay (Gate* item)
 {
 	if(avail())
 	{
-		enter();		//Kritischen Bereich betreten
-		
-		item->epilogue();	//Epilog ausführen
-		
-		leave();		// Krit. Bereich wieder verlassen
-		
+		item->epilogue();	//Epilog ausführen		
 	}else{
-		gates.enqueue((Chain*)item);
+		if(!item->queued())
+		{
+			gates.enqueue((Chain*)item);	
+			item->queued(true);
+		}
 	}
 }
