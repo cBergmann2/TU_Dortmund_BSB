@@ -35,6 +35,32 @@ struct toc
       void *ebp;
       void *esp;
  };
+ 
+
+
+/**
+ * Diese Funktion bereitet die Struktur toc für die erste Aktivierung vor. 
+ * Dazu müssen Registerinhalte und Stack so initialisiert werden, dass 
+ * bei der ersten Aktivierung die Ausführung mit der Funktion kickoff beginnt, 
+ * die wiederum den Zeiger object als ersten Parameter auf dem Stack vorfinden muss. 
+ */
+void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*), void* object);
+
+
+
+/**
+ * Diese Funktion lädt die Prozessorregister mit den Inhalten der Struktur regs.
+ */
+void toc_go (struct toc* regs);
+
+
+/**
+ * Diese Funktion führt einen Kontextwechsel durch. Dazu brauchen 
+ * nur die aktuellen Registerwerte in regs_now gesichert und durch 
+ * die Werte von regs_then ersetzt werden. 
+ */
+void toc_switch (struct toc* regs_now, struct toc* regs_then);
+
 
 #endif
 
