@@ -19,6 +19,13 @@ class Entrant
 private:
       Entrant (const Entrant &copy); // Verhindere Kopieren
 /* Hier muesst ihr selbst Code vervollstaendigen */          
+
+	/**
+	 * Der Entrant Konstruktor gibt nur den Parameter tos an den Coroutinen Konstruktor weiter. 	
+	 */
+	Entrant (void* tos);
+    
+
  };
 
 #endif
