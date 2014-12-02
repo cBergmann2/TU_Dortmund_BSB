@@ -63,9 +63,14 @@ void Guard::leave ()
   */   
 void Guard::relay (Gate* item)
 {
+	CPU cpu;
+	
 	if(avail())
 	{
+		enter();
+		cpu.enable_int();
 		item->epilogue();	//Epilog ausführen		
+		leave();
 	}else{
 		if(!item->queued())
 		{
