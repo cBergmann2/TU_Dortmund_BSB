@@ -20,9 +20,9 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
-  Application appl;
+  Coroutine c1(stack1+STACK_SIZE);
   
-  appl.action();
-  
+	c1.go();
+
   while(1);
 }
