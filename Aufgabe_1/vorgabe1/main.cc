@@ -7,12 +7,16 @@
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
 #include "guard/guard.h"
+#include "thread/coroutine.h"
 
-
+#define STACK_SIZE 1024
 //Globale Instanzen
 Guard guard;
 CGA_Stream kout;
 Plugbox plugbox;
+
+unsigned char stack1[STACK_SIZE];
+unsigned char stack2[STACK_SIZE];
 
 int main()
 {
