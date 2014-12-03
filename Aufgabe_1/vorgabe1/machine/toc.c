@@ -21,6 +21,23 @@
 //             Aufruf vor.
 void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*),
 		 void* object)
- {
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- }
+{
+
+	//Initialisierungen
+	void** tos_ptr = (void**)tos;
+
+	//Object auf dem Stack hinterlegen
+	tos_ptr--;
+	*tos_ptr = object;
+
+	//Dummy fuer rücksprung von kickoff 
+	tos_ptr--;
+	*tos_ptr = (void*)0;	//ggf. einen default-Zeiger einfügen
+
+	//Ruecksprungpunkt von resume
+	tos_ptr--;
+	*tos_ptr = (void*)kickoff;
+
+	//Stackpointer speichern
+	regs->esp = (void*)tos_ptr;
+}
