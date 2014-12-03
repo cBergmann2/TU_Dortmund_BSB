@@ -23,8 +23,16 @@
 
 class Coroutine
  {
+
+public:
+
+	toc regs;  
+
+
 private:
-      Coroutine(const Coroutine &copy); // Verhindere Kopieren
+
+	
+	Coroutine(const Coroutine &copy); // Verhindere Kopieren
 /* Hier muesst ihr selbst Code vervollstaendigen */     
 
 

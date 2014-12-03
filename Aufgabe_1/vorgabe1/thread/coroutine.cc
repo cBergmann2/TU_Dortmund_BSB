@@ -19,8 +19,33 @@
 // Funktionen, die auf der Assembler-Ebene implementiert werden, muessen als
 // extern "C" deklariert werden, da sie nicht dem Name-Mangeling von C++ 
 // entsprechen.
+
+
 extern "C"
- {
+{
+	 void toc_go(struct toc* regs);
+	 void toc_switch(struct toc* regs_now, struct toc* regs_then);
+}
+
 /* Hier muesst ihr selbst Code vervollstaendigen */       
- }
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+
+	Coroutine::Coroutine (void* tos)
+	{
+		toc_settle(&this->regs, tos, kickoff, this);
+
+	}
+
+	void Coroutine::go()
+	{
+		toc_go(&this->regs);
+
+		return;	//sollte nie erreicht werden?
+	}
+
+	void Coroutine::resume (Coroutine& next)
+	{
+		toc_switch(&this->regs, &next->regs);
+
+		return;	//sollte nie erreicht werden?
+	}
