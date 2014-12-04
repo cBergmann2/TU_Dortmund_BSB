@@ -15,7 +15,7 @@
 #ifndef __dispatch_include__
 #define __dispatch_include__
 
-        
+#include "thread/coroutine.h"   
 
 class Dispatcher
  {
