@@ -19,10 +19,16 @@
 #ifndef __Coroutine_include__
 #define __Coroutine_include__
 
-#include "machine/toc.h"
+extern "C"
+{
+	#include "machine/toc.h"
+}
+
+
+
 
 class Coroutine
- {
+{
 
 public:
 
@@ -30,12 +36,12 @@ public:
 
 
 private:
-
 	
 	Coroutine(const Coroutine &copy); // Verhindere Kopieren
 /* Hier muesst ihr selbst Code vervollstaendigen */     
 
 
+public:
 
 	/**
 	 * Im Coroutinen Konstruktor werden die Registerwerte so initialisiert, 
@@ -72,6 +78,7 @@ private:
 	 * definiert werden. 
 	 */
 	virtual void action () = 0;
- };
+
+};
 
 #endif

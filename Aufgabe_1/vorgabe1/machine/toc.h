@@ -25,6 +25,8 @@
 #ifndef __toc_include__
 #define __toc_include__
 
+typedef void (*kickoff_fptr)(void*);
+
 // TOC: ("thread of control")
 //
 struct toc
@@ -38,13 +40,14 @@ struct toc
  
 
 
+
 /**
  * Diese Funktion bereitet die Struktur toc für die erste Aktivierung vor. 
  * Dazu müssen Registerinhalte und Stack so initialisiert werden, dass 
  * bei der ersten Aktivierung die Ausführung mit der Funktion kickoff beginnt, 
  * die wiederum den Zeiger object als ersten Parameter auf dem Stack vorfinden muss. 
  */
-void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*), void* object);
+void toc_settle (struct toc* regs, void* tos, kickoff_fptr kickoff, void* object);
 
 
 

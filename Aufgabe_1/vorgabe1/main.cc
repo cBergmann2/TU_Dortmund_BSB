@@ -20,9 +20,7 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
-  Application appl;
-  
-  appl.action();
-  
-  while(1);
+	
+	
+	while(1);
 }
