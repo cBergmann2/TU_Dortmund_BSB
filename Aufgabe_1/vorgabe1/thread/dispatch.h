@@ -33,7 +33,7 @@ class Dispatcher
 	 * Der Konstruktor initialisiert den Life-Pointer mit Null, 
 	 * um anzuzeigen, dass noch keine Koroutine bekannt ist.
 	 */
-	Dispatcher ()
+	Dispatcher ();
     
 
 	
@@ -41,21 +41,21 @@ class Dispatcher
 	 * Mit dieser Methode wird die Koroutine first im Life-Pointer 
 	 * vermerkt und gestartet.
 	 */
-	void go (Coroutine& first)
+	void go (Coroutine& first);
     
 
 	/**
 	 * Diese Methode setzt den Life-Pointer auf next und führt einen 
 	 * Koroutinenwechsel vom alten zum neuen Life-Pointer durch.
 	 */
-	void dispatch (Coroutine& next)
+	void dispatch (Coroutine& next);
     
 
 	/**
 	 * Hiermit kann abgefragt werden, welche Koroutine gerade im 
 	 * Besitz des Prozessors ist. 
 	 */
-	Coroutine* active ()
+	Coroutine* active ();
     
 
  };
