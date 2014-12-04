@@ -17,12 +17,7 @@ Scheduler::Scheduler(const Scheduler &copy){} // Verhindere Kopieren
 * Er wird an das Ende der Ready-Liste angefügt.
 */
 void Scheduler::ready(Entrant& that){
-	if (dispatcher.active() == 0){
-		dispatcher.go(that);
-	}
-	else{
-		readyList.push(that);
-	}
+	readyList.push(that);
 }
 
 
@@ -34,9 +29,11 @@ void Scheduler::schedule(){
 
 	//Zeiger des nächsten Threads holen
 	Entrant *next = readyList.pop();
-
+	
+	if(!next) return;
+	
 	//Dispatch-Vorgang ausführen
-	this.dispatcher.dispatch(next);
+	go(*next);
 
 }
 
@@ -52,7 +49,7 @@ void Scheduler::exit(){
 	Entrant *next = readyList.pop();
 
 	//Dispatch-Vorgang ausführen
-	this.dispatcher.dispatch(next);
+	dispatch(*next);
 
 }
 
@@ -65,7 +62,7 @@ void Scheduler::exit(){
 void Scheduler::kill(Entrant& that){
 
 	//Thread von der Ready-Liste entfernen
-	readyList.remove(that);
+	readyList.remove(&that);
 
 }
 
@@ -81,11 +78,22 @@ void Scheduler::kill(Entrant& that){
 */
 void Scheduler::resume(){
 
+	Entrant *entrPtr;
+	
 	//Zeiger auf aktuell ausgeführten Thread holen
-	Entrant *current = dispatcher.active();
+	entrPtr = active();
 
-	this->schedule();
+	if(!entrPtr) return;
+	
+	//den aktuellen Prozess in die Ready-Liste schreiben
+	readyList.push(entrPtr);
 
-	//Suspendierten Prozess in die Ready-Liste schreiben
-	readyList.push(current);
+	//Den nächsten Prozess auswählen
+	entrPtr = readyList.pop();
+	
+	if(!entrPtr) return;
+	
+	//Prozess aktivieren
+	dispatch(entrPtr);
+
 }

@@ -16,28 +16,29 @@
 #include "thread/entrant.h"
 #include "object/queue.h"
         
-class Scheduler{
+class Scheduler : public Dispatcher{
 private:
 
 	Queue readyList;
-	Dispatcher dispatcher;
 
+	Scheduler (const Scheduler &copy); // Verhindere Kopieren
+	
 public:
 	
-	Scheduler (const Scheduler &copy); // Verhindere Kopieren
+	Scheduler(){}
 	
 	/**
 	 * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet. 
 	 * Er wird an das Ende der Ready-Liste angefügt.
 	 */
-	void ready (Entrant& that)
+	void ready (Entrant& that);
     
 
 	/**
 	 * Diese Methode setzt das Scheduling in Gang, indem der erste Prozess
 	 * von der Ready-Liste entfernt und aktiviert wird.
 	 */
-	void schedule ()
+	void schedule ();
     
 
 	/**
@@ -45,7 +46,7 @@ public:
 	 * wieder an das Ende der Ready-Liste angefügt. Statt dessen wird 
 	 * nur der erste Prozess von der Ready-Liste heruntergenommen und aktiviert.
 	 */
-	void exit ()
+	void exit ();
     
 
 	/**
@@ -53,7 +54,7 @@ public:
 	 * Der Prozess that wird einfach von der Ready-Liste entfernt und 
 	 * erhält somit nie wieder den Prozessor.
 	 */
-	void kill (Entrant& that)
+	void kill (Entrant& that);
     
 
 	/**
@@ -65,7 +66,7 @@ public:
 	 * gerade laufenden Prozess an das Ende der Ready-Liste anfügen und 
 	 * den ersten aktivieren. 
 	 */
-	void resume ()
+	void resume ();
     
  };
 
