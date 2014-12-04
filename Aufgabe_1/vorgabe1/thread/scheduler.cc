@@ -17,7 +17,7 @@ Scheduler::Scheduler(const Scheduler &copy){} // Verhindere Kopieren
 * Er wird an das Ende der Ready-Liste angefügt.
 */
 void Scheduler::ready(Entrant& that){
-	readyList.push(that);
+	readyList.enqueue(&that);
 }
 
 
@@ -28,7 +28,7 @@ void Scheduler::ready(Entrant& that){
 void Scheduler::schedule(){
 
 	//Zeiger des nächsten Threads holen
-	Entrant *next = readyList.pop();
+	Entrant *next = (Entrant*)readyList.dequeue();
 	
 	if(!next) return;
 	
@@ -46,7 +46,7 @@ void Scheduler::schedule(){
 void Scheduler::exit(){
 	
 	//Zeiger des nächsten Threads holen
-	Entrant *next = readyList.pop();
+	Entrant *next = (Entrant*)readyList.dequeue();
 
 	//Dispatch-Vorgang ausführen
 	dispatch(*next);
@@ -81,19 +81,19 @@ void Scheduler::resume(){
 	Entrant *entrPtr;
 	
 	//Zeiger auf aktuell ausgeführten Thread holen
-	entrPtr = active();
+	entrPtr = (Entrant*)active();
 
 	if(!entrPtr) return;
 	
-	//den aktuellen Prozess in die Ready-Liste schreiben
-	readyList.push(entrPtr);
+	//den aktuellen Prozess in die Ready-Liste einfuegen
+	readyList.enqueue(entrPtr);
 
-	//Den nächsten Prozess auswählen
-	entrPtr = readyList.pop();
+	//Den naechsten Prozess auswaehlen
+	entrPtr = (Entrant*)readyList.dequeue();
 	
 	if(!entrPtr) return;
 	
 	//Prozess aktivieren
-	dispatch(entrPtr);
+	dispatch(*entrPtr);
 
 }

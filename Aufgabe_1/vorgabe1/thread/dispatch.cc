@@ -18,7 +18,8 @@
 * Der Konstruktor initialisiert den Life-Pointer mit Null,
 * um anzuzeigen, dass noch keine Koroutine bekannt ist.
 */
-Dispatcher::Dispatcher(){
+Dispatcher::Dispatcher()
+{
 	this->lifePtr = 0;
 }
 
@@ -27,8 +28,13 @@ Dispatcher::Dispatcher(){
 * Mit dieser Methode wird die Koroutine first im Life-Pointer
 * vermerkt und gestartet.
 */
-void Dispatcher::go(Coroutine& first){
+void Dispatcher::go(Coroutine& first)
+{
+	//Prozess speichern
 	this->lifePtr = &first;
+	
+	//und ausführen
+	first.go();
 }
 
 
@@ -36,15 +42,25 @@ void Dispatcher::go(Coroutine& first){
 * Diese Methode setzt den Life-Pointer auf next und führt einen
 * Koroutinenwechsel vom alten zum neuen Life-Pointer durch.
 */
-void Dispatcher::dispatch(Coroutine& next){
+void Dispatcher::dispatch(Coroutine& next)
+{
+	//Den aktuellen Prozess zwischenspeichern
+	Coroutine* old = lifePtr;
+
 	//sicherheit
 	if(!lifePtr) return;
 	
-	//Koroutinenwechsel durchführen
-	lifePtr->resume(next);
-
-	//neuen Life-Pointer setzen
+	
+	//=================== ACHTUNG ================//
+	// lifePtr wird von Schedule::resume benutzt,
+	// um den aktuellen Prozess abzufragen
+	//============================================//
+	
+	//Life-Pointer neu setzen
 	lifePtr = &next;
+	
+	//Koroutinenwechsel durchführen
+	old->resume(next);	
 }
 
 
@@ -52,6 +68,7 @@ void Dispatcher::dispatch(Coroutine& next){
 * Hiermit kann abgefragt werden, welche Koroutine gerade im
 * Besitz des Prozessors ist.
 */
-Coroutine* Dispatcher::active(){
+Coroutine* Dispatcher::active()
+{
 	return this->lifePtr;
 }

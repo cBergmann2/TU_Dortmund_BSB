@@ -24,21 +24,18 @@ extern void kickoff(Coroutine*);
 
 
 
-	Coroutine::Coroutine (void* tos)
-	{
-		toc_settle(&this->regs, tos, (kickoff_fptr)&kickoff, this);
-	}
 
-	void Coroutine::go()
-	{
-		toc_go(&this->regs);
+Coroutine::Coroutine (void* tos)
+{
+	toc_settle(&this->regs, tos, (kickoff_fptr)&kickoff, this);
+}
 
-		return;	//sollte nie erreicht werden?
-	}
+void Coroutine::go()
+{
+	toc_go(&this->regs);
+}
 
-	void Coroutine::resume (Coroutine& next)
-	{
-		toc_switch(&(this->regs), &(next.regs));
-
-		return;	//sollte nie erreicht werden?
-	}
+void Coroutine::resume (Coroutine& next)
+{
+	toc_switch(&(this->regs), &(next.regs));
+}

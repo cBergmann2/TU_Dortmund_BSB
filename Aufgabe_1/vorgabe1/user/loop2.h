@@ -10,8 +10,8 @@
 /* den Prozessor ab.                                                         */
 /*****************************************************************************/
 
-#ifndef __loop_include__
-#define __loop_include__
+#ifndef __loop2_include__
+#define __loop2_include__
 
 #include "thread/entrant.h"
 #include "device/cgastr.h"
@@ -20,17 +20,17 @@
 extern Scheduler scheduler;
 extern CGA_Stream kout;
 
-class Loop : public Entrant
+class Loop2 : public Entrant
 {
 
 public:
-	Loop(void* tos) : 
+	Loop2(void* tos) : 
 		Entrant(tos)
 	{
 		
 	}
 	
-	Loop(void* tos, char a):
+	Loop2(void* tos, char a):
 		Entrant(tos)
 	{
 		this->a = a;
@@ -43,7 +43,7 @@ public:
 		kout.flush();
 		scheduler.resume();
 		
-		kout << a <<  " ENDE " ;
+		kout << a << " ENDE " ;
 		kout.flush();
 		scheduler.resume();
 		while(1);
