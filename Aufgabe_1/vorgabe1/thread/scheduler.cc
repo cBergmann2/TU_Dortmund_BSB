@@ -16,14 +16,24 @@ Scheduler::Scheduler(const Scheduler &copy){} // Verhindere Kopieren
 * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet.
 * Er wird an das Ende der Ready-Liste angefügt.
 */
-void Scheduler::ready(Entrant& that){}
+void Scheduler::ready(Entrant& that){
+	readyList.push(that);
+}
 
 
 /**
 * Diese Methode setzt das Scheduling in Gang, indem der erste Prozess
 * von der Ready-Liste entfernt und aktiviert wird.
 */
-void Scheduler::schedule(){}
+void Scheduler::schedule(){
+
+	//Zeiger des nächsten Threads holen
+	Entrant *next = readyList.pop();
+
+	//Dispatch-Vorgang ausführen
+	this.dispatcher.dispatch(next);
+
+}
 
 
 /**
@@ -31,7 +41,15 @@ void Scheduler::schedule(){}
 * wieder an das Ende der Ready-Liste angefügt. Statt dessen wird
 * nur der erste Prozess von der Ready-Liste heruntergenommen und aktiviert.
 */
-void Scheduler::exit(){}
+void Scheduler::exit(){
+	
+	//Zeiger des nächsten Threads holen
+	Entrant *next = readyList.pop();
+
+	//Dispatch-Vorgang ausführen
+	this.dispatcher.dispatch(next);
+
+}
 
 
 /**
@@ -39,7 +57,12 @@ void Scheduler::exit(){}
 * Der Prozess that wird einfach von der Ready-Liste entfernt und
 * erhält somit nie wieder den Prozessor.
 */
-void Scheduler::kill(Entrant& that){}
+void Scheduler::kill(Entrant& that){
+
+	//Thread von der Ready-Liste entfernen
+	readyList.remove(that);
+
+}
 
 
 /**
@@ -51,4 +74,13 @@ void Scheduler::kill(Entrant& that){}
 * gerade laufenden Prozess an das Ende der Ready-Liste anfügen und
 * den ersten aktivieren.
 */
-void Scheduler::resume(){}
+void Scheduler::resume(){
+
+	//Zeiger auf aktuell ausgeführten Thread holen
+	Entrant *current = dispatcher.active();
+
+	this->schedule();
+
+	//Suspendierten Prozess in die Ready-Liste schreiben
+	readyList.push(current);
+}

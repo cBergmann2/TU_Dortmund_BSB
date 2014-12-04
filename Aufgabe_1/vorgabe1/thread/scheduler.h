@@ -12,12 +12,15 @@
 #define __schedule_include__
 
 #include "thread/dispatch.h"
+#include "thread/coroutine.h"
+#include "thread/entrant.h"
 #include "object/queue.h"
         
 class Scheduler{
 private:
 
 	Queue readyList;
+	Dispatcher dispatcher;
 
 public:
 	
