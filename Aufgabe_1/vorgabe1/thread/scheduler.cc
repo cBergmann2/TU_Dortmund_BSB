@@ -17,7 +17,12 @@ Scheduler::Scheduler(const Scheduler &copy){} // Verhindere Kopieren
 * Er wird an das Ende der Ready-Liste angefügt.
 */
 void Scheduler::ready(Entrant& that){
-	readyList.push(that);
+	if (dispatcher.active() == 0){
+		dispatcher.go(that);
+	}
+	else{
+		readyList.push(that);
+	}
 }
 
 
