@@ -28,7 +28,7 @@ Dispatcher::Dispatcher(){
 * vermerkt und gestartet.
 */
 void Dispatcher::go(Coroutine& first){
-	this->lifePtr = first;
+	this->lifePtr = &first;
 }
 
 
@@ -41,10 +41,10 @@ void Dispatcher::dispatch(Coroutine& next){
 	if(!lifePtr) return;
 	
 	//Koroutinenwechsel durchführen
-	lifePtr->resume(next);
+	lifePtr->resume(&next);
 
 	//neuen Life-Pointer setzen
-	lifePtr = next;
+	lifePtr = &next;
 }
 
 
