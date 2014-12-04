@@ -13,6 +13,46 @@
 #ifndef __loop_include__
 #define __loop_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "thread/entrant.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream kout;
+
+class Loop : public Entrant
+{
+
+public:
+	Loop(void* tos) : 
+		Entrant(tos)
+	{
+		
+	}
+	
+	Loop(void* tos, char a, Loop* partner):
+		Entrant(tos)
+	{
+		this->a = a;
+		this->partner = partner;
+	}
+	
+	void setter(char a, Loop* partner)
+	{
+		this->a = a;
+		this->partner = partner;
+	}
+	
+	void action()
+	{
+		kout << a;
+		resume(partner);
+		
+		kout << " ENDE " ;
+		while(1);
+	}
+	
+private:
+	char a;
+	Loop* partner;
+}
  
 #endif

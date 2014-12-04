@@ -7,7 +7,8 @@
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
 #include "guard/guard.h"
-#include "thread/coroutine.h"
+#include "user/loop.h"
+
 
 #define STACK_SIZE 1024
 //Globale Instanzen
@@ -20,7 +21,11 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
+	Loop b(stack2+STACK_SIZE);
+	Loop a(stack1+STACK_SIZE, 'a', &b);
+	b.setter('b',&a);
 	
+	a.go();
 	
 	while(1);
 }
