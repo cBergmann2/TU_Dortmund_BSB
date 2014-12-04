@@ -16,24 +16,17 @@
 
 #include "thread/coroutine.h"
 
+extern void kickoff(Coroutine*);
+
 // Funktionen, die auf der Assembler-Ebene implementiert werden, muessen als
 // extern "C" deklariert werden, da sie nicht dem Name-Mangeling von C++ 
 // entsprechen.
 
 
-extern "C"
-{
-	 void toc_go(struct toc* regs);
-	 void toc_switch(struct toc* regs_now, struct toc* regs_then);
-}
-
-/* Hier muesst ihr selbst Code vervollstaendigen */       
-
 
 	Coroutine::Coroutine (void* tos)
 	{
-		toc_settle(&this->regs, tos, kickoff, this);
-
+		toc_settle(&this->regs, tos, (kickoff_fptr)&kickoff, this);
 	}
 
 	void Coroutine::go()
@@ -45,7 +38,7 @@ extern "C"
 
 	void Coroutine::resume (Coroutine& next)
 	{
-		toc_switch(&this->regs, &next->regs);
+		toc_switch(&(this->regs), &(next.regs));
 
 		return;	//sollte nie erreicht werden?
 	}

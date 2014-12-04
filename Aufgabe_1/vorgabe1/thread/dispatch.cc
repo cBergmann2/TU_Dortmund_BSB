@@ -12,8 +12,7 @@
 /* dispatch() ausgeloest. active() liefert den life Pointer zurueck.         */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-
+#include "dispatch.h"
 
 /**
 * Der Konstruktor initialisiert den Life-Pointer mit Null,
@@ -29,7 +28,7 @@ Dispatcher::Dispatcher(){
 * vermerkt und gestartet.
 */
 void Dispatcher::go(Coroutine& first){
-	this->lifePtr = first;
+	this->lifePtr = &first;
 }
 
 
@@ -38,11 +37,14 @@ void Dispatcher::go(Coroutine& first){
 * Koroutinenwechsel vom alten zum neuen Life-Pointer durch.
 */
 void Dispatcher::dispatch(Coroutine& next){
+	//sicherheit
+	if(!lifePtr) return;
+	
 	//Koroutinenwechsel durchführen
 	lifePtr->resume(next);
 
 	//neuen Life-Pointer setzen
-	lifePtr = next;
+	lifePtr = &next;
 }
 
 
