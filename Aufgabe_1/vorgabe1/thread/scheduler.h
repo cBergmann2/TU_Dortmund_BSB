@@ -12,16 +12,16 @@
 #define __schedule_include__
 
 #include "thread/dispatch.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "object/queue.h"
         
-class Scheduler 
-/* Hier muesst ihr selbst Code vervollstaendigen */         
- {
+class Scheduler{
 private:
-      Scheduler (const Scheduler &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+
+	Queue readyList;
+
+public:
 	
+	Scheduler (const Scheduler &copy); // Verhindere Kopieren
 	
 	/**
 	 * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet. 
