@@ -15,14 +15,19 @@
 #ifndef __dispatch_include__
 #define __dispatch_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
         
+
 class Dispatcher
  {
-private:
-      Dispatcher(const Dispatcher &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+ private:
+	/**
+ 	 * life-Pointer
+ 	 */
+	Coroutine *lifePtr;
 
+ public:
+	Dispatcher(const Dispatcher &copy); // Verhindere Kopieren
+	
 
 	/**
 	 * Der Konstruktor initialisiert den Life-Pointer mit Null, 
