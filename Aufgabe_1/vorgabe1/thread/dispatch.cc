@@ -41,7 +41,7 @@ void Dispatcher::dispatch(Coroutine& next){
 	if(!lifePtr) return;
 	
 	//Koroutinenwechsel durchführen
-	lifePtr->resume(&next);
+	lifePtr->resume(next);
 
 	//neuen Life-Pointer setzen
 	lifePtr = &next;

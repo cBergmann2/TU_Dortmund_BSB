@@ -62,7 +62,7 @@ toc_switch:
 	;Parameter regs_now mit den aktuellen Registern füllen
 	mov eax, [4+esp] 	; &regs in eax speichern
 	
-	;Parameter in regs in die register laden
+	;Parameter in regs mit den registern laden
 	mov [eax], ebx
 	add eax, 4
 	mov [eax], esi

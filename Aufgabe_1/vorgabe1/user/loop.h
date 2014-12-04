@@ -16,7 +16,7 @@
 #include "thread/entrant.h"
 #include "device/cgastr.h"
 
-extern CGA_Stream kout;
+CGA_Stream kout;
 
 class Loop : public Entrant
 {
@@ -44,7 +44,8 @@ public:
 	void action()
 	{
 		kout << a;
-		resume(partner);
+		kout.flush();
+		resume(*partner);
 		
 		kout << " ENDE " ;
 		while(1);
@@ -53,6 +54,6 @@ public:
 private:
 	char a;
 	Loop* partner;
-}
+};
  
 #endif

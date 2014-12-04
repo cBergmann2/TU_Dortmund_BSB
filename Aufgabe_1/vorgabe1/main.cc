@@ -3,18 +3,21 @@
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 
 
-#include "user/appl.h"
-#include "device/cgastr.h"
+//#include "user/appl.h"
+//#include "device/cgastr.h"
 #include "machine/plugbox.h"
 #include "guard/guard.h"
 #include "user/loop.h"
 
 
 #define STACK_SIZE 1024
+
+
 //Globale Instanzen
-Guard guard;
-CGA_Stream kout;
+//CGA_Stream kout;
 Plugbox plugbox;
+Guard guard;
+
 
 unsigned char stack1[STACK_SIZE];
 unsigned char stack2[STACK_SIZE];
