@@ -77,11 +77,8 @@ public:
 	 * kann action erst in einer spezialisierten Klasse (z.B. in Application) 
 	 * definiert werden. 
 	 */
-	//virtual void action () = 0;
-	void action()
-	{
-		while(1);
-	}
+	virtual void action () = 0;
+
 };
 
 #endif
