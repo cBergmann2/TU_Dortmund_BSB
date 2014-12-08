@@ -10,6 +10,8 @@
 
 #include"scheduler.h"
 
+extern CGA_Stream kout;
+
 Scheduler::Scheduler(const Scheduler &copy){} // Verhindere Kopieren
 
 /**
@@ -47,6 +49,13 @@ void Scheduler::exit(){
 	
 	//Zeiger des nächsten Threads holen
 	Entrant *next = (Entrant*)readyList.dequeue();
+	
+	if(!next)
+	{
+		kout << endl << "Scheduler: Keine weitere Coroutine ready";
+		kout.flush();
+		while(1);
+	}	
 
 	//Dispatch-Vorgang ausführen
 	dispatch(*next);

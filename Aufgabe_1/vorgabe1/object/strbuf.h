@@ -16,7 +16,7 @@
 #ifndef __strbuf_include__
 #define __strbuf_include__
 
-#define BUF_SIZE 10
+#define BUF_SIZE 5
 
 class Stringbuffer
 {    
@@ -25,13 +25,9 @@ public:
   Stringbuffer(const Stringbuffer &copy); // Verhindere Kopieren
 
   void put (char c);
-#ifndef DEBUG_OBJECT
+
   virtual void flush()=0;	
-#else
-  void flush(){
-    count=0;
-  }
-#endif
+
   
 protected:
   char buffer [BUF_SIZE];

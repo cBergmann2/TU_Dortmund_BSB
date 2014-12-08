@@ -26,31 +26,16 @@ class Loop : public Entrant
 public:
 	Loop(void* tos) : 
 		Entrant(tos)
-	{
+	{ }
 		
-	}
-	
-	Loop(void* tos, char a):
-		Entrant(tos)
-	{
-		this->a = a;
-	}
-	
-	
-	void action()
-	{
-		kout << a;
-		kout.flush();
-		scheduler.resume();
-		
-		kout << a <<  " ENDE " ;
-		kout.flush();
-		scheduler.resume();
-		while(1);
-	}
+	/**
+	 * Abgeänderte Funktionalität:
+	 * Gibt eine Ausgabe auf der Konsole aus und gibt die CPU wieder ab.
+	 */
+	void action();
 	
 private:
-	char a;
+
 };
  
 #endif

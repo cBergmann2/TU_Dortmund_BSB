@@ -43,7 +43,7 @@ void Dispatcher::go(Coroutine& first)
 * Koroutinenwechsel vom alten zum neuen Life-Pointer durch.
 */
 void Dispatcher::dispatch(Coroutine& next)
-{
+{		
 	//Den aktuellen Prozess zwischenspeichern
 	Coroutine* old = lifePtr;
 

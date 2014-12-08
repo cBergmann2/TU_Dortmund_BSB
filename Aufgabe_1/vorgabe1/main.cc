@@ -8,7 +8,6 @@
 #include "machine/plugbox.h"
 #include "guard/guard.h"
 #include "user/loop.h"
-#include "user/loop2.h"
 #include "thread/scheduler.h"
 
 
@@ -27,11 +26,13 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
-	Loop a(stack2+STACK_SIZE, 'a');
-	Loop2 b(stack1+STACK_SIZE, 'b');	
+	Application appl(stack1+STACK_SIZE);	
+	Loop loop(stack2+STACK_SIZE);
 	
-	scheduler.ready(a);
-	scheduler.ready(b);
+	appl.setKillEntrant(&loop);	
+
+	scheduler.ready(appl);
+	scheduler.ready(loop);
 	scheduler.schedule();
 	
 	while(1);

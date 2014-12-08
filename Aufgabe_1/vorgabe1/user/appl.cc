@@ -14,76 +14,59 @@
          
 /* GLOBALE VARIABLEN */
 extern CGA_Stream kout;
-
+extern Scheduler scheduler;
 
 
 void Application::action ()
 {
-
-	Keyboard board;
 	CPU cpu;
-	int i=0, count=0; 
-	int x,y, x2,y2;
-	char zeichen;
 	int wait=0;
+	Keyboard board;
 
 	//Initialisierungen
-	kout.setpos(0,1);
+	kout.setpos(0,0);
 	board.plugin();
-	
 
 	cpu.enable_int();
 
 
-	while (1)
-	{
-		i++;
-		if(i>0x20000000)
-		{
-			
-			i=0;
-			if(count>=80) count=0;
-			
-			{ Secure section;
-				
-				//Zeichen in 2. Zeile ausgeben
-				kout.setpos(count%10,1);
-				
-				//Hier kann ein Fehler durch Interrupt entstehen
-
-				//provozieren
-				while(wait++ < 0x20000000);
-				wait=0;
-				
-				zeichen = count%10+'0';			
-				kout.print(&zeichen,1);
-				kout.print(" ",1);
-			}
-			
-			/* 2.Testprogramm
-			
-			kout.getpos(x,y); //Position Speichern
-			
-			//Ausgabe 
-			kout << " " << count;
-			kout.flush();
-
-			//vergleichswert besorgen
-			kout.getpos(x2,y2);
-			if(y2 > y)
-			{
-				kout.setpos(0,y);
-			}
-
-			*/
-
-			
+	//Warten
+	wait = 0;
+	while(wait++ < 0x100000);
+	
+	//resume	
+	kout << "Appl: Resume wird aufgerufen";
+	kout.flush();
+	scheduler.resume();	//Loop wird ausgeführt
 		
-		
-		
-			count++;
+	//Warten
+	wait = 0;
+	while(wait++ < 0x100000);	
+	
+	//Kill
+	kout << "\nAppl: Loop wird abgeschossen";
+	kout.flush();
+	scheduler.kill(*loopPtr);
 
-		}
-	}
+	//Warten
+	wait = 0;
+	while(wait++ < 0x100000);	
+
+	//resume	
+	kout << endl << "Appl: Resume wird erneut aufgerufen";
+	kout.flush();
+	scheduler.resume();	//Loop wird nicht ausgeführt
+		
+	//Warten
+	wait = 0;
+	while(wait++ < 0x100000);
+
+	//Exit
+	kout << endl << "Appl: Terminierung";
+	kout.flush();
+	scheduler.exit();
+
+	//Ausgabe wenn fehlerhaft
+	kout << endl << "Appl: Ausgabe trotz Terminierung!";
 
 }

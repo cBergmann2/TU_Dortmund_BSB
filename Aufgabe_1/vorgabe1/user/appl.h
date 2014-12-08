@@ -12,6 +12,9 @@
 #define __application_include__
 
 
+#include "thread/entrant.h"
+#include "thread/scheduler.h"
+
 #include "device/cgastr.h"
 #include "device/keyboard.h"
 
@@ -19,16 +22,29 @@
 
 #include "guard/secure.h"
 
-class Application 
+
+
+class Application : public Entrant
  
  {
 private:
     Application (const Application &copy); // Verhindere Kopieren
+	
+	Entrant* loopPtr;
 
 public:
 /* Hier muesst ihr selbst Code vervollstaendigen */                 
-    Application(){}
-    void action ();
+    Application(void* tos) : 
+		Entrant(tos)
+	{
+	}
+    
+	void setKillEntrant(Entrant* loop)
+	{
+		this->loopPtr = loop;
+	}
+
+	void action ();
  };
 
 #endif

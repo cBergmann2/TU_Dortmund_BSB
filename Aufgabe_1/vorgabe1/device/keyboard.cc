@@ -33,38 +33,6 @@ void Keyboard::plugin()
 
 	return;
 }
-/*
-void Keyboard::trigger()
-{
-	char zeichen;
-	Key input;
-	static int x=0;
-
-	input=this->key_hit();
-
-	do
-	{
-		//CTRL + ALT + DEL abfragen
-		if((input.ctrl()==true) && (input.alt()==true) && (input.ascii()==(char)127))
-		{
-			this->reboot();
-		}
-		else
-		{
-			zeichen = input.ascii();
-
-			//Zeichen in erster Zeile ausgeben
-			kout.setpos(x,0);
-			if(++x >= 80)
-			x=0;
-
-			kout.print(&zeichen,1);		
-		}
-		
-		input=this->key_hit();
-	}while(input.valid());
-}
-*/
 
 /**
   * Mit dieser Methode wird auf die Unterbrechungen durch die Tastatur 
@@ -129,14 +97,7 @@ bool Keyboard::prologue ()
   */
 void Keyboard::epilogue ()
 {
-	static int x=0;
-	
-	//Zeichen in erster Zeile ausgeben
-	kout.setpos(x,0);
-	if(++x >= 80)
-	x=0;
-
-	kout.print(&zeichen,1);		
+	kout << zeichen;
 	
 	//Buffer zurücksetzen
 	zeichen = 0;

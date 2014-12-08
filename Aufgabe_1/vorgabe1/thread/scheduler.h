@@ -15,7 +15,8 @@
 #include "thread/coroutine.h"
 #include "thread/entrant.h"
 #include "object/queue.h"
-        
+#include "device/cgastr.h" 
+
 class Scheduler : public Dispatcher{
 private:
 

@@ -27,6 +27,7 @@ Stringbuffer::Stringbuffer()
 }
 
 Stringbuffer::Stringbuffer(const Stringbuffer &copy){
+/*
   int i=0;
   char* ptr = (char*)(copy.buffer);
   char* thisPtr = (char*)(this->buffer);
@@ -35,6 +36,7 @@ Stringbuffer::Stringbuffer(const Stringbuffer &copy){
   {
       *(thisPtr++) = *(ptr++);
   }
+*/
 }
 
 void Stringbuffer::put (char c)

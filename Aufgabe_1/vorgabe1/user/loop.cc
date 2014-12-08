@@ -11,7 +11,16 @@
 /* naechstes laufen soll.                                                    */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+#include "user/loop.h"
+
+void Loop::action()
+{
+	int wait;
+
+	//Endlosschleife
+	while(1)
+	{		
+		kout << "\nHier ist Loop\n=================\n";
+		scheduler.resume();
+	}
+}
