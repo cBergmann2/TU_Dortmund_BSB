@@ -26,7 +26,7 @@ class Dispatcher
 	Coroutine *lifePtr;
 
  public:
-	Dispatcher(const Dispatcher &copy); // Verhindere Kopieren
+	Dispatcher(const Dispatcher &copy){} // Verhindere Kopieren
 	
 
 	/**

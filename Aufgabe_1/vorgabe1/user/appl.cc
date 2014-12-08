@@ -29,37 +29,20 @@ void Application::action ()
 
 	cpu.enable_int();
 
-
-	//Warten
-	wait = 0;
-	while(wait++ < 0x100000);
-	
 	//resume	
 	kout << "Appl: Resume wird aufgerufen";
 	kout.flush();
 	scheduler.resume();	//Loop wird ausgeführt
-		
-	//Warten
-	wait = 0;
-	while(wait++ < 0x100000);	
 	
 	//Kill
-	kout << "\nAppl: Loop wird abgeschossen";
+	kout << "\nAppl: Loop wird abgeschossen mit kill";
 	kout.flush();
 	scheduler.kill(*loopPtr);
-
-	//Warten
-	wait = 0;
-	while(wait++ < 0x100000);	
-
+	
 	//resume	
 	kout << endl << "Appl: Resume wird erneut aufgerufen";
 	kout.flush();
 	scheduler.resume();	//Loop wird nicht ausgeführt
-		
-	//Warten
-	wait = 0;
-	while(wait++ < 0x100000);
 
 	//Exit
 	kout << endl << "Appl: Terminierung";

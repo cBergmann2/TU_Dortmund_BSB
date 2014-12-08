@@ -15,6 +15,7 @@
 #define __queue_include__
 
 #include "object/chain.h"
+#include "machine/cpu.h"
 
 class Queue
  {
