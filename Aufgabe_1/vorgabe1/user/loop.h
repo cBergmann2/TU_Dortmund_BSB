@@ -24,9 +24,12 @@ class Loop : public Entrant
 {
 
 public:
-	Loop(void* tos) : 
+	Loop(void* tos, char zeichen) : 
 		Entrant(tos)
-	{ }
+	{
+		this->zeichen = zeichen;
+	}
+		
 		
 	/**
 	 * Abgeänderte Funktionalität:
@@ -35,6 +38,8 @@ public:
 	void action();
 	
 private:
+	
+	char zeichen;
 
 };
  

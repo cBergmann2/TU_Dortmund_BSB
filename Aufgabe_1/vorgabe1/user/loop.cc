@@ -15,12 +15,15 @@
 
 void Loop::action()
 {
-	int wait;
+	int count=2;
 
 	//Endlosschleife
-	while(1)
+	while(count--)
 	{		
-		kout << "\nHier ist Loop\n=================\n";
+		kout << "\nHier ist Loop mit Zeichen: " << zeichen;
 		scheduler.resume();
 	}
+	
+	kout << endl << "Loop mit Zeichen " << zeichen << " wird abgeschossen";
+	scheduler.exit();
 }

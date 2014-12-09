@@ -32,7 +32,11 @@ void Scheduler::schedule(){
 	//Zeiger des nächsten Threads holen
 	Entrant *next = (Entrant*)readyList.dequeue();
 	
-	if(!next) return;
+	if(!next) {
+		kout << endl << "Scheduler::schedule: Keine Eintraege ready";
+		kout.flush();
+		return;
+	}
 	
 	//Dispatch-Vorgang ausführen
 	go(*next);
@@ -52,7 +56,7 @@ void Scheduler::exit(){
 	
 	if(!next)
 	{
-		kout << endl << "Scheduler: Keine weitere Coroutine ready";
+		kout << endl << "Scheduler::exit: Keine weitere Coroutine ready";
 		kout.flush();
 		while(1);
 	}	
@@ -93,6 +97,7 @@ void Scheduler::resume(){
 	entrPtr = (Entrant*)active();
 
 	if(!entrPtr) return;
+	//kout << endl << "Sch: aktive: " << entrPtr;
 	
 	//den aktuellen Prozess in die Ready-Liste einfuegen
 	readyList.enqueue(entrPtr);
@@ -100,6 +105,7 @@ void Scheduler::resume(){
 	//Den naechsten Prozess auswaehlen
 	entrPtr = (Entrant*)readyList.dequeue();
 	
+	//kout << endl << "Sch: next: " << entrPtr;
 	if(!entrPtr) return;
 	
 	//Prozess aktivieren

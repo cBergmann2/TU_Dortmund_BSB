@@ -40,7 +40,7 @@ void Application::action ()
 	scheduler.resume();
 	
 	//Kill
-	kout << "\nAppl: Loop wird abgeschossen mit kill";
+	kout << "\nAppl: Loop (a) wird abgeschossen mit kill";
 	kout.flush();
 	scheduler.kill(*loopPtr);
 	

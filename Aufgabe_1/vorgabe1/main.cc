@@ -23,16 +23,19 @@ Scheduler scheduler;
 
 unsigned char stack1[STACK_SIZE];
 unsigned char stack2[STACK_SIZE];
+unsigned char stack3[STACK_SIZE];
 
 int main()
 {
 	Application appl(stack1+STACK_SIZE);	
-	Loop loop(stack2+STACK_SIZE);
+	Loop loop1(stack2+STACK_SIZE, 'a');
+	Loop loop2(stack3+STACK_SIZE, 'b');
 	
-	appl.setKillEntrant(&loop);	
+	appl.setKillEntrant(&loop1);	
 
 	scheduler.ready(appl);
-	scheduler.ready(loop);
+	scheduler.ready(loop1);
+	scheduler.ready(loop2);
 	scheduler.schedule();
 	
 	while(1);
