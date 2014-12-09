@@ -11,6 +11,7 @@
 #ifndef __pit_include__
 #define __pit_include__
 
+#include "machine/io_port.h"
 
 /**
  * Die Klasse PIT steuert den Programmable Interval Timer (PIT) des PCs.
@@ -19,7 +20,10 @@ class PIT
  {
 private:
     PIT(const PIT &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+	int us;
+	IO_PORT ctrlRegister;
+	IO_PORT counter1;
 public:
 	
 	/**
@@ -28,7 +32,10 @@ public:
 	 * Auflösung des Timerbausteins maximal 838 Nanosekunden beträgt, ist 
 	 * keine ganz exakte Einstellung im Mikrosekundenbereich möglich.
 	 */
-    PIT (int us) {
+    PIT (int us) :
+		ctrlRegister(0x43),
+		counter1(0x40);
+	{
 		interval (us);
     }
     
