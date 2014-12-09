@@ -22,7 +22,7 @@ private:
 
 	Queue readyList;
 
-	Scheduler (const Scheduler &copy){} // Verhindere Kopieren
+	Scheduler (const Scheduler &copy); // Verhindere Kopieren
 	
 public:
 	

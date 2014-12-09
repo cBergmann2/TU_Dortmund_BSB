@@ -34,6 +34,11 @@ void Application::action ()
 	kout.flush();
 	scheduler.resume();	//Loop wird ausgeführt
 	
+	//nochmal resume
+	kout << endl << "Appl: Resume wird nochmal aufgerufen";
+	kout.flush();
+	scheduler.resume();
+	
 	//Kill
 	kout << "\nAppl: Loop wird abgeschossen mit kill";
 	kout.flush();
