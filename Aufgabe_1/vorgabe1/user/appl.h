@@ -23,7 +23,11 @@
 #include "guard/secure.h"
 
 
-
+/**
+ * Die Klasse Application stellt die Anwendung des Betriebssystems dar. Sie 
+ * wird in Form eines eigenen Fadens ausgeführt und braucht dementsprechend 
+ * auch einen eigenen Stack.
+ */
 class Application : public Entrant
  
  {
