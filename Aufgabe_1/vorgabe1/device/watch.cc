@@ -23,11 +23,12 @@ void Watch::windup ()
 // PROLOGUE: Prologue der Uhrenunterbrechung
 bool Watch::prologue ()
 {
-	
+	return true;
 }
 
 // EPILOGUE: Epilogue der Uhrenunterbrechung
 void Watch::epilogue ()
 {
-	
+	//Prozesswechsel herbeiführen
+	guardedScheduler->resume();
 }

@@ -24,11 +24,14 @@
 class Watch : public Gate, public PIT
  {
 private:
+	Guarded_Scheduler *guardedScheduler;
     Watch (const Watch &copy); // Verhindere Kopieren
 public:
     // WATCH: Initialisiert die Uhr.
-    Watch (int us) : PIT (us)
-    {}
+    Watch (int us, Guarded_Scheduler *guardedScheduler) : PIT (us)
+    {
+		this->guardedScheduler = guardedScheduler;
+	}
 
     // WINDUP: "zieht die Uhr auf". Danach laeuft sie los und loest in
     //         regelmaessigen Abstaenden Unterbrechungen aus.
