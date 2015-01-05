@@ -24,8 +24,8 @@ int PIT::interval ()
 */
 void PIT::interval (int us)
 {
-	unsigned short value;
-	long long temp;
+	volatile unsigned short value;
+	volatile unsigned int temp;
 	this->us = us;
 	
 	//value berechnen
@@ -34,6 +34,7 @@ void PIT::interval (int us)
 	if(us > 54921)
 	{
 		//Ausserhalb des Zählbereichs
+		return;
 	}
 	
 	temp = us<<7;		//*128
