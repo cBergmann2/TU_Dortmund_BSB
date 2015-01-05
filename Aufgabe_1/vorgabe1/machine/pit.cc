@@ -11,7 +11,6 @@
 #include "machine/pit.h"
 
 
-
 /**
 * Gibt an, welches Unterbrechungsintervall eingestellt wurde.
 */
@@ -25,15 +24,22 @@ int PIT::interval ()
 */
 void PIT::interval (int us)
 {
-	short value;
+	unsigned short value;
 	long long temp;
 	this->us = us;
 	
 	//value berechnen
 	//auf 838 Nanosekunden normieren
-	//
+	// 107 / 128 = 0.8359
+	if(us > 54921)
+	{
+		//Ausserhalb des Zählbereichs
+	}
 	
-
+	temp = us<<7;		//*128
+	temp = temp/107;
+	temp = temp - ( ( us*3 ) / 1000 );
+	value = (unsigned short)temp;
 	
 	//Steuerregister beschreiben
 	//  00 Zähler 0
