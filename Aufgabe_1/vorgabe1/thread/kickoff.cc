@@ -18,6 +18,9 @@
 #define __KICKOFF_CC
 
 #include "thread/coroutine.h"
+#include "guard/guard.h"
+
+extern Guard guard;
 
 /**
  * Diese Methode realisiert den Sprung von der C Ebene zur 
@@ -26,6 +29,7 @@
  */
 void kickoff (Coroutine* object)
 {
+	guard.leave();
 	object->action();
 }
 

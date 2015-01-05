@@ -26,17 +26,17 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
-	Watch watch(1000000);
+	Watch watch(10000);
 
 	Application appl(stack1+STACK_SIZE);	
 	Loop loop(stack2+STACK_SIZE);
 	
-	appl.setKillEntrant(&loop);	
+	appl.setKillEntrant(&loop);
 
 	scheduler.ready(appl);
 	scheduler.ready(loop);
-
-	watch.interval(5);
+	
+	watch.windup();
 	
 	scheduler.schedule();
 	

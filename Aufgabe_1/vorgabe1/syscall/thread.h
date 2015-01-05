@@ -25,6 +25,7 @@ private:
 
 public:
 	
+	//Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
 	Thread (void* tos) : 
 		Entrant(tos)
 	{}

@@ -14,7 +14,9 @@
 
 #include "guard/gate.h"
 #include "machine/pit.h"
-
+#include "syscall/guarded_scheduler.h"
+#include "machine/plugbox.h"
+#include "machine/pic.h"
 
 /**
  * Die Klasse Watch sorgt für die Behandlung der Zeitgeberunterbrechungen, 
@@ -24,11 +26,14 @@
 class Watch : public Gate, public PIT
  {
 private:
+	Guarded_Scheduler *guardedScheduler;
     Watch (const Watch &copy); // Verhindere Kopieren
+
 public:
     // WATCH: Initialisiert die Uhr.
     Watch (int us) : PIT (us)
-    {}
+    {
+	}
 
     // WINDUP: "zieht die Uhr auf". Danach laeuft sie los und loest in
     //         regelmaessigen Abstaenden Unterbrechungen aus.

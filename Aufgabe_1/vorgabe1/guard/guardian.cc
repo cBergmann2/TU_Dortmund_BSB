@@ -12,6 +12,7 @@
 /* INCLUDES */
 #include "machine/plugbox.h"
 #include "guard/guard.h"
+#include "device/cgastr.h"
 
 /* FUNKTIONEN */
 
@@ -23,6 +24,7 @@ extern "C" void guardian (unsigned int slot);
 
 extern Guard guard;
 extern Plugbox plugbox;
+extern CGA_Stream kout;
 
 /**
  * Die Funktion guardian ist für die gerätespezifische Unterbrechungsbehandlung 
@@ -32,6 +34,9 @@ extern Plugbox plugbox;
  */
 void guardian (unsigned int slot)
 {
+	if(slot==39)
+		return;	//IRQ7 vorerst ignorieren 
+
     if(plugbox.report(slot).prologue())
 	{
 		//Epilog einreihen

@@ -14,6 +14,7 @@
 
 #include "thread/scheduler.h"
 #include "syscall/thread.h"
+#include "guard/secure.h"
 
         
 class Guarded_Scheduler  : public Scheduler  

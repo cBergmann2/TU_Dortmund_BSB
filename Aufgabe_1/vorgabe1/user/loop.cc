@@ -22,8 +22,9 @@ void Loop::action()
 	{		
 
 		kout << "\nHier ist Loop\n=================\n";
-		wait = 100000000;
+		kout.flush();
 
+		wait = 1000000;
 		while(wait>0) wait--;
 
 	}

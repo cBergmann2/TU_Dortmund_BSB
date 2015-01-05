@@ -27,8 +27,9 @@ bool Panic::prologue()
 //Aus der vorherigen Mehtode trigger() kopiert:
 
   //Fehlermeldung anhalten
+	kout << endl;
 	kout << "Fehler: Interrupt eingetreten der von keiner ISR beahndelt wird!\n";
-	kout << "->System wird angehlaten";
+	kout << "->System wird angehalten";
 	kout.flush();
 	
 	//System anhalten
