@@ -15,7 +15,7 @@
 /**
 * Gibt an, welches Unterbrechungsintervall eingestellt wurde.
 */
-int interval ()
+int PIT::interval ()
 {
 	return this->us;
 }
@@ -23,7 +23,7 @@ int interval ()
 /**
 * Stellt das Unterbrechungsintervall neu ein.
 */
-void interval (int us)
+void PIT::interval (int us)
 {
 	short value;
 	long long temp;
@@ -32,8 +32,7 @@ void interval (int us)
 	//value berechnen
 	//auf 838 Nanosekunden normieren
 	//
-	temp = us<<5;
-	value = (temp/38) + 1;
+	
 
 	
 	//Steuerregister beschreiben
@@ -43,6 +42,6 @@ void interval (int us)
 	//   0 binäre Zählung
 	ctrlRegister.outb(0x34);
 	
-	counter1.outb((char)value);
-	counter1.outb((char)(value>>8));
+	counter1.outb((char)us);
+	counter1.outb((char)(us>>8));
 }

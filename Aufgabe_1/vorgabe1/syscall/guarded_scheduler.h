@@ -13,6 +13,7 @@
 
 
 #include "thread/scheduler.h"
+#include "syscall/thread.h"
 
         
 class Guarded_Scheduler  : public Scheduler  

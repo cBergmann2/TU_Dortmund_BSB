@@ -12,8 +12,8 @@
 #define __application_include__
 
 
-#include "thread/entrant.h"
-#include "thread/scheduler.h"
+#include "syscall/thread.h"
+#include "syscall/guarded_scheduler.h"
 
 #include "device/cgastr.h"
 #include "device/keyboard.h"
@@ -28,22 +28,22 @@
  * wird in Form eines eigenen Fadens ausgeführt und braucht dementsprechend 
  * auch einen eigenen Stack.
  */
-class Application : public Entrant
+class Application : public Thread
  
  {
 private:
     Application (const Application &copy); // Verhindere Kopieren
 	
-	Entrant* loopPtr;
+	Thread* loopPtr;
 
 public:
 /* Hier muesst ihr selbst Code vervollstaendigen */                 
     Application(void* tos) : 
-		Entrant(tos)
+		Thread(tos)
 	{
 	}
     
-	void setKillEntrant(Entrant* loop)
+	void setKillEntrant(Thread* loop)
 	{
 		this->loopPtr = loop;
 	}

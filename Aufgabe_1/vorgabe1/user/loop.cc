@@ -20,7 +20,11 @@ void Loop::action()
 	//Endlosschleife
 	while(1)
 	{		
+
 		kout << "\nHier ist Loop\n=================\n";
-		scheduler.resume();
+		wait = 100000000;
+
+		while(wait>0) wait--;
+
 	}
 }

@@ -22,8 +22,9 @@ private:
     PIT(const PIT &copy); // Verhindere Kopieren
 
 	int us;
-	IO_PORT ctrlRegister;
-	IO_PORT counter1;
+	IO_Port ctrlRegister;
+	IO_Port counter1;
+
 public:
 	
 	/**
@@ -34,7 +35,7 @@ public:
 	 */
     PIT (int us) :
 		ctrlRegister(0x43),
-		counter1(0x40);
+		counter1(0x40)
 	{
 		interval (us);
     }

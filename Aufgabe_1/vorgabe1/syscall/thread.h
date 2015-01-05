@@ -17,7 +17,7 @@
  * Die Klasse Thread implementiert die Benutzerschnittstelle eines Fadens. 
  * Zur Zeit ist Thread nichts weiter als ein neuer Name für die Klasse Entrant.
  */
-class Thread
+class Thread : public Entrant
 {
 
 private:

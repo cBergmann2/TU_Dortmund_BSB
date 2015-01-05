@@ -13,19 +13,17 @@
 #ifndef __loop_include__
 #define __loop_include__
 
-#include "thread/entrant.h"
+#include "syscall/thread.h"
 #include "device/cgastr.h"
-#include "thread/scheduler.h"
 
-extern Scheduler scheduler;
 extern CGA_Stream kout;
 
-class Loop : public Entrant
+class Loop : public Thread
 {
 
 public:
 	Loop(void* tos) : 
-		Entrant(tos)
+		Thread(tos)
 	{ }
 		
 	/**

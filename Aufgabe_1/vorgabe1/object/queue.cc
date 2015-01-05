@@ -29,15 +29,9 @@ void Queue::enqueue (Chain* item)
 { 
 	CPU cpu;
 	
-	//Harte Synchronisation
-	/* kann problematisch sein, wenn die Interrupts bereits gesperrt waren */
-	cpu.disable_int();	
-	
 	item->next = 0;       // Das neue Element besitzt noch keinen Nachfolger.
 	*tail = item;         // Das Element an das Ende der Liste anfuegen
 	tail = &(item->next); // und den tail Zeiger aktualisieren.
-	
-	cpu.enable_int();
 }
 
 // DEQUEUE: Liefert das erste Element der Liste und entfernt es gleichzeitig
@@ -49,16 +43,6 @@ Chain* Queue::dequeue ()
 	Chain* item;
 	CPU cpu;
 	
-	//Harte Synchronisation
-	cpu.disable_int();	
-	/*
-	 *	Bsp. dequeue wird aufgerufen, item = head wird ausgeführt und 
-	 *  der Prozess wird gewechselt. Daraufhin wird erneut dequeue aufgerufen.
-	 *  somit wird mit 2 verschiedenen aufrufen, auf das gleiche Element 
-	 *  zugegriffen
-	 */
-	
-	
 	item = head;            	// Der head Zeiger bezeichnet das erste Element.
 	if (item)               	// oder Null, wenn die Liste leer ist.
 	{
@@ -68,8 +52,6 @@ Chain* Queue::dequeue ()
 		else                 	// sonst nur noch
 		item->next = 0;    		// den Eintrag ueber den Nachfolger loeschen.
 	}
-	
-	cpu.enable_int();
 	
 	return item;
    
@@ -81,9 +63,6 @@ void Queue::remove (Chain* item)
 {
 	Chain* cur;
 	CPU cpu;
-	
-	//Harte Synchronisation
-	cpu.disable_int();	
 	
 	if (head)
 	{
@@ -107,6 +86,4 @@ void Queue::remove (Chain* item)
 			}
 		}
 	}
-	
-	cpu.enable_int();
 }

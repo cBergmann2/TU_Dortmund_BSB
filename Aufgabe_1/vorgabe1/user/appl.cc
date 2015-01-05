@@ -14,7 +14,7 @@
          
 /* GLOBALE VARIABLEN */
 extern CGA_Stream kout;
-extern Scheduler scheduler;
+extern Guarded_Scheduler scheduler;
 
 
 void Application::action ()
@@ -32,12 +32,10 @@ void Application::action ()
 	//resume	
 	kout << "Appl: Resume wird aufgerufen";
 	kout.flush();
-	scheduler.resume();	//Loop wird ausgeführt
-	
+
 	//nochmal resume
 	kout << endl << "Appl: Resume wird nochmal aufgerufen";
 	kout.flush();
-	scheduler.resume();
 	
 	//Kill
 	kout << "\nAppl: Loop wird abgeschossen mit kill";
@@ -47,7 +45,6 @@ void Application::action ()
 	//resume	
 	kout << endl << "Appl: Resume wird erneut aufgerufen";
 	kout.flush();
-	scheduler.resume();	//Loop wird nicht ausgeführt
 
 	//Exit
 	kout << endl << "Appl: Terminierung";
