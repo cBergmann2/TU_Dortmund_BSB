@@ -26,6 +26,7 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
+	CPU cpu;
 	Watch watch(50000);
 
 	Application appl(stack1+STACK_SIZE);	
@@ -33,10 +34,12 @@ int main()
 	
 	appl.setKillEntrant(&loop);
 
-	scheduler.ready(appl);
-	scheduler.ready(loop);
-	
+	guard.enter();
+	scheduler.Scheduler::ready(appl);
+	scheduler.Scheduler::ready(loop);
+
 	watch.windup();
+	cpu.enable_int();
 	
 	scheduler.schedule();
 	

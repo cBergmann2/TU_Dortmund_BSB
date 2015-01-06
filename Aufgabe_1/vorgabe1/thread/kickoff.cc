@@ -29,7 +29,7 @@ extern Guard guard;
  */
 void kickoff (Coroutine* object)
 {
-	guard.leave();
+	guard.leave();	//verlässt den geschützten Bereich nachdem die resume-Funktion aufgerufen wurde
 	object->action();
 }
 
