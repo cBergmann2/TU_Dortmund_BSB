@@ -24,8 +24,8 @@ int PIT::interval ()
 */
 void PIT::interval (int us)
 {
-	volatile unsigned short value;
-	volatile unsigned int temp;
+	unsigned short value;
+	unsigned int temp;
 	this->us = us;
 	
 	//value berechnen
@@ -49,6 +49,6 @@ void PIT::interval (int us)
 	//   0 binäre Zählung
 	ctrlRegister.outb(0x34);
 	
-	counter1.outb((char)us);
-	counter1.outb((char)(us>>8));
+	counter1.outb((char)value);
+	counter1.outb((char)(value>>8));
 }

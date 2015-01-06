@@ -26,7 +26,7 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
-	Watch watch(10000);
+	Watch watch(50000);
 
 	Application appl(stack1+STACK_SIZE);	
 	Loop loop(stack2+STACK_SIZE);
