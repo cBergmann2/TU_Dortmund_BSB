@@ -11,14 +11,42 @@
 #ifndef __Guarded_Semaphore_include__
 #define __Guarded_Semaphore_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-        
-class Guarded_Semaphore 
+#include "meeting/semaphore.h"
+
+class Guarded_Semaphore : public Semaphore
 /* Hier muesst ihr selbst Code vervollstaendigen */         
- {
+{
 private:
-    Guarded_Semaphore (const Guarded_Semaphore &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- };
+   Guarded_Semaphore (const Guarded_Semaphore &copy); // Verhindere Kopieren
+
+public:
+	
+	/**
+	 * Der Konstruktor reicht nur den Parameter c an den Konstruktor der Basisklasse weiter. 
+	 */
+	Guarded_Semaphore (int c);
+		
+	/**
+	 * siehe Semaphore::p ()
+	 */
+	void p ();
+		
+	/**
+	 * siehe Semaphore::v ()
+	 */
+	void v ();
+		
+	/**
+	 * siehe Semaphore::wait ()
+	 */
+	void wait ();
+		
+	/**
+	 * siehe Semaphore::signal () 
+	 */
+	void signal ();
+		
+
+};
 
 #endif

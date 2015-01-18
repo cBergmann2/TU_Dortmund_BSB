@@ -6,6 +6,8 @@
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
 /* Systemaufrufschnittstelle zum Organizer.                                  */
+/* Die Klasse Guarded_Organizer ersetzt die Klasse                           */
+/* Guarded_Scheduler aus Aufgabe 5.                                          */
 /*****************************************************************************/
 
 #ifndef __Guarded_Organizer_include__
@@ -16,12 +18,32 @@
         
 class Guarded_Organizer 
  : public Organizer
- {
+{
 private:
-      Guarded_Organizer (const Guarded_Organizer &copy); // Verhindere Kopieren
+    Guarded_Organizer (const Guarded_Organizer &copy); // Verhindere Kopieren
 public:
-      Guarded_Organizer () {}
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- };
+    Guarded_Organizer () {}
+	 
+	/**
+	 * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet.
+	 */
+	void ready (Thread& that);
+    
+	/**
+	 * Hiermit kann sich ein Prozess selbst beenden.
+	 */
+	void exit ();
+		
+	/**
+	 * Mit dieser Methode kann ein Prozess einen anderen (that) beenden.
+	 */
+	void kill (Thread& that);
+		
+	/**
+	 * Hiermit kann ein Prozesswechsel ausgelöst werden.
+	 */
+	void resume ();
+		
+};
 
 #endif
