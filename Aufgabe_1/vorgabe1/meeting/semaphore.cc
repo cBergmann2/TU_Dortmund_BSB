@@ -13,7 +13,7 @@
 //Der Konstruktor initialisiert den Semaphorzähler mit dem angegebenen Wert c
 Semaphore::Semaphore(int c)
 {
-
+	count = c;
 }
 
 //Warteoperation: Sofern der Semaphorzähler größer als Null ist, wird er nur um eins erniedrigt. 

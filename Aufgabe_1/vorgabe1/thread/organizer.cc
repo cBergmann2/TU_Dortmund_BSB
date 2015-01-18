@@ -19,7 +19,8 @@
  */
 void Organizer::block (Customer& customer, Waitingroom& waitingroom)
 {
-
+	customer.waiting_in(&waitingroom);
+	waitingroom.enqueue(&customer);
 }
 
 
@@ -31,7 +32,13 @@ void Organizer::block (Customer& customer, Waitingroom& waitingroom)
  */
 void Organizer::wakeup (Customer& customer)
 {
-
+	Waitingroom* w = customer.waiting_in();
+	if(w)
+	{
+		w->remove(&customer);	//Customer aus Queue entfernen und
+								//Wartezustand zurücksetzen
+		Scheduler::ready(customer);
+	}
 }
 
 

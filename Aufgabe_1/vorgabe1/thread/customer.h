@@ -13,20 +13,24 @@
 
 #include "thread/entrant.h"
 #include "meeting/waitingroom.h"
-        
+#include "device/cgastr.h"
+
+extern CGA_Stream kout;
+  
 class Customer : public Entrant    
  {
 private:
     Customer (const Customer &copy); // Verhindere Kopieren
-
+	Waitingroom *act_waitingroom;
 public:
 	/**
 	 * Der Konstruktor leitet den Parameter tos an den Konstruktor 
 	 * der Basisklasse Entrant weiter.
 	 */
-	Customer (void* tos)
+	Customer (void* tos) : 
+		Entrant ( tos );
 	{
-	
+		act_waitingroom = NULL;
 	}
 		
 	/**
@@ -35,7 +39,14 @@ public:
 	 */
 	void waiting_in (Waitingroom *w)
 	{
-	
+		if((w != NULL) && (act_waitingroom != NULL))
+		{
+			kout << endl << "act_waitingroom != null";
+			kout.flush();
+			return;
+		}
+		
+		act_waitingroom = w;
 	}
 	
 	/**
@@ -47,7 +58,7 @@ public:
 	 */
 	Waitingroom* waiting_in ()
 	{
-	
+		return act_waitingroom;
 	}
     
 };

@@ -20,10 +20,11 @@ class Semaphore : public Waitingroom
  {
 private:
     Semaphore (const Semaphore &copy); // Verhindere Kopieren
-
- public:
+	int count;
+	
+public:
 	//Der Konstruktor initialisiert den Semaphorzähler mit dem angegebenen Wert c
-	Semaphore(int c);
+	Semaphore(int c = 1);
 
 	//Warteoperation: Sofern der Semaphorzähler größer als Null ist, wird er nur um eins erniedrigt. 
 	//Anderenfalls wird der aktuell laufende Prozess (ein Customer Objekt) an die Warteliste angefügt und blockiert.
