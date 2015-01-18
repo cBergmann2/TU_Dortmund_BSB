@@ -30,16 +30,8 @@ void PIT::interval (int us)
 	
 	//value berechnen
 	//auf 838 Nanosekunden normieren
-	// 107 / 128 = 0.8359
-	if(us > 54921)
-	{
-		//Ausserhalb des Zählbereichs
-		return;
-	}
-	
-	temp = us<<7;		//*128
-	temp = temp/107;
-	temp = temp - ( ( us*3 ) / 1000 );
+	temp = us * 1000;
+	temp /= 838;
 	value = (unsigned short)temp;
 	
 	//Steuerregister beschreiben

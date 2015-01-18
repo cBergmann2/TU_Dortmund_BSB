@@ -29,9 +29,24 @@ void Queue::enqueue (Chain* item)
 { 
 	CPU cpu;
 	
-	item->next = 0;       // Das neue Element besitzt noch keinen Nachfolger.
-	*tail = item;         // Das Element an das Ende der Liste anfuegen
-	tail = &(item->next); // und den tail Zeiger aktualisieren.
+	Chain ** last;
+	item->next = 0;       	// Das neue Element besitzt noch keinen Nachfolger.
+					//Unterbrechung: Reihenfolge ändert sich
+	last = tail;			//Das Aktuelle tail speichern
+					//Unterbrechung: *last darf nicht verändert werden
+					//				 last: zeigt auf Next von vorletztem eintrag
+					//				 tail: zeigt auf Next von letztem Eintrag
+	tail = &(item->next); 	// Tail auf das einzufügende Element
+					//Unterbrechung: Das neue Element wird an das neue tail angefügt
+					// 				 *last wurde nicht verändert
+					//				 tail wurde auf verändert
+	
+	//Wenn *last verändert wurde, dann ist *last nicht mehr null
+	while(*last) last = &((*last)->next);
+	// last zeigt nun auf das next vom zuletzt eingefügten element
+	
+	*last = item;         // Das Element an das Ende der Liste anfuegen
+	
 }
 
 // DEQUEUE: Liefert das erste Element der Liste und entfernt es gleichzeitig
@@ -44,13 +59,20 @@ Chain* Queue::dequeue ()
 	CPU cpu;
 	
 	item = head;            	// Der head Zeiger bezeichnet das erste Element.
+			//Unterbrechung: liste ist nicht mehr leer
 	if (item)               	// oder Null, wenn die Liste leer ist.
 	{
 		head = item->next;   	// Das erste Element aus der Liste ausklinken.
+			//Unterbrechung: tail zeigt nun auf neues element
+			//				 item->next wurde verändert
+			//				 head muss angepasst werden
+			
+		
 		if (!head)           	// Wenn die Liste nun leer ist, muss der tail
 			tail = &head;      	// Zeiger wieder auf den head verweisen.
-		else                 	// sonst nur noch
-		item->next = 0;    		// den Eintrag ueber den Nachfolger loeschen.
+			
+		if(item->next)		//Wenn Unterbrechung ausgeführt wurde
+			enqueue(item->next);
 	}
 	
 	return item;

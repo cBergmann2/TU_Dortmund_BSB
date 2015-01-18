@@ -8,4 +8,16 @@
 /* Liste von Threads, die auf ein Ereignis warten.                           */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/waitingroom.h"
+
+//Der Destruktor entfernt alle noch wartenden Prozesse von der Liste und weckt sie zudem auf.
+Waitingroom::~Waitingroom()
+{
+
+}
+
+//Mit dieser Methode kann der angegebene Prozess customer vorzeitig aus dem Wartezimmer entfernt werden.
+void Waitingroom::remove(Customer* customer)
+{
+
+}
