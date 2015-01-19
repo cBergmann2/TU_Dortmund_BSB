@@ -16,5 +16,6 @@
  */
 Key Guarded_Keyboard::getkey ()
 {
-
+	Secure section;
+	Guraded_Keyboard::getkey();
 }

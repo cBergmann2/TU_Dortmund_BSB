@@ -20,15 +20,27 @@
 #include "guard/guard.h"
 
 #include "device/cgastr.h"
+
+#include "meeting/guarded_semaphore.h.h"
+
+
+#define CHAR_BUFFER_LENGTH 73;
  
 class Keyboard : public Gate, public Keyboard_Controller    
 {        
 private:
 
 	Keyboard (const Keyboard &copy); // Verhindere Kopieren
-
-
-	char zeichen;  
+	int addKey2Buffer(Key zeichen);
+	Key removeKeyFromBuffer();
+	
+	
+	Guarded_Semaphore keySem;
+	char zeichen;
+	Key key;
+	Key buffer[CHAR_BUFFER_LENGTH];
+	unsigned int belegungsgrad, bufferHead, bufferTail;
+	Sem
          
 public:
 
@@ -51,12 +63,22 @@ public:
     
 
   /**
-   * Hier wird das im Rahmen der Prolog-Behandlung ausgelesene Zeichen auf dem 
-   * Bildschirm mit Hilfe des globalen CGA_Stream Objekts kout ausgegeben.
+   * In dieser Methode soll das Auftreten des Tastendrucks einem eventuell wartenden Prozess signalisiert werden. 
+   * Dazu wird ein Semaphor verwendet, dessen Zähler angibt, 
+   * wieviele Tastaturcodes im Keyboard Puffer zur Abholung bereitstehen. 
+   * Wenn ein Puffereintrag überschrieben werden muss, ohne dass der alte Wert von einem Anwendungsprozess abgefragt wurde, 
+   * darf der Semaphor also nicht hochgezählt werden.
    */
   void epilogue ();
     
-        
+  /**
+   * Diese Methode liefert die zuletzt gedrückte Taste (als Objekt der Klasse Key) zurück. 
+   * Wenn gerade keine Taste gedrückt wurde, wird der aufrufende Anwendungsprozess solange blockiert. 
+   * Dies wird durch die Verwendung eines Semaphors erreicht. Sobald der Tastencode abgeholt worden ist, 
+   * sollte geeignet vermerkt werden, dass der verwendete Puffer nun für den nächsten Tastencode zur Verfügung steht.
+   */
+  Key getkey();
+
  };
 
 #endif
