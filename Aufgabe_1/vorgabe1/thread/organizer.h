@@ -12,7 +12,7 @@
 #ifndef __organizer_include__
 #define __organizer_include__
 
-#include "thread/schedule.h"
+#include "thread/scheduler.h"
 #include "thread/customer.h"
 
 class Organizer : public Scheduler

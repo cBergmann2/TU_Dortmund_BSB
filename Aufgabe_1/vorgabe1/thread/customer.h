@@ -15,20 +15,23 @@
 #include "meeting/waitingroom.h"
 #include "device/cgastr.h"
 
+#define NULL 0
+
 extern CGA_Stream kout;
   
 class Customer : public Entrant    
- {
+{
 private:
     Customer (const Customer &copy); // Verhindere Kopieren
-	Waitingroom *act_waitingroom;
+	Waitingroom* act_waitingroom;
+	
 public:
 	/**
 	 * Der Konstruktor leitet den Parameter tos an den Konstruktor 
 	 * der Basisklasse Entrant weiter.
 	 */
 	Customer (void* tos) : 
-		Entrant ( tos );
+		Entrant ( tos )
 	{
 		act_waitingroom = NULL;
 	}

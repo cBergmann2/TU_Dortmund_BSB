@@ -9,7 +9,10 @@
 /*****************************************************************************/
 
 #include "meeting/semaphore.h"
+#include "syscall/guarded_organizer.h"
 
+
+extern Guarded_Organizer scheduler;
 //Der Konstruktor initialisiert den Semaphorzähler mit dem angegebenen Wert c
 Semaphore::Semaphore(int c)
 {
@@ -20,12 +23,28 @@ Semaphore::Semaphore(int c)
 //Anderenfalls wird der aktuell laufende Prozess (ein Customer Objekt) an die Warteliste angefügt und blockiert.
 void Semaphore::p()
 {
-
+	Customer *active;
+	
+	if(--count<0)
+	{
+		active = (Customer*)(scheduler.active());
+		scheduler.block(*active, *this);
+	}
 }
 
 //Freigabeoperation: Wenn auf der Warteliste mindestens ein Customer eingetragen ist, 
 //wird der erste davon aufgeweckt. Anderenfalls wird der Semaphorzähler um eins erhöht.
 void Semaphore::v()
 {
-
+	Customer *next;
+	if(++count<=0)
+	{
+		next = (Customer*)this->dequeue();
+		
+		if(!next) return;	//FEHLERFALL
+		
+		next->waiting_in(NULL);	//Den Vermerk des Warteraums entfernen
+		
+		scheduler.ready(*(Thread*)next);	//Customer zurück in die Readyliste einfügen
+	}
 }

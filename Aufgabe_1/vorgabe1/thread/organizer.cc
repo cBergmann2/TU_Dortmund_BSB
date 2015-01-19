@@ -19,8 +19,16 @@
  */
 void Organizer::block (Customer& customer, Waitingroom& waitingroom)
 {
-	customer.waiting_in(&waitingroom);
-	waitingroom.enqueue(&customer);
+	customer.waiting_in(&waitingroom);	//Im Customer die Warteschlange vermerken
+	waitingroom.enqueue(&customer);		//Den Customer in die Warteschlang einfügen
+	if(&customer == active())	//Wenn der active Prozess blockiert werden soll
+	{
+		//Darf der aktive Prozess nicht mehr in die Readyliste eingetragen werden
+		exit();
+	}{
+		//Sonst den prozess aus der Readyliste entfernen
+		kill(customer);	
+	}	
 }
 
 
@@ -32,13 +40,14 @@ void Organizer::block (Customer& customer, Waitingroom& waitingroom)
  */
 void Organizer::wakeup (Customer& customer)
 {
-	Waitingroom* w = customer.waiting_in();
+	Waitingroom* w = customer.waiting_in();	//In welcher Warteschlange befindet sich Customer?
 	if(w)
 	{
-		w->remove(&customer);	//Customer aus Queue entfernen und
-								//Wartezustand zurücksetzen
-		Scheduler::ready(customer);
+		w->remove(&customer);		//Customer aus Queue entfernen und
 	}
+								
+	customer.waiting_in(NULL);	//ggf. Warteschlangen-Zustand zurücksetzen
+	Scheduler::ready(customer);	//Customer zurück in die Warteschlange einfügen
 }
 
 
@@ -51,5 +60,19 @@ void Organizer::wakeup (Customer& customer)
  */
 void Organizer::kill (Customer& that)
 {
-
+	Waitingroom* w = that.waiting_in();
+	if(w)
+	{
+		w->remove(&that);		//Customer aus Queue entfernen
+	}else{
+		if(&that == active())	//Wenn der active Prozess blockiert werden soll
+		{
+			//Darf der aktive Prozess nicht mehr in die Readyliste eingetragen werden
+			exit();
+		}{
+			//Sonst den prozess aus der Readyliste entfernen
+			Scheduler::kill(that);	
+		}	
+	}
+	
 }

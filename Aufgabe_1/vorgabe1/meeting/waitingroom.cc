@@ -9,6 +9,7 @@
 /*****************************************************************************/
 
 #include "meeting/waitingroom.h"
+#include "thread/customer.h"
 
 //Der Destruktor entfernt alle noch wartenden Prozesse von der Liste und weckt sie zudem auf.
 Waitingroom::~Waitingroom()
@@ -21,5 +22,4 @@ void Waitingroom::remove(Customer* customer)
 {
 	if(!customer) return;
 	Queue::remove(customer);
-	customer::waiting_in(NULL);
 }

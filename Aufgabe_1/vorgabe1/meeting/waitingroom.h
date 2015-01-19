@@ -13,7 +13,6 @@
 #define __waitingroom_include__
 
 #include "object/queue.h"
-#include "thread/customer.h"
 
 class Customer; // Forward declaration
 
@@ -29,7 +28,7 @@ public:
 	virtual ~Waitingroom();
 
 	//Mit dieser Methode kann der angegebene Prozess customer vorzeitig aus dem Wartezimmer entfernt werden.
-	virtual void remove(Customer* customer)
+	virtual void remove(Customer* customer);
 };
 
 #endif
