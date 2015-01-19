@@ -15,7 +15,8 @@
  */
 void Guarded_Organizer::ready (Thread& that)
 {
-
+	Secure section;
+	Organizer::ready(that);
 }
 
 /**
@@ -23,7 +24,8 @@ void Guarded_Organizer::ready (Thread& that)
  */
 void Guarded_Organizer::exit ()
 {
-
+	Secure section;
+	Organizer::exit();
 }
 	
 /**
@@ -31,7 +33,8 @@ void Guarded_Organizer::exit ()
  */
 void Guarded_Organizer::kill (Thread& that)
 {
-
+	Secure section;
+	Organizer::kill(that);
 }
 	
 /**
@@ -39,5 +42,6 @@ void Guarded_Organizer::kill (Thread& that)
  */
 void Guarded_Organizer::resume ()
 {
-
+	Secure section;
+	Organizer::resume();	
 }

@@ -12,6 +12,7 @@
 #define __Guarded_Semaphore_include__
 
 #include "meeting/semaphore.h"
+#include "guard/secure.h"
 
 class Guarded_Semaphore : public Semaphore
 /* Hier muesst ihr selbst Code vervollstaendigen */         
@@ -35,7 +36,7 @@ public:
 	 * siehe Semaphore::v ()
 	 */
 	void v ();
-		
+
 	/**
 	 * siehe Semaphore::wait ()
 	 */

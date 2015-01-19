@@ -13,9 +13,10 @@
 /**
  * Der Konstruktor reicht nur den Parameter c an den Konstruktor der Basisklasse weiter. 
  */
-Guarded_Semaphore::Guarded_Semaphore (int c)
+Guarded_Semaphore::Guarded_Semaphore (int c) : 
+	Semaphore(c);
 {
-
+	
 }
 	
 /**
@@ -23,7 +24,8 @@ Guarded_Semaphore::Guarded_Semaphore (int c)
  */
 void Guarded_Semaphore::p ()
 {
-
+	Secure section;
+	Semaphore::p();
 }
 	
 /**
@@ -31,7 +33,8 @@ void Guarded_Semaphore::p ()
  */
 void Guarded_Semaphore::v ()
 {
-
+	Secure section;
+	Semaphore::v();
 }
 	
 /**
@@ -39,7 +42,7 @@ void Guarded_Semaphore::v ()
  */
 void Guarded_Semaphore::wait ()
 {
-
+	p();
 }
 	
 /**
@@ -47,5 +50,5 @@ void Guarded_Semaphore::wait ()
  */
 void Guarded_Semaphore::signal ()
 {
-
+	v();
 }

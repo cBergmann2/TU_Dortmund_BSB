@@ -13,8 +13,6 @@
 
 #include "meeting/waitingroom.h"
 
-#define wait p
-#define signal v
 
 class Semaphore : public Waitingroom   
  {
@@ -34,7 +32,7 @@ public:
 	//wird der erste davon aufgeweckt. Anderenfalls wird der Semaphorzähler um eins erhöht.
 	void v();
 
-/*
+
 	//Diese Methode ist nur ein anderer Name für die Methode p ()
 	void wait(){
 		p();
@@ -44,7 +42,6 @@ public:
 	void signal(){
 		v();
 	}
-*/
 
  };
 

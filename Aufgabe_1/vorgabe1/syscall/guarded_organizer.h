@@ -15,6 +15,8 @@
 
 #include "syscall/thread.h"
 #include "thread/organizer.h"
+
+#include "guard/secure.h"
         
 class Guarded_Organizer 
  : public Organizer

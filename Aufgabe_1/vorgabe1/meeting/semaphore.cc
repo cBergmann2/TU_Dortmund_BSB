@@ -43,8 +43,6 @@ void Semaphore::v()
 		
 		if(!next) return;	//FEHLERFALL
 		
-		next->waiting_in(NULL);	//Den Vermerk des Warteraums entfernen
-		
-		scheduler.ready(*(Thread*)next);	//Customer zurück in die Readyliste einfügen
+		scheduler.wakeup(*next);	//Customer zurück in die Readyliste einfügen
 	}
 }
