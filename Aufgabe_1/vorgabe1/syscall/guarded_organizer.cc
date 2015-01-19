@@ -25,7 +25,7 @@ void Guarded_Organizer::ready (Thread& that)
 void Guarded_Organizer::exit ()
 {
 	Secure section;
-	Organizer::exit();
+	Scheduler::exit();
 }
 	
 /**
@@ -43,5 +43,5 @@ void Guarded_Organizer::kill (Thread& that)
 void Guarded_Organizer::resume ()
 {
 	Secure section;
-	Organizer::resume();	
+	Scheduler::resume();	
 }

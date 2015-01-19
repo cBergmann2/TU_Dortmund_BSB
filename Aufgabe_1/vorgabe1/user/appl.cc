@@ -19,13 +19,13 @@ extern Guarded_Organizer scheduler;
 
 void Application::action ()
 {
-	CPU cpu;
 	Keyboard board;
 
 	//Initialisierungen
 	kout.setpos(0,0);
 	board.plugin();
-
+	
+	kout << "START";
 
 	while(1)
 	{

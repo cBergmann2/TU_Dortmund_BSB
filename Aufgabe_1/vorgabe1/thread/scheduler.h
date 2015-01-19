@@ -22,16 +22,12 @@ class Scheduler : public Dispatcher{
 private:
 
 	Queue readyList;
-	unsigned char initStack[16];
-	Init initProcess;
 	Scheduler (const Scheduler &copy); // Verhindere Kopieren
 	
 public:
 	
-	Scheduler() :
-		initProcess(initStack+16)
+	Scheduler()
 	{
-		ready(initProcess);
 	}
 	
 	/**

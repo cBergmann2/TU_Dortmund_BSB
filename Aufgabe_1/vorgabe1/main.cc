@@ -21,6 +21,7 @@ Guard guard;
 Guarded_Organizer scheduler;
 
 
+unsigned char initS[256];
 unsigned char stack1[STACK_SIZE];
 unsigned char stack2[STACK_SIZE];
 
@@ -28,14 +29,17 @@ int main()
 {
 	CPU cpu;
 	Watch watch(50000);
-
+	
+	Init initProcess(initS+256);
 	Application appl(stack1+STACK_SIZE);	
 	//Loop loop(stack2+STACK_SIZE);
 	
 	//appl.setKillEntrant(&loop);
 
 	guard.enter();
-	scheduler.Scheduler::ready(appl);
+	
+	scheduler.Organizer::ready(appl);
+	scheduler.Organizer::ready(initProcess);
 	//scheduler.Scheduler::ready(loop);
 	
 	watch.windup();
