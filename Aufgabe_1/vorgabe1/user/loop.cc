@@ -15,6 +15,7 @@
 
 void Loop::action()
 {
+/*
 	int wait;
 
 	//Endlosschleife
@@ -26,10 +27,10 @@ void Loop::action()
 		
 		wait = 100000000;
 		while(wait>0) wait--;
-
-
-/*		
+	}
 */
 
-	}
+
+
+	
 }

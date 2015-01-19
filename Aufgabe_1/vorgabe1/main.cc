@@ -8,7 +8,7 @@
 #include "machine/plugbox.h"
 #include "guard/guard.h"
 #include "user/loop.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "device/watch.h"
 
 #define STACK_SIZE 1024
@@ -18,7 +18,7 @@
 CGA_Stream kout;
 Plugbox plugbox;
 Guard guard;
-Guarded_Scheduler scheduler;
+Guarded_Organizer scheduler;
 
 
 unsigned char stack1[STACK_SIZE];
@@ -26,18 +26,21 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
+	CPU cpu;
 	Watch watch(50000);
 
 	Application appl(stack1+STACK_SIZE);	
-	Loop loop(stack2+STACK_SIZE);
+	//Loop loop(stack2+STACK_SIZE);
 	
-	appl.setKillEntrant(&loop);
+	//appl.setKillEntrant(&loop);
 
-	scheduler.ready(appl);
-	scheduler.ready(loop);
+	guard.enter();
+	scheduler.Scheduler::ready(appl);
+	//scheduler.Scheduler::ready(loop);
 	
 	watch.windup();
-	
+	cpu.enable_int();	
+
 	scheduler.schedule();
 	
 	while(1);

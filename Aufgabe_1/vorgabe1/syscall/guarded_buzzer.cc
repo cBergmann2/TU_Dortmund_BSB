@@ -14,7 +14,7 @@
 #include "guard/secure.h"
 
 
-Guarded_Buzzer::~Buzzer()
+Guarded_Buzzer::~Guarded_Buzzer()
 {
 
 }

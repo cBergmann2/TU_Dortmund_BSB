@@ -24,7 +24,7 @@ Buzzer::Buzzer ()
  * Im Destruktor wird der Glöckner (Bellringer) informiert, dass 
  * er nicht mehr läuten muss. Außerdem werden alle wartenden Threads geweckt.
  */
-virtual Buzzer::~Buzzer()
+Buzzer::~Buzzer()
 {
 
 }

@@ -25,29 +25,29 @@ public:
 	/**
 	 * Konstruktor. Der Wecker ist zunächst noch abgeschaltet.
 	 */
-	Buzzer ()
+	Buzzer ();
 		
 	/**
 	 * Im Destruktor wird der Glöckner (Bellringer) informiert, dass 
 	 * er nicht mehr läuten muss. Außerdem werden alle wartenden Threads geweckt.
 	 */
-	virtual ~Buzzer()
+	virtual ~Buzzer();
 		
 		
 	/**
 	 * Wird von Glöckner aufgerufen, wenn die Wartezeit abgelaufen ist. Weckt ggfs. schlafende Threads.
 	 */
-	virtual void ring()
+	virtual void ring();
 		
 	/**
 	 * Stellen des Weckers.
 	 */
-	void set (int ms)
+	void set (int ms);
 		
 	/**
 	 * Schlafen, bis der Wecker klingelt. 
 	 */
-	void sleep ()
+	void sleep ();
 		
 	
 };

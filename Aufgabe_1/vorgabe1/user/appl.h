@@ -13,7 +13,7 @@
 
 
 #include "syscall/thread.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 
 #include "device/cgastr.h"
 #include "device/keyboard.h"

@@ -9,10 +9,11 @@
 /*****************************************************************************/
 
 #include "meeting/semaphore.h"
-#include "syscall/guarded_organizer.h"
 
 
-extern Guarded_Organizer scheduler;
+
+extern Organizer scheduler;
+
 //Der Konstruktor initialisiert den Semaphorzähler mit dem angegebenen Wert c
 Semaphore::Semaphore(int c)
 {

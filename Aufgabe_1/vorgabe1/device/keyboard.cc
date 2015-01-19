@@ -16,14 +16,20 @@
 extern Plugbox plugbox;
 extern CGA_Stream kout;
 extern Guard guard;
-extern Semaphore keyboardsem;
 
  
 Keyboard::Keyboard() :
 	Gate(),
 	Keyboard_Controller(),
-	zeichen(0)
-{}
+	zeichen(0),
+	keySem(0)
+{
+	//Zeichenpuffer vorbereiten
+	this->belegungsgrad = 0;
+	this->bufferHead = 0;
+	this->bufferTail = 0;
+	this->key.ascii(0);
+}
 
 void Keyboard::plugin()
 {
@@ -31,11 +37,6 @@ void Keyboard::plugin()
 
 	plugbox.assign(plugbox.keyboard, *this);
 	pic.allow(keyboard); //1 - Keyboard, 0 - timer
-
-	//Zeichenpuffer vorbereiten
-	this->belegungsgrad = 0;
-	this->bufferHead = 0;
-	this->bufferTail = 0;
 
 	return;
 }
@@ -83,7 +84,7 @@ bool Keyboard::prologue ()
 					//bereits ein Zeichen im buffer.
 					return false;
 				}
-				this->key = intput;
+				this->key = input;
 				//this->zeichen = zeichen;
 
 				//Epilogue anfordern
@@ -108,8 +109,13 @@ bool Keyboard::prologue ()
   */
 void Keyboard::epilogue ()
 {
-	if (this->addKey2Buffer(this->key)){
+	kout << "test... " << key.ascii();
+	kout << endl;
+	kout.flush();
+	if (this->addKey2Buffer(this->key) != 0)
+	{
 		kout << "Tasterturpuffer voll";
+		kout.flush();
 	}
 	else{
 		//Semaphore hochzählen
@@ -139,7 +145,9 @@ Key Keyboard::getkey(){
 }
 
 
-int addKey2Buffer(Key zeichen){
+int Keyboard::addKey2Buffer(Key zeichen){
+	//kout << "Beledungsgrad: " << belegungsgrad << endl;
+	//kout.flush();
 	if (this->belegungsgrad < CHAR_BUFFER_LENGTH){
 		this->buffer[this->bufferTail] = zeichen;
 		this->bufferTail = (bufferTail + 1) % CHAR_BUFFER_LENGTH;
@@ -150,7 +158,7 @@ int addKey2Buffer(Key zeichen){
 	return -1; //Buffer ist bereits voll
 }
 
-Key removeKeyFromBuffer(){
+Key Keyboard::removeKeyFromBuffer(){
 	Key tmp;
 
 	tmp = this->buffer[this->bufferHead];

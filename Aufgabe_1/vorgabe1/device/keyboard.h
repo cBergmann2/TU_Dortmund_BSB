@@ -21,10 +21,10 @@
 
 #include "device/cgastr.h"
 
-#include "meeting/guarded_semaphore.h.h"
+#include "meeting/semaphore.h"
 
 
-#define CHAR_BUFFER_LENGTH 73;
+#define CHAR_BUFFER_LENGTH 73
  
 class Keyboard : public Gate, public Keyboard_Controller    
 {        
@@ -35,12 +35,12 @@ private:
 	Key removeKeyFromBuffer();
 	
 	
-	Guarded_Semaphore keySem;
+	Semaphore keySem;
 	char zeichen;
 	Key key;
 	Key buffer[CHAR_BUFFER_LENGTH];
 	unsigned int belegungsgrad, bufferHead, bufferTail;
-	Sem
+	
          
 public:
 

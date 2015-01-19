@@ -12,7 +12,9 @@
 
 extern CGA_Stream kout;
 
-Scheduler::Scheduler(const Scheduler &copy){} // Verhindere Kopieren
+Scheduler::Scheduler(const Scheduler &copy):
+	initProcess(initStack+16)
+{} // Verhindere Kopieren
 
 /**
 * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet.
@@ -48,14 +50,18 @@ void Scheduler::schedule(){
 void Scheduler::exit(){
 	
 	//Zeiger des nächsten Threads holen
-	Entrant *next = (Entrant*)readyList.dequeue();
+	Entrant *next;
+
+	while( ! (next = (Entrant*)readyList.dequeue()) );
 	
+/*
 	if(!next)
 	{
 		kout << endl << "Scheduler: Keine weitere Coroutine ready";
 		kout.flush();
 		while(1);
 	}	
+*/
 
 	//Dispatch-Vorgang ausführen
 	dispatch(*next);

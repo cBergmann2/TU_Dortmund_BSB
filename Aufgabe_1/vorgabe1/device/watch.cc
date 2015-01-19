@@ -10,7 +10,7 @@
 #include "device/watch.h"
 
 extern Plugbox plugbox;
-extern Guarded_Scheduler scheduler;
+extern Guarded_Organizer scheduler;
 
 // WINDUP: "zieht die Uhr auf". Danach laeuft sie los und loest in
 //         regelmaessigen Abstaenden Unterbrechungen aus.

@@ -16,17 +16,23 @@
 #include "thread/entrant.h"
 #include "object/queue.h"
 #include "device/cgastr.h" 
+#include "thread/init.h"
 
 class Scheduler : public Dispatcher{
 private:
 
 	Queue readyList;
-
+	unsigned char initStack[16];
+	Init initProcess;
 	Scheduler (const Scheduler &copy); // Verhindere Kopieren
 	
 public:
 	
-	Scheduler(){}
+	Scheduler() :
+		initProcess(initStack+16)
+	{
+		ready(initProcess);
+	}
 	
 	/**
 	 * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet. 

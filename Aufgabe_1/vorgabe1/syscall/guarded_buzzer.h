@@ -27,9 +27,9 @@ public:
 	 * ihre Ausführung jeweils mit Hilfe eines Objekts der Klasse Secure 
 	 * geschützt wird. 
 	 */
-	virtual ~Guarded_Buzzer()	// virtual ~Buzzer();
-	void set (int ms)
-	void sleep () 
+	virtual ~Guarded_Buzzer();	// virtual ~Buzzer();
+	void set (int ms);
+	void sleep ();
 };
 
 #endif

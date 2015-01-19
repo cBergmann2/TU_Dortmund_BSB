@@ -14,7 +14,7 @@
 
 #include "guard/gate.h"
 #include "machine/pit.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
 
@@ -26,7 +26,6 @@
 class Watch : public Gate, public PIT
  {
 private:
-	Guarded_Scheduler *guardedScheduler;
     Watch (const Watch &copy); // Verhindere Kopieren
 
 public:

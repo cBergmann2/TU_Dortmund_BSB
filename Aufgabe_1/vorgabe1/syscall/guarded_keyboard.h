@@ -12,6 +12,7 @@
 #define __Guarded_Keyboard_include__
 
 #include "device/keyboard.h"
+#include "guard/secure.h"
 
 
 class Guarded_Keyboard : public Keyboard

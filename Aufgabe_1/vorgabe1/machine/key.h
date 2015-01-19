@@ -82,6 +82,13 @@ public:
     bool scroll_lock () { return modi & mbit::scroll_lock; }
     bool alt ()         { return alt_left ()  | alt_right (); }
     bool ctrl ()        { return ctrl_left () | ctrl_right (); }
+	
+	void operator = (Key item)
+	{
+		asc = item.asc;
+		scan = item.scan;
+    	modi = item.modi;
+	}
 
     operator char ()    { return (char) asc; }
 

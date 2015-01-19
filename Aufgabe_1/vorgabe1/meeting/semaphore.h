@@ -12,7 +12,7 @@
 #define __Semaphore_include__
 
 #include "meeting/waitingroom.h"
-
+#include "thread/organizer.h"
 
 class Semaphore : public Waitingroom   
  {
