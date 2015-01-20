@@ -30,7 +30,7 @@ int main()
 {
 	kout.setpos(0,0);
 	CPU cpu;
-	Watch watch(50000);
+	//Watch watch(50000);
 	
 	Init initProcess(initS+STACK_SIZE);
 	Application appl(stack1+STACK_SIZE);	
@@ -45,7 +45,7 @@ int main()
 	scheduler.Organizer::ready(initProcess);
 	//scheduler.Scheduler::ready(loop);
 	
-	watch.windup();
+	//watch.windup();
 	cpu.enable_int();	
 
 	scheduler.schedule();

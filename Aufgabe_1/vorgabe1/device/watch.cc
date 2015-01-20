@@ -31,6 +31,6 @@ bool Watch::prologue ()
 void Watch::epilogue ()
 {
 	//Prozesswechsel herbeiführen
-	scheduler.resume();
+	scheduler.Scheduler::resume();
 }
 

@@ -27,14 +27,12 @@
 
 void Queue::enqueue (Chain* item)
 { 
-	/*
+
 	item->next = 0;       // Das neue Element besitzt noch keinen Nachfolger.
 	*tail = item;         // Das Element an das Ende der Liste anfuegen
 	tail = &(item->next); // und den tail Zeiger aktualisieren.
-	*/
-	
-	CPU cpu;
-	
+
+/*	
 	Chain ** last;
 	item->next = 0;       	// Das neue Element besitzt noch keinen Nachfolger.
 					//Unterbrechung: Reihenfolge ändert sich
@@ -52,7 +50,7 @@ void Queue::enqueue (Chain* item)
 	// last zeigt nun auf das next vom zuletzt eingefügten element
 	
 	*last = item;         // Das Element an das Ende der Liste anfuegen
-	
+*/	
 }
 
 // DEQUEUE: Liefert das erste Element der Liste und entfernt es gleichzeitig
@@ -61,7 +59,7 @@ void Queue::enqueue (Chain* item)
 
 Chain* Queue::dequeue ()
 {
-	/*
+
 	Chain* item;
 
 	item = head;            	// Der head Zeiger bezeichnet das erste Element.
@@ -74,11 +72,10 @@ Chain* Queue::dequeue ()
 			item->next = 0;    	// den Eintrag ueber den Nachfolger loeschen.
 	}
 	return item;
-	*/
-	
+
+/*
 	Chain* item;
-	CPU cpu;
-	
+		
 	item = head;            	// Der head Zeiger bezeichnet das erste Element.
 			//Unterbrechung: liste ist nicht mehr leer
 	if (item)               	// oder Null, wenn die Liste leer ist.
@@ -97,6 +94,7 @@ Chain* Queue::dequeue ()
 	}
 	
 	return item;
+*/
 }
 
 // REMOVE: Sucht das angegebene Element in der Liste und entfernt es.
