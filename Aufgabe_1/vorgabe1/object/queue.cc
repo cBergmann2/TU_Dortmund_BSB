@@ -27,6 +27,12 @@
 
 void Queue::enqueue (Chain* item)
 { 
+	/*
+	item->next = 0;       // Das neue Element besitzt noch keinen Nachfolger.
+	*tail = item;         // Das Element an das Ende der Liste anfuegen
+	tail = &(item->next); // und den tail Zeiger aktualisieren.
+	*/
+	
 	CPU cpu;
 	
 	Chain ** last;
@@ -55,6 +61,21 @@ void Queue::enqueue (Chain* item)
 
 Chain* Queue::dequeue ()
 {
+	/*
+	Chain* item;
+
+	item = head;            	// Der head Zeiger bezeichnet das erste Element.
+	if (item)               	// oder Null, wenn die Liste leer ist.
+	{
+		head = item->next;   	// Das erste Element aus der Liste ausklinken.
+		if (!head)           	// Wenn die Liste nun leer ist, muss der tail
+			tail = &head;      	// Zeiger wieder auf den head verweisen.
+		else                 	// sonst nur noch
+			item->next = 0;    	// den Eintrag ueber den Nachfolger loeschen.
+	}
+	return item;
+	*/
+	
 	Chain* item;
 	CPU cpu;
 	
@@ -76,36 +97,33 @@ Chain* Queue::dequeue ()
 	}
 	
 	return item;
-   
 }
 
 // REMOVE: Sucht das angegebene Element in der Liste und entfernt es.
 
 void Queue::remove (Chain* item)
-{
-	Chain* cur;
-	CPU cpu;
-	
-	if (head)
-	{
-		cur = head;            		// Die Suche beginnt am Kopf der Liste.
-		if (item == cur)       		// Wenn das erste Element bereits das gesuchte
-			dequeue ();          	// ist, genuegt dequeue zum Entfernen.
-		else
-		{
-			while (cur->next && item != cur->next)  // Suchen, bis das Ende der
-			{ 
-				cur = cur->next;                    // Liste erreicht oder das
-			}                                     	// naechste Element das
-													// gesuchte ist.
-			if (cur->next)
-			{
-				cur->next = item->next;   	// Das Element aus der Liste ausklinken.
-				item->next = 0;      		// Den Eintrag ueber den Nachfolger loeschen.
+ {
+   Chain* cur;
 
-				if (!cur->next)           	// Wenn cur jetzt keinen Nachfolger hat,
-					tail = &(cur->next);    // muss tail aktualisiert werden.
-			}
-		}
-	}
-}
+   if (head)
+    {
+      cur = head;            // Die Suche beginnt am Kopf der Liste.
+      if (item == cur)       // Wenn das erste Element bereits das gesuchte
+	dequeue ();          // ist, genuegt dequeue zum Entfernen.
+      else
+       {
+	 while (cur->next && item != cur->next)  // Suchen, bis das Ende der
+	   { cur = cur->next;                    // Liste erreicht oder das
+	   }                                     // naechste Element das
+	                                         // gesuchte ist.
+	 if (cur->next)
+	  {
+	    cur->next = item->next;   // Das Element aus der Liste ausklinken.
+	    item->next = 0;      // Den Eintrag ueber den Nachfolger loeschen.
+
+	    if (!cur->next)           // Wenn cur jetzt keinen Nachfolger hat,
+	      tail = &(cur->next);    // muss tail aktualisiert werden.
+	  }
+       }
+    }
+ }

@@ -57,7 +57,7 @@ bool Keyboard::prologue ()
 	char zeichen;
 	Key input;
 
-	input=this->key_hit();
+	input=this->key_hit();	
 
 	do
 	{	//Der erste Eintrag sollte gültig sein, da sonst kein Interrupt 
@@ -109,9 +109,6 @@ bool Keyboard::prologue ()
   */
 void Keyboard::epilogue ()
 {
-	kout << "test... " << key.ascii();
-	kout << endl;
-	kout.flush();
 	if (this->addKey2Buffer(this->key) != 0)
 	{
 		kout << "Tasterturpuffer voll";
@@ -123,13 +120,6 @@ void Keyboard::epilogue ()
 		//Bufferzustand auf leer setzen
 		this->key.ascii(0);
 	}
-
-	/*
-	kout << zeichen;
-	
-	//Buffer zurücksetzen
-	zeichen = 0;
-	*/
 }
 
 /**

@@ -12,8 +12,7 @@
 
 extern CGA_Stream kout;
 
-Scheduler::Scheduler(const Scheduler &copy):
-	initProcess(initStack+16)
+Scheduler::Scheduler(const Scheduler &copy)
 {} // Verhindere Kopieren
 
 /**

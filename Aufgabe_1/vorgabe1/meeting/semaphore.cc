@@ -44,6 +44,7 @@ void Semaphore::v()
 		
 		if(!next) return;	//FEHLERFALL
 		
-		scheduler.wakeup(*next);	//Customer zurück in die Readyliste einfügen
+		next->waiting_in(NULL);
+		scheduler.ready(*next);	//Customer zurück in die Readyliste einfügen
 	}
 }

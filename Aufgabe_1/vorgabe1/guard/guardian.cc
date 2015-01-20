@@ -37,15 +37,12 @@ void guardian (unsigned int slot)
 	if(slot==39)
 		return;	//IRQ7 vorerst ignorieren 
 
-	if(slot!=32) 
-	{
-		kout << "Interrupt-# " << slot << endl;
-		kout.flush();
-	}
+	Gate &item = plugbox.report(slot);
 
-    if(plugbox.report(slot).prologue())
+
+    if(item.prologue())
 	{
 		//Epilog einreihen
-		guard.relay(&plugbox.report(slot));
+		guard.relay(&item);
 	}    
 } 
