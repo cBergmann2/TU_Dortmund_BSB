@@ -17,7 +17,7 @@
 
 #define NULL 0
 
-extern CGA_Stream kout;
+extern CGA_Stream kout
   
 class Customer : public Entrant    
 {
