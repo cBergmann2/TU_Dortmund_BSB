@@ -20,10 +20,12 @@ extern Keyboard board;
 
 void Application::action ()
 {
-	kout << "START";
+	kout << "START" << endl;
+	kout.flush();
 
 	while(1)
 	{
-		kout << board.getkey().ascii();
+		kout << board.getkey().ascii() << endl;	//Blokierender Aufruf
+		kout.flush();
 	}
 }

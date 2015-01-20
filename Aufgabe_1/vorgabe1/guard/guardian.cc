@@ -37,16 +37,8 @@ void guardian (unsigned int slot)
 	if(slot==39)
 		return;	//IRQ7 vorerst ignorieren 
 
-	if(slot!=32) 
-	{
-		//kout << "Interrupt-nummer " << slot << endl;
-		//kout.flush();
-	}
-
 	Gate &item = plugbox.report(slot);
-//	kout << "plugbox-Adresse: " << &item;
-//	kout << endl;
-//	kout.flush();
+
 
     if(item.prologue())
 	{
