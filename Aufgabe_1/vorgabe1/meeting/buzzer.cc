@@ -12,6 +12,9 @@
 /* INCLUDES */
 #include "meeting/buzzer.h"
 
+extern Guarded_Organizer scheduler;
+extern Bellringer bellringer;
+
 /**
  * Konstruktor. Der Wecker ist zunächst noch abgeschaltet.
  */
@@ -26,7 +29,9 @@ Buzzer::Buzzer ()
  */
 Buzzer::~Buzzer()
 {
-
+	bellringer.cancel(this);
+	remove(thread);
+	scheduler.ready(*thread);
 }
 	
 	
@@ -35,7 +40,8 @@ Buzzer::~Buzzer()
  */
 void Buzzer::ring()
 {
-
+	remove(thread);
+	scheduler.ready(*thread);
 }
 	
 /**
@@ -43,7 +49,7 @@ void Buzzer::ring()
  */
 void Buzzer::set (int ms)
 {
-
+	us=ms*1000;
 }
 	
 /**
@@ -51,5 +57,7 @@ void Buzzer::set (int ms)
  */
 void Buzzer::sleep ()
 {
-
+	thread = (Thread*)scheduler.active();
+	bellringer.job(this, us);
+	scheduler.block(*thread, *this);
 }

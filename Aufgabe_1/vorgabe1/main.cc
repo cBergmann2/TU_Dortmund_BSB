@@ -11,6 +11,7 @@
 #include "syscall/guarded_organizer.h"
 #include "device/watch.h"
 #include "device/keyboard.h"
+#include "meeting/bellringer.h"
 
 #define STACK_SIZE 1024
 
@@ -21,7 +22,7 @@ CGA_Stream kout;
 Plugbox plugbox;
 Guard guard;
 Guarded_Organizer scheduler;
-
+Bellringer bellringer;
 
 unsigned char initS[STACK_SIZE];
 unsigned char stack1[STACK_SIZE];
