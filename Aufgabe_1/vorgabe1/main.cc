@@ -4,6 +4,7 @@
 
 
 #include "user/appl.h"
+#include "user/appl_2.h"
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
 #include "guard/guard.h"
@@ -35,6 +36,7 @@ int main()
 	
 	Init initProcess(&(initS[0])+STACK_SIZE);
 	Application appl(&(stack1[0])+STACK_SIZE);	
+	Application_2 appl2(&(stack2[0]) + STACK_SIZE);
 	//Loop loop(stack2+STACK_SIZE);
 	
 	//appl.setKillEntrant(&loop);
@@ -44,6 +46,7 @@ int main()
 	board.plugin();	
 
 	scheduler.Organizer::ready(appl);
+	scheduler.Organizer::ready(appl2)
 	scheduler.Organizer::ready(initProcess);
 	//scheduler.Scheduler::ready(loop);
 	

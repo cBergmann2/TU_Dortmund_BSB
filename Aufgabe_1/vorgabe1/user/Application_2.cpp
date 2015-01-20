@@ -10,34 +10,24 @@
 
 /* INCLUDES */
 
-#include "user/appl.h"
-#include "device/keyboard.h"
-         
+#include "user/appl_2.h"
+
+
 /* GLOBALE VARIABLEN */
 extern CGA_Stream kout;
 extern Guarded_Organizer scheduler;
-extern Keyboard board;
 
-void Application::action ()
+
+void Application_2::action()
 {
 	char ascii;
+	Guarded_Buzzer buzzer;
 
-	kout << "START vertauschte Tastenbelegung";
-
-	while(1)
+	while (1)
 	{
-		ascii = board.getkey().ascii();
-		
-		if (ascii == '1') kout << '9';
-		if (ascii == '2') kout << '8';
-		if (ascii == '3') kout << '7';
-		if (ascii == '4') kout << '6';
-		if (ascii == '5') kout << '5';
-		if (ascii == '6') kout << '4';
-		if (ascii == '7') kout << '3';
-		if (ascii == '8') kout << '2';
-		if (ascii == '9') kout << '1';
+		kout << endl;
+		buzzer.set(1000);
+		buzzer.sleep;
 
-		kout.flush();
 	}
 }
