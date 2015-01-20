@@ -14,11 +14,14 @@
 
 #include "meeting/bell.h"
 #include "meeting/waitingroom.h"
+#include "syscall/thread.h"
 
 class Buzzer : public Bell, Waitingroom
 {
 private:
     Buzzer(const Buzzer &copy); // Verhindere Kopieren
+	Thread thread;
+	int us;
 	
 public:
 

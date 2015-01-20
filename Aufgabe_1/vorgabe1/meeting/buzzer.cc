@@ -26,7 +26,9 @@ Buzzer::Buzzer ()
  */
 Buzzer::~Buzzer()
 {
-
+	bellringer.cancel(this);
+	remove(thread);
+	scheduler.ready(thread);
 }
 	
 	
@@ -35,7 +37,8 @@ Buzzer::~Buzzer()
  */
 void Buzzer::ring()
 {
-
+	remove(thread);
+	scheduler.ready(thread);
 }
 	
 /**
@@ -43,7 +46,7 @@ void Buzzer::ring()
  */
 void Buzzer::set (int ms)
 {
-
+	us=ms;
 }
 	
 /**
@@ -51,5 +54,8 @@ void Buzzer::set (int ms)
  */
 void Buzzer::sleep ()
 {
-
+	thread=scheduler.active();
+	scheduler.kill(thread);
+	thread.waiting_in(this);
+	bellringer.job(this, us);
 }
