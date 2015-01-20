@@ -25,7 +25,7 @@ void Organizer::block (Customer& customer, Waitingroom& waitingroom)
 	{
 		//Darf der aktive Prozess nicht mehr in die Readyliste eingetragen werden
 		exit();
-	}{
+	}else{
 		//Sonst den prozess aus der Readyliste entfernen
 		kill(customer);	
 	}	
@@ -69,7 +69,7 @@ void Organizer::kill (Customer& that)
 		{
 			//Darf der aktive Prozess nicht mehr in die Readyliste eingetragen werden
 			exit();
-		}{
+		}else{
 			//Sonst den prozess aus der Readyliste entfernen
 			Scheduler::kill(that);	
 		}	

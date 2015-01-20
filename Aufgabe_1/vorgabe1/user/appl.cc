@@ -25,5 +25,7 @@ void Application::action ()
 	while(1)
 	{
 		kout << board.getkey().ascii();
+
+		kout.flush();
 	}
 }
