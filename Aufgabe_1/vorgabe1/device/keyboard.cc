@@ -57,7 +57,7 @@ bool Keyboard::prologue ()
 	char zeichen;
 	Key input;
 
-	input=this->key_hit();
+	input=this->key_hit();	
 
 	do
 	{	//Der erste Eintrag sollte gültig sein, da sonst kein Interrupt 

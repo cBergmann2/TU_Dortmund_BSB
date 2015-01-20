@@ -39,13 +39,18 @@ void guardian (unsigned int slot)
 
 	if(slot!=32) 
 	{
-		kout << "Interrupt-# " << slot << endl;
-		kout.flush();
+		//kout << "Interrupt-nummer " << slot << endl;
+		//kout.flush();
 	}
 
-    if(plugbox.report(slot).prologue())
+	Gate &item = plugbox.report(slot);
+//	kout << "plugbox-Adresse: " << &item;
+//	kout << endl;
+//	kout.flush();
+
+    if(item.prologue())
 	{
 		//Epilog einreihen
-		guard.relay(&plugbox.report(slot));
+		guard.relay(&item);
 	}    
 } 

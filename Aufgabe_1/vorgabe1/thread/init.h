@@ -2,28 +2,36 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                   INIT- A P P L I C A T I O N                             */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
 /* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
 /*****************************************************************************/
 
-/* INCLUDES */
+#ifndef __init_include__
+#define __init_include__
 
-#include "user/appl.h"
-#include "device/keyboard.h"
-         
-/* GLOBALE VARIABLEN */
-extern CGA_Stream kout;
-extern Guarded_Organizer scheduler;
-extern Keyboard board;
 
-void Application::action ()
+#include "syscall/thread.h"
+
+
+/**
+ * 
+ */
+class Init : public Thread
+ 
 {
-	kout << "START";
+private:
+    Init (const Init &copy); // Verhindere Kopieren
 
-	while(1)
+public:
+           
+    Init(void* tos) : 
+		Thread(tos)
 	{
-		kout << board.getkey().ascii();
 	}
-}
+
+	void action ();
+};
+
+#endif
