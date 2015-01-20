@@ -2,9 +2,10 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 
-
+//#include "user/appl_2.h"
+#include "user/neuApp.h"
 #include "user/appl.h"
-#include "user/appl_2.h"
+
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
 #include "guard/guard.h"
@@ -31,25 +32,22 @@ unsigned char stack2[STACK_SIZE];
 
 int main()
 {
-	kout.setpos(0,0);
 	CPU cpu;
-	Watch watch(1);
+	Watch watch(10000);
 	
 	Init initProcess(&(initS[0])+STACK_SIZE);
-	Application appl(&(stack1[0])+STACK_SIZE);	
-	Application_2 appl2(&(stack2[0]) + STACK_SIZE);
-	//Loop loop(stack2+STACK_SIZE);
+	//Application2 	appl2	(&(stack2[0]) + STACK_SIZE);
+	Application 	appl	(&(stack1[0]) + STACK_SIZE);	
+	NeuApp 			neuApp 	(&(stack2[0]) + STACK_SIZE);
 	
-	//appl.setKillEntrant(&loop);
 
 	guard.enter();
 
 	board.plugin();	
 
 	scheduler.Organizer::ready(appl);
-	scheduler.Organizer::ready(appl2)
+	scheduler.Organizer::ready(neuApp);
 	scheduler.Organizer::ready(initProcess);
-	//scheduler.Scheduler::ready(loop);
 	
 	watch.windup();
 	cpu.enable_int();	

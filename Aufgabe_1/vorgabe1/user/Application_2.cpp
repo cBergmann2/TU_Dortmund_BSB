@@ -15,10 +15,11 @@
 
 /* GLOBALE VARIABLEN */
 extern CGA_Stream kout;
-extern Guarded_Organizer scheduler;
 
+Application2::Application2 : Thread(tos)
+{}
 
-void Application_2::action()
+void Application2::action()
 {
 	char ascii;
 	Guarded_Buzzer buzzer;
@@ -27,7 +28,7 @@ void Application_2::action()
 	{
 		kout << endl;
 		buzzer.set(1000);
-		buzzer.sleep;
+		buzzer.sleep();
 
 	}
 }

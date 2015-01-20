@@ -16,12 +16,11 @@
 #include "syscall/guarded_organizer.h"
 
 #include "device/cgastr.h"
-#include "device/keyboard.h"
+
 
 #include "machine/cpu.h"
 
 #include "guard/secure.h"
-
 
 /**
  * Die Klasse Application stellt die Anwendung des Betriebssystems dar. Sie 
@@ -30,22 +29,17 @@
  */
 class Application : public Thread
  
- {
+{
 private:
     Application (const Application &copy); // Verhindere Kopieren
 	
-	Thread* loopPtr;
-
+	
 public:
 /* Hier muesst ihr selbst Code vervollstaendigen */                 
-    Application(void* tos) : 
+	
+	Application(void* tos) : 
 		Thread(tos)
 	{
-	}
-    
-	void setKillEntrant(Thread* loop)
-	{
-		this->loopPtr = loop;
 	}
 
 	void action ();

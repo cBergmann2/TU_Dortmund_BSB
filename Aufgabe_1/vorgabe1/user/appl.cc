@@ -23,6 +23,7 @@ void Application::action ()
 	char ascii;
 
 	kout << "START vertauschte Tastenbelegung";
+	kout.flush();
 
 	while(1)
 	{
