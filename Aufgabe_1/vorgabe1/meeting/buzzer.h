@@ -22,8 +22,6 @@ class Buzzer : public Bell, Waitingroom
 {
 private:
     Buzzer(const Buzzer &copy); // Verhindere Kopieren
-	Thread *thread;
-	int us;
 	
 public:
 

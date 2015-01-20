@@ -17,6 +17,7 @@
 #include "syscall/guarded_organizer.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
+#include "meeting/bellringer.h"
 
 /**
  * Die Klasse Watch sorgt für die Behandlung der Zeitgeberunterbrechungen, 

@@ -13,18 +13,20 @@
 #include "syscall/guarded_buzzer.h"
 #include "guard/secure.h"
 
-
-Guarded_Buzzer::~Guarded_Buzzer()
+/*
+Guarded_Buzzer::Buzzer::~Buzzer()
 {
-
-}
+	Secure secure;
+}*/
 
 void Guarded_Buzzer::set (int ms)
 {
-
+	Secure secure;
+	Buzzer::set(ms);
 }
 
 void Guarded_Buzzer::sleep () 
 {
-
+	Secure secure;
+	Buzzer::sleep();
 }

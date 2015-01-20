@@ -32,7 +32,7 @@ int main()
 {
 	kout.setpos(0,0);
 	CPU cpu;
-	Watch watch(25000);
+	Watch watch(1);
 	
 	Init initProcess(&(initS[0])+STACK_SIZE);
 	Application appl(&(stack1[0])+STACK_SIZE);	

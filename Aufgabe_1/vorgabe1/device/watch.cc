@@ -11,6 +11,7 @@
 
 extern Plugbox plugbox;
 extern Guarded_Organizer scheduler;
+extern Bellringer bellringer;
 
 // WINDUP: "zieht die Uhr auf". Danach laeuft sie los und loest in
 //         regelmaessigen Abstaenden Unterbrechungen aus.
@@ -30,7 +31,7 @@ bool Watch::prologue ()
 // EPILOGUE: Epilogue der Uhrenunterbrechung
 void Watch::epilogue ()
 {
-	//Prozesswechsel herbeiführen
+	bellringer.check();
 	scheduler.resume();
 }
 
