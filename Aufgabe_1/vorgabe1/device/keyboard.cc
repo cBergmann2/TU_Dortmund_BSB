@@ -111,7 +111,7 @@ void Keyboard::epilogue ()
 {
 	if (this->addKey2Buffer(this->key) != 0)
 	{
-		kout << "Tasterturpuffer voll";
+		kout << endl << "Tasterturpuffer voll";
 		kout.flush();
 	}
 	else{

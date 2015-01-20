@@ -10,11 +10,21 @@
 
 #include "meeting/waitingroom.h"
 #include "thread/customer.h"
+#include "syscall/guarded_organizer.h"
+
+extern Guarded_Organizer scheduler;
 
 //Der Destruktor entfernt alle noch wartenden Prozesse von der Liste und weckt sie zudem auf.
 Waitingroom::~Waitingroom()
 {
-	
+	Customer* item;
+	item = (Customer*)dequeue();
+	while(item)
+	{
+		item->waiting_in(NULL);
+		scheduler.ready(*(Thread*)item);
+		item = (Customer*)dequeue();
+	}
 }
 
 //Mit dieser Methode kann der angegebene Prozess customer vorzeitig aus dem Wartezimmer entfernt werden.
