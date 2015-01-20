@@ -27,36 +27,37 @@ class Bell : public Chain
  {
 private:
     Bell(const Bell &copy); // Verhindere Kopieren
+	int zeahler;
 public:
     Bell() {}
 
-	void wait (int value)
+	inline void wait (int value)
 	{
-	
+		this->zaehler=value;
 	}
 	
 	/**
 	 * Setzen bzw. Abfragen des Zählers.
 	 */
-	int wait ()
+	inline int wait ()
 	{
-	
+		return this->zaehler;
 	}
 	
 	/**
 	 * Dekremementiert den Zähler.
 	 */
-	void tick ()
+	inline void tick ()
 	{
-	
+		this->zaehler--;
 	}
 		
 	/**
 	 * Liefert true, wenn die Zeit abgelaufen ist.
 	 */
-	bool run_down()
+	inline bool run_down()
 	{
-	
+		if(this->zaehler==0) return true;
 	}
 		
 		

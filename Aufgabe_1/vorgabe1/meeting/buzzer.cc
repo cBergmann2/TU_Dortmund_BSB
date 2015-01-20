@@ -26,7 +26,7 @@ Buzzer::Buzzer ()
  */
 Buzzer::~Buzzer()
 {
-
+	bellringer.cancel(this);
 }
 	
 	
@@ -43,7 +43,7 @@ void Buzzer::ring()
  */
 void Buzzer::set (int ms)
 {
-
+	bellringer.job(this, ticks);
 }
 	
 /**
