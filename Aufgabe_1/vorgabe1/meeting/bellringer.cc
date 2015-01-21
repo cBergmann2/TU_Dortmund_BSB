@@ -22,6 +22,8 @@ void Bellringer::check ()
 	Bell *bell;
 
 	bell=(Bell*)first(); //erstes Element holen
+	if(!bell) return;
+
 	bell->tick(); //Dekrementiere
 	if(bell->run_down()==true)
 	{
