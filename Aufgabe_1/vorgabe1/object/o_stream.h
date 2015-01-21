@@ -21,10 +21,6 @@
 
 #include "object/strbuf.h"
 
-#ifdef DEBUG_OBJECT
-#include <qdebug.h>
-#include <qstring.h>
-#endif
 
 
 typedef enum {

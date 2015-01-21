@@ -49,7 +49,7 @@ public:
 		while (i--)
 		{
 			kout << endl;
-			buzzer.set(100);
+			buzzer.set(1000);
 			buzzer.sleep();
 			
 		}

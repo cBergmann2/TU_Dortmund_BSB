@@ -12,7 +12,7 @@
 
 #include "user/appl.h"
 #include "device/keyboard.h"
-         
+ 
 /* GLOBALE VARIABLEN */
 extern CGA_Stream kout;
 extern Guarded_Organizer scheduler;
@@ -22,7 +22,7 @@ void Application::action ()
 {
 	char ascii;
 
-	kout << "START Hauptprogramm: vertauschte Tastenbelegung (0-9)" << endl;
+	kout << "START Hauptprogramm: vertauschte Tastenbelegung (1-9)" << endl;
 	kout.flush();
 
 	while(1)

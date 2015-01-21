@@ -18,6 +18,10 @@
 
 #include "object/o_stream.h"
 
+#include "meeting/semaphore.h"
+
+Semaphore oStreamGuard;
+
 O_Stream::O_Stream() : Stringbuffer(){
   this->mani = DEC;
 }
@@ -29,20 +33,23 @@ O_Stream::O_Stream(const O_Stream &copy) :
 }
 
 O_Stream& O_Stream::operator<< (unsigned char c){
-    this->put((char)c);
-  
+    oStreamGuard.p();
+	this->put((char)c);
+	oStreamGuard.v();
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (char c){
-
+	oStreamGuard.p();
     this->put(c);
-
+	oStreamGuard.v();
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (unsigned short number){
    
+	oStreamGuard.p();
+	
     switch(mani)
     {
     case BIN:
@@ -60,12 +67,16 @@ O_Stream& O_Stream::operator<< (unsigned short number){
     case HEX:
         convertHex((char*)&number, sizeof(short));
         break;
-    }
-
+	}
+	
+	oStreamGuard.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (short number){
+	oStreamGuard.p();
+	
     switch(mani)
     {
     case BIN:
@@ -84,6 +95,8 @@ O_Stream& O_Stream::operator<< (short number){
         convertHex((char*)&number, sizeof(short));
         break;
     }
+	oStreamGuard.v();
+	
 
     return *this;
 }
@@ -91,6 +104,8 @@ O_Stream& O_Stream::operator<< (short number){
 O_Stream& O_Stream::operator<< (unsigned int number){
 
 
+	oStreamGuard.p();
+	
 	
     switch(mani)
     {
@@ -111,11 +126,15 @@ O_Stream& O_Stream::operator<< (unsigned int number){
         break;
     }
 	
+	oStreamGuard.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (int number){
 
+	oStreamGuard.p();
+	
     switch(mani)
     {
       case BIN:
@@ -135,10 +154,14 @@ O_Stream& O_Stream::operator<< (int number){
         break;
     }
 	
+	oStreamGuard.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (unsigned long number){
+	
+	oStreamGuard.p();
 	
     switch(mani)
     {
@@ -158,11 +181,17 @@ O_Stream& O_Stream::operator<< (unsigned long number){
         convertHex((char*)&number, 4);
         break;
     }
+    
+    
+	oStreamGuard.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (long number){
 
+	oStreamGuard.p();
+	
     switch(mani)
     {
     case BIN:
@@ -181,6 +210,8 @@ O_Stream& O_Stream::operator<< (long number){
         convertHex((char*)&number, 4);
         break;
     }	
+	oStreamGuard.v();
+	
     return *this;
 }
   
@@ -189,8 +220,12 @@ O_Stream& O_Stream::operator<< (long number){
 O_Stream& O_Stream::operator<< (void* pointer){
 
 	
+	oStreamGuard.p();
+	
     convertHex((char*)&pointer, sizeof(void*));
-		
+	
+	oStreamGuard.v();
+	
     return *this;
 }
   
@@ -198,9 +233,13 @@ O_Stream& O_Stream::operator<< (void* pointer){
 //NTString einfügen
 O_Stream& O_Stream::operator<< (char* text){
 
+	oStreamGuard.p();
+	
 	while(*text)
         put(*(text++));
 		
+	oStreamGuard.v();
+	
     return *this;
 }
   
