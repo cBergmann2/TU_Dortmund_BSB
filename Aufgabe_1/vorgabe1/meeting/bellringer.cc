@@ -89,5 +89,6 @@ void Bellringer::job (Bell *bell, int ticks)
  */
 void Bellringer::cancel (Bell *bell)
 {
-	remove(bell);
+	if(bell)
+		remove(bell);
 }

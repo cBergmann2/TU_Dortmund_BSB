@@ -41,7 +41,7 @@ public:
 
 	virtual void action ()
 	{
-		int i =5;
+		int i = 1;
 		Guarded_Buzzer buzzer;
 	
 		kout << "Start NeuApp" << endl;
@@ -49,7 +49,7 @@ public:
 		while (i--)
 		{
 			kout << endl;
-			buzzer.set(1000);
+			buzzer.set(10);
 			buzzer.sleep();
 			
 		}

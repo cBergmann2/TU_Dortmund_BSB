@@ -33,7 +33,7 @@ unsigned char stack2[STACK_SIZE];
 int main()
 {
 	CPU cpu;
-	Watch watch(10000);
+	Watch watch(1000);
 	
 	Init initProcess(&(initS[0])+STACK_SIZE);
 	//Application2 	appl2	(&(stack2[0]) + STACK_SIZE);

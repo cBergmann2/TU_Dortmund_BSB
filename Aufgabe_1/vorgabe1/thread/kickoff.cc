@@ -19,7 +19,9 @@
 
 #include "thread/coroutine.h"
 #include "guard/guard.h"
+#include "syscall/guarded_organizer.h"
 
+extern Guarded_Organizer scheduler;
 extern Guard guard;
 
 /**
@@ -31,6 +33,7 @@ void kickoff (Coroutine* object)
 {
 	guard.leave();
 	object->action();
+	scheduler.exit();
 }
 
 #endif	//__KICKOFF_CC

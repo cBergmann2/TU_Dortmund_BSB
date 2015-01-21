@@ -58,7 +58,7 @@ public:
 	 */
 	inline bool run_down()
 	{
-		if(this->zaehler==0) return true;
+		return (zaehler==0);
 	}
 		
 		
