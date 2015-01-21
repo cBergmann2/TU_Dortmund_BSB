@@ -12,7 +12,7 @@
 
 
 
-extern Organizer scheduler;
+extern Guarded_Organizer scheduler;
 
 //Der Konstruktor initialisiert den Semaphorzähler mit dem angegebenen Wert c
 Semaphore::Semaphore(int c)
@@ -45,6 +45,6 @@ void Semaphore::v()
 		if(!next) return;	//FEHLERFALL
 		
 		next->waiting_in(NULL);
-		scheduler.ready(*next);	//Customer zurück in die Readyliste einfügen
+		scheduler.Scheduler::ready(*next);	//Customer zurück in die Readyliste einfügen
 	}
 }

@@ -15,9 +15,9 @@
 
 #include "syscall/thread.h"
 #include "device/cgastr.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 
-extern Guarded_Scheduler scheduler;
+extern Guarded_Organizer scheduler;
 extern CGA_Stream kout;
 
 class Loop : public Thread

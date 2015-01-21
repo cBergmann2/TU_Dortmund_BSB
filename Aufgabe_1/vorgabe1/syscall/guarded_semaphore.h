@@ -25,7 +25,7 @@ public:
 	/**
 	 * Der Konstruktor reicht nur den Parameter c an den Konstruktor der Basisklasse weiter. 
 	 */
-	Guarded_Semaphore (int c);
+	Guarded_Semaphore (int c=1);
 		
 	/**
 	 * siehe Semaphore::p ()
