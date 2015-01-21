@@ -15,20 +15,20 @@
 
 void Loop::action()
 {
-/*
+
 	int wait;
 
 	//Endlosschleife
 	while(1)
 	{		
 
-		kout << "\nHier ist Loop\n=================\n";
+		kout << "\n\nHier ist Loop\n\n";
 		kout.flush();
 		
-		wait = 100000000;
+		wait = 1000000;
 		while(wait>0) wait--;
 	}
-*/
+
 
 
 

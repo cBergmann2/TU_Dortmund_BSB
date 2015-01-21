@@ -63,7 +63,7 @@ void Buzzer::ring()
  */
 void Buzzer::set (int ms)
 {
-	bellringer.job(this, ms*1000);
+	bellringer.job(this, ms);
 }
 	
 /**

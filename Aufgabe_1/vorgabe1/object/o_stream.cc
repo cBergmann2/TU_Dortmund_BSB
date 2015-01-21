@@ -43,7 +43,8 @@ O_Stream& O_Stream::operator<< (char c){
 }
   
 O_Stream& O_Stream::operator<< (unsigned short number){
-    switch(mani)
+    guardSem.p();
+	switch(mani)
     {
     case BIN:
         convertBin((short)number);
@@ -62,12 +63,15 @@ O_Stream& O_Stream::operator<< (unsigned short number){
         break;
     }
 
-
+	guardSem.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (short number){
-
+	
+	guardSem.p();
+	
     switch(mani)
     {
     case BIN:
@@ -86,12 +90,14 @@ O_Stream& O_Stream::operator<< (short number){
         convertHex((char*)&number, sizeof(short));
         break;
     }
-
+	guardSem.v();
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (unsigned int number){
 
+	guardSem.p();
+	
     switch(mani)
     {
     case BIN:
@@ -110,11 +116,16 @@ O_Stream& O_Stream::operator<< (unsigned int number){
         convertHex((char*)&number, sizeof(int));
         break;
     }
+	
+	guardSem.v();
 
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (int number){
+
+	guardSem.p();
+	
     switch(mani)
     {
       case BIN:
@@ -133,12 +144,16 @@ O_Stream& O_Stream::operator<< (int number){
         convertHex((char*)&number, sizeof(int));
         break;
     }
-
+	
+	guardSem.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (unsigned long number){
-    switch(mani)
+    guardSem.p();
+	
+	switch(mani)
     {
       case BIN:
         convertBin((long)number);
@@ -157,11 +172,14 @@ O_Stream& O_Stream::operator<< (unsigned long number){
         break;
     }
 
+	guardSem.v();
+	
     return *this;
 }
   
 O_Stream& O_Stream::operator<< (long number){
 
+	guardSem.p();
 
     switch(mani)
     {
@@ -181,6 +199,9 @@ O_Stream& O_Stream::operator<< (long number){
         convertHex((char*)&number, 4);
         break;
     }
+	
+	guardSem.v();
+	
     return *this;
 }
   
@@ -188,16 +209,25 @@ O_Stream& O_Stream::operator<< (long number){
 //Hexadezimale anzeige eines void-Zeigers
 O_Stream& O_Stream::operator<< (void* pointer){
 
+	guardSem.p();
+	
     convertHex((char*)&pointer, sizeof(void*));
-
+	
+	guardSem.v();
+	
     return *this;
 }
   
 
 //NTString einfügen
 O_Stream& O_Stream::operator<< (char* text){
-    while(*text)
+    guardSem.p();
+	
+	while(*text)
         put(*(text++));
+		
+	guardSem.v();
+	
     return *this;
 }
   

@@ -2,7 +2,7 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 
-//#include "user/appl_2.h"
+#include "user/loop.h"
 #include "user/neuApp.h"
 #include "user/appl.h"
 
@@ -29,25 +29,26 @@ Bellringer bellringer;
 unsigned char initS[STACK_SIZE];
 unsigned char stack1[STACK_SIZE];
 unsigned char stack2[STACK_SIZE];
+unsigned char stack3[STACK_SIZE];
 
 int main()
 {
 	CPU cpu;
-	Watch watch(1000);
+	Watch watch(1000);	//1ms Zyklen
 	
-	Init initProcess(&(initS[0])+STACK_SIZE);
-	//Application2 	appl2	(&(stack2[0]) + STACK_SIZE);
-	Application 	appl	(&(stack1[0]) + STACK_SIZE);	
-	NeuApp 			neuApp 	(&(stack2[0]) + STACK_SIZE);
-	
+	Init 			initProcess		(&(initS[0])+STACK_SIZE);
+	Application 	appl			(&(stack1[0]) + STACK_SIZE);	
+	NeuApp 			neuApp 			(&(stack2[0]) + STACK_SIZE);
+	Loop			loop			(&(stack3[0]) + STACK_SIZE);
 
 	guard.enter();
 
 	board.plugin();	
 
-	scheduler.Organizer::ready(appl);
-	scheduler.Organizer::ready(neuApp);
-	scheduler.Organizer::ready(initProcess);
+	scheduler.ready(appl);
+	scheduler.ready(neuApp);
+	scheduler.ready(initProcess);
+	scheduler.ready(loop);
 	
 	watch.windup();
 	cpu.enable_int();	

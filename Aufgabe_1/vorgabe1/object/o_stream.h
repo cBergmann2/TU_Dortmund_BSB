@@ -20,6 +20,7 @@
 #define __o_stream_include__
 
 #include "object/strbuf.h"
+#include "syscall/guarded_semaphore.h"
 
 #ifdef DEBUG_OBJECT
 #include <qdebug.h>
@@ -41,6 +42,7 @@ public:
   
 private:
     O_Stream(const O_Stream &copy); // Verhindere Kopieren
+	Guarded_Semaphore guardSem;
 
 public:
     O_Stream& operator<< (unsigned char c);

@@ -22,7 +22,7 @@ void Application::action ()
 {
 	char ascii;
 
-	kout << "START vertauschte Tastenbelegung";
+	kout << "START Hauptprogramm: vertauschte Tastenbelegung (0-9)" << endl;
 	kout.flush();
 
 	while(1)
