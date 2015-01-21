@@ -31,7 +31,14 @@ bool Watch::prologue ()
 // EPILOGUE: Epilogue der Uhrenunterbrechung
 void Watch::epilogue ()
 {
+	static int times=5;
+	
 	bellringer.check();
 	scheduler.resume();
+	
+	/*if((--times) == 0){
+		scheduler.resume();	//alle 10 ms
+		times=5;
+	}*/
 }
 

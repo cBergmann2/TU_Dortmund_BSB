@@ -40,8 +40,6 @@ public:
 	void action()
 	{
 		int i = 5;
-	
-		kout << "Start NeuApp" << endl;
 		
 		while (i--)
 		{
