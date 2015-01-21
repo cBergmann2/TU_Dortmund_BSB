@@ -17,9 +17,9 @@ void Loop::action()
 {
 
 	int wait;
-
+	int runtime = 5;
 	//Endlosschleife
-	while(1)
+	while(runtime--)
 	{		
 
 		kout << "\n\nHier ist Loop\n\n";
@@ -27,10 +27,5 @@ void Loop::action()
 		
 		wait = 1000000000;
 		while(wait>0) wait--;
-	}
-
-
-
-
-	
+	}	
 }

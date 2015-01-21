@@ -18,9 +18,10 @@
 
 #include "object/o_stream.h"
 
-#include "meeting/semaphore.h"
+#include "syscall/guarded_semaphore.h"
 
-Semaphore oStreamGuard;
+//Global für alle O_stream objekte - Auch wenn nur ein globales Objekt verwendet werden sollte
+Guarded_Semaphore oStreamGuard;
 
 O_Stream::O_Stream() : Stringbuffer(){
   this->mani = DEC;

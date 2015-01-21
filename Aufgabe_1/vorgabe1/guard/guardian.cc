@@ -12,7 +12,6 @@
 /* INCLUDES */
 #include "machine/plugbox.h"
 #include "guard/guard.h"
-#include "device/cgastr.h"
 
 /* FUNKTIONEN */
 
@@ -24,7 +23,13 @@ extern "C" void guardian (unsigned int slot);
 
 extern Guard guard;
 extern Plugbox plugbox;
-extern CGA_Stream kout;
+
+
+/**
+ *  KOUT IST GESCHÜTZT MIT SEMAPHORE
+ *  nicht aufrufen, da sonst gefahr von Deadlock
+ */
+//extern CGA_Stream kout;
 
 /**
  * Die Funktion guardian ist für die gerätespezifische Unterbrechungsbehandlung 
@@ -37,16 +42,7 @@ void guardian (unsigned int slot)
 	if(slot==39)
 		return;	//IRQ7 vorerst ignorieren 
 
-	if(slot!=32) 
-	{
-		//kout << "Interrupt-nummer " << slot << endl;
-		//kout.flush();
-	}
-
 	Gate &item = plugbox.report(slot);
-//	kout << "plugbox-Adresse: " << &item;
-//	kout << endl;
-//	kout.flush();
 
     if(item.prologue())
 	{

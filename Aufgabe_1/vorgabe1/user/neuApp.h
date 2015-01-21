@@ -48,7 +48,7 @@ public:
 		
 		while (i--)
 		{
-			kout << endl;
+			kout << endl << "------------------------------------" << endl;
 			buzzer.set(1000);
 			buzzer.sleep();
 			
